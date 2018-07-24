@@ -1,10 +1,31 @@
-# oceanadapt
-OceanAdapt - Exploring Changes In Marine Species Distributions
-
-[Current Site](http://oceanadapt.rutgers.edu/)
+# Ocean Adapt  
+Exploring Changes In Marine Species Distributions  
 
 
-## Design 
+[Current Site](http://oceanadapt.rutgers.edu/)  
+
+_____  
+
+
+## Design  
+
+*from http://oceanadapt.rutgers.edu/about_us/*  
+
+#### Impact
+To provide information about the impacts of changing climate and other factors on the distribution of marine life to the National Climate Assessment
+
+#### Users
+  - Fisheries communities
+    - Why will this user care?
+  - Policymakers
+    - Why will this user care?
+
+#### Overview  
+  - Hosts an annually updated database of scientific surveys in the United States 
+  - Provides tools for exploring changes in marine fish and invertebrate distribution
+
+
+#### Assets  
 
 - [Style Tiles](https://sketch.cloud/s/obGRj/p/page-2/option-1)
 - [Prototype](https://sketch.cloud/s/J87d9/all/page-1/home/play)
@@ -16,3 +37,4 @@ OceanAdapt - Exploring Changes In Marine Species Distributions
     >  - Can you remind me where the EPA report link should go? Why is it important? Is it just an external link?
     >  - I adjusted the Projection map to match reality.
 - [Assets](https://sketch.cloud/s/J87d9)
+  
