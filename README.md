@@ -4,6 +4,11 @@ Exploring Changes In Marine Species Distributions
 
 [Current Site](http://oceanadapt.rutgers.edu/)  
 
+[Site Repo](https://github.com/mpinsky/OceanAdapt/)
+
+[Updating current site documentation](https://github.com/mpinsky/OceanAdapt/blob/master/How_to_update.md#upload-to-website)  
+
+
 _____  
 
 
