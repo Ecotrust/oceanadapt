@@ -107,6 +107,8 @@ Variables
     --black: #000;
     --light-grey: #E3E9EE;
     --light-gray: #E3E9EE;
+
+    --margin-bottom: 2rem;
 }
 
 .text-red {
@@ -183,19 +185,39 @@ img {
 
 h1 {
     font-family: "Campton Bold", sans-serif;
-    font-size: 4.6125em;
+    font-size: 4em;
     line-height: .875em;
 }
 
 h2 {
     color: #fff;
-    font-family: "Lato Regular", sans-serif;
-    font-size: 2.25em;
-    line-height: 1.25;
+    font-family: "Campton Light", sans-serif;
+    font-size: 2em;
+    line-height: 1.125;
+    margin: 0 0 2rem;
 }
 
 button {
     font-family: "Lato Black", sans-serif;
+}
+
+.btn-download {
+    color: #cc0033;
+    font-family: "Lato Black";
+    font-size: 1em;
+}
+    .btn-download:hover {
+        color: #cc0033;
+        opacity: 0.7;
+        text-decoration: none;
+    }
+
+.btn-download img {
+    display: inline-block;
+    height: 26px;
+    margin: 0 8px 0 0;
+    vertical-align: bottom;
+    width: auto;
 }
 
 /* ==========================================================================
@@ -230,8 +252,8 @@ Header
 
 .navbar.main h1 {
     color: #fff;
-    font-size: 4.6125em;
-    margin: 3rem 0;
+    font-size: 4em;
+    margin: 2rem 0;
 }
 
 .rutgers-logo {
@@ -251,7 +273,7 @@ main {
 
 main:before {
     background-color: #fff;
-    background-image: linear-gradient(180deg, #11202e 0%, #404678 0%, rgba(0, 21, 25, 0.96) 0%, #001113 8%, rgba(0, 127, 172, .4) 60%, rgba(255,255,255,0.4) 100%);
+    background-image: linear-gradient(180deg, #11202e 0%, #404678 0%, rgba(0, 21, 25, 0.96) 0%, #001113 10%, rgba(0, 127, 172, .35) 80%, rgba(0, 127, 172, .1) 95%, rgba(255,255,255,1) 100%);
     content: '';
     height: 88vh;
     left: 0;
@@ -265,13 +287,16 @@ main:after {
     background-image: url('../img/terrain.svg');
     background-size: cover;
     background-repeat: no-repeat;
-    bottom: 0;
+    bottom: -10%;
     content: '';
-    height: 45%;
+    height: 35%;
     left: 0;
     position: absolute;
-    width: 45%;
+    width: 42%;
+    z-index: -1;
+    opacity: 0.5;
 }
+
 
 /* ==========================================================================
 Map
@@ -298,13 +323,15 @@ Map
     left: 10%;
     top: 20%;
     width: 80%;
+    z-index: 1;
 }
 
 @media (min-width: 62em) {
     .map-overlay {
         left: 50%;
-        max-width: 450px;
-        transform: translate(-450px,0);
+        top: 45%;
+        max-width: 400px;
+        transform: translate(-400px,-50%);
     }
 }
 

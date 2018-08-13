@@ -8,11 +8,11 @@ $(document).ready(function() {
     setProjection: function(element) {
       var projection = d3.geo.azimuthalEqualArea()
         .rotate([98,-45])
-        .scale(550)
+        .scale(700)
         .clipAngle(180 - 1e-4)
         .clipExtent([[0, 0], [element.offsetWidth, element.offsetHeight]])
         .precision(.1)
-        .translate([element.offsetWidth / 1.8, element.offsetHeight / 1.7]);
+        .translate([element.offsetWidth / 1.8, element.offsetHeight / 2]);
       var path = d3.geo.path()
         .projection(projection);
       return {path: path, projection: projection};
@@ -36,7 +36,8 @@ $(document).ready(function() {
       borderWidth: 0,
       highlightFillColor: '#fff',
       highlightBorderWidth: 0,
-    }
+    },
+    responsive: true,
   });
   map.bubbles([
     {
