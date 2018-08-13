@@ -1,0 +1,33 @@
+{
+  "name": "oceanadapt",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build --public-url . index.html"
+  },
+  "keywords": [],
+  "author": "Ecotrust",
+  "license": "ISC",
+  "dependencies": {
+    "datamaps": "^0.5.9",
+    "hyperapp": "^1.2.8",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.9.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ecotrust/oceanadapt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ecotrust/oceanadapt/issues"
+  },
+  "homepage": "https://github.com/Ecotrust/oceanadapt#readme",
+  "description": ""
+}
