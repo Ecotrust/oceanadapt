@@ -134,6 +134,13 @@ Variables
 }
 
 @font-face {
+    font-family:"Campton Medium";
+    src:url("../fonts/Campton-Medium.woff2") format("woff2"),url("../fonts/Campton-Medium.woff") format("woff"),url("../fonts/Campton-Medium.ttf") format("truetype");
+    font-style:normal;
+    font-weight:normal;
+}
+
+@font-face {
     font-family:"Campton Light";
     src:url("../fonts/Campton-Light.woff2") format("woff2"),url("../fonts/Campton-Light.woff") format("woff"),url("../fonts/Campton-Light.ttf") format("truetype");
     font-style:normal;
@@ -200,6 +207,21 @@ Header
     z-index: 1;
 }
 
+.nav-item {
+    background-color: #cc0033;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 0 4px;
+    padding: 1px 12px;
+}
+
+.nav-item a {
+    color: #fff;
+    font-family: "Campton Medium", sans-serif;
+    font-size: 1.125em;
+    letter-spacing: .015em;
+    line-height: 1.5;
+}
+
 .navbar.main {
     height: 13vh; /* set equal to margin-top of main */
     padding: 0;
@@ -207,7 +229,9 @@ Header
 }
 
 .navbar.main h1 {
-    margin: 0;
+    color: #fff;
+    font-size: 4.6125em;
+    margin: 3rem 0;
 }
 
 .rutgers-logo {
@@ -226,8 +250,8 @@ main {
 }
 
 main:before {
-    background-color: rgba(0, 127, 172, 0.01);
-    background-image: linear-gradient(180deg, rgba(0, 21, 25, 0.963286) -18.18%, #404678 -18.18%, #11202E -18.18%, #001113 -3.79%, rgba(0, 127, 172, 0.0001) 95.15%);
+    background-color: #fff;
+    background-image: linear-gradient(180deg, #11202e 0%, #404678 0%, rgba(0, 21, 25, 0.96) 0%, #001113 8%, rgba(0, 127, 172, .4) 60%, rgba(255,255,255,0.4) 100%);
     content: '';
     height: 88vh;
     left: 0;
