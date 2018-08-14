@@ -5,3 +5,10 @@ Exploring changes in marine species distributions to increase your understanding
   - navigate between national and regional scales
   - download data
   - access analytical methods
+
+
+## Installation
+
+  1. `git clone`
+  2. `npm install`
+  3. `npm start`
