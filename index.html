@@ -65,7 +65,9 @@
       <div class="map-overlay">
         <h2>Welcome!
           <br />Select a region or continent explore changes in marine species distributions.</h2>
-        <a class="btn-download" href=""><img src="./img/i_download.svg"> Download Data</a>
+          <button type="button" class="btn-download" data-toggle="modal" data-target="#dataDownloadModal">
+            <img src="./img/i_download.svg"> Download Data
+          </button>
       </div>
       <div id="map" class="map"></div>
     </div>
@@ -74,7 +76,7 @@
   <footer>
     <div class="container-fluid">
       <div class="row no-gutters">
-        <div class="mb-4">
+        <div class="mb-5">
           <img src="./img/rutgers.svg" alt="rutgers logo" class="logo rutgers-logo" />
         </div>
       </div>
@@ -120,6 +122,54 @@
       </div>
     </div>
   </footer>
+
+  <div class="modal fade" id="dataDownloadModal" tabindex="-1" role="dialog" aria-labelledby="dataDownloadModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Please fill out the information below to help us demonstrate the value of keeping these data publicly available.</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputName" placeholder="name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail" placeholder="email">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputInstitution" class="col-sm-2 col-form-label">Institution</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputInstitution" placeholder="institution">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPurpose" class="col-sm-2 col-form-label">Purpose</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" id="inputPurpose" placeholder="purpose">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-submit">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="./index.js"></script>
 

@@ -52,5 +52,4 @@ $(document).ready(function() {
       return '<div class="hoverinfo">' + data.name;
     }
   });
-
 });
