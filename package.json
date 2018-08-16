@@ -14,11 +14,15 @@
   "author": "Ecotrust",
   "license": "ISC",
   "dependencies": {
-    "datamaps": "^0.5.9",
-    "hyperapp": "^1.2.8",
-    "jquery": "^3.3.1"
+    "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "d3": "^5.5.0",
+    "jquery": "^3.3.1",
+    "js": "^0.1.0",
+    "topology": "^0.2.1"
   },
   "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "parcel-bundler": "^1.9.7"
   },
   "repository": {

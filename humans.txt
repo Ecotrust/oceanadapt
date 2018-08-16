@@ -3,13 +3,14 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Ecotrust - ecotrust.org
+    Rutgers - rutgers.edu
 
 # THANKS
 
-    <name>
+    New Jersey Agricultural Experiment Station - njaes.rutgers.edu
 
 # TECHNOLOGY COLOPHON
 
     CSS3, HTML5
-    Apache Server Configs, jQuery, Modernizr, Normalize.css
+    jQuery, Modernizr, Normalize.css

@@ -109,6 +109,8 @@ Variables
     --light-grey: #E3E9EE;
     --light-gray: #E3E9EE;
 
+    --text-color: #5f6a72;
+
     --margin-bottom: 2rem;
 }
 
@@ -137,8 +139,8 @@ Variables
 }
 
 @font-face {
-    font-family:"Campton Medium";
-    src:url("../fonts/Campton-Medium.woff2") format("woff2"),url("../fonts/Campton-Medium.woff") format("woff"),url("../fonts/Campton-Medium.ttf") format("truetype");
+    font-family:"Campton Book";
+    src:url("../fonts/Campton-Book.woff2") format("woff2"),url("../fonts/Campton-Book.woff") format("woff"),url("../fonts/Campton-Book.ttf") format("truetype");
     font-style:normal;
     font-weight:normal;
 }
@@ -176,7 +178,8 @@ html {
 }
 
 body {
-    font-family: "Lato Regular", sans-serif;
+    color: #5f6a72;
+    font-family: "Campton Book", "Lato", sans-serif;
 }
 
 img {
@@ -196,6 +199,11 @@ h2 {
     font-size: 2em;
     line-height: 1.125;
     margin: 0 0 2rem;
+}
+
+p {
+    font-size: 1em;
+    line-height: 1.8375;
 }
 
 button {
@@ -227,12 +235,104 @@ button {
 .btn-submit {
     background: transparent;
     border: 2px solid #cc0033;
+    border-radius: 0;
     color: #cc0033;
-    font-family: "Campton Medium", sans-serif;
+    font-family: "Campton Book", sans-serif;
     font-size: 1em;
     line-height: 2;
     padding: 2px 2em;
 }
+
+hr {
+    background: #e3e9ee;
+    border: none;
+    height: 1px;
+    margin: 2em 0;
+    width: 100%;
+}
+
+
+/* ==========================================================================
+    Main Content
+========================================================================== */
+
+#main-styles {
+    position: relative;
+    z-index: 0;
+}
+
+    #main-styles:before {
+        background-color: #fff;
+        background-image: linear-gradient(180deg, #11202E, transparent);
+        content: '';
+        height: 88vh;
+        left: 0;
+        position: absolute;
+        top: -13vh;
+        width: 100%;
+        z-index: -1;
+    }
+
+    #main-styles:after {
+        background-image: url('../img/terrain.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        bottom: -10%;
+        content: '';
+        height: 40%;
+        left: 0;
+        position: absolute;
+        width: 45%;
+        z-index: -1;
+        opacity: 0.5;
+    }
+
+main p {
+    font-size: 1.125em;
+    line-height: 1.8375;
+    margin: 0 0 2rem;
+}
+
+/* ---- Data download modal --*/
+
+#dataDownloadModal {
+    background: #f0f4f6;
+}
+
+#dataDownloadModal .modal-content {
+    background: transparent;
+}
+
+#dataDownloadModal .modal-header {
+    color: #00626d;
+    font-family: "Campton Light", sans-serif;
+    font-size: 3em;
+}
+
+#dataDownloadModal .form-group .form-control {
+    background: #e3e9ee;
+    border: none;
+    border-radius: 0;
+    line-height: 2.5em;
+    height: 2.5em;
+}
+
+#dataDownloadModal textarea {
+    height: 6em;
+}
+
+#dataDownloadModal .close {
+    color: #cc0033;
+}
+
+#dataDownloadModal label {
+    color: #5f6a72;
+    font-size: 1.25em;
+    font-family: 'Campton Book';
+    font-weight: 300;
+    /* line-height: 2em; */
+}
+
 
 /* ==========================================================================
 Header
@@ -252,7 +352,7 @@ Header
 
 .nav-item a {
     color: #fff;
-    font-family: "Campton Medium", sans-serif;
+    font-family: "Campton Book", sans-serif;
     font-size: 1.125em;
     letter-spacing: .015em;
     line-height: 1.5;
@@ -276,68 +376,6 @@ Header
     width: auto;
 }
 
-
-/* ==========================================================================
-Base
-========================================================================== */
-
-main {
-    position: relative;
-    z-index: 0;
-}
-
-main:before {
-    background-color: #fff;
-    background-image: linear-gradient(180deg, #11202e 0%, #404678 0%, rgba(0, 21, 25, 0.96) 0%, #001113 10%, rgba(0, 127, 172, .35) 80%, rgba(0, 127, 172, .1) 94%, rgba(255,255,255,1) 100%);
-    content: '';
-    height: 88vh;
-    left: 0;
-    position: absolute;
-    top: -13vh;
-    width: 100%;
-    z-index: -1;
-}
-
-main:after {
-    background-image: url('../img/terrain.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    bottom: -10%;
-    content: '';
-    height: 40%;
-    left: 0;
-    position: absolute;
-    width: 45%;
-    z-index: -1;
-    opacity: 0.5;
-}
-
-.modal {
-    background: #f0f4f6;
-}
-
-.modal-content {
-    background: transparent;
-}
-
-.modal-header {
-    color: #00626d;
-    font-family: "Campton Light", sans-serif;
-    font-size: 3em;
-}
-
-.modal .form-group .form-control {
-    background: #e3e9ee;
-}
-
-.modal textarea {
-    height: 6em;
-}
-
-.modal .close {
-    color: #cc0033;
-}
-
 /* ==========================================================================
 Map
 ========================================================================== */
@@ -351,11 +389,28 @@ Map
 }
 
 #map {
+    background: transparent;
     height: 70vh;
     left: 30%;
     position: absolute;
     top: -13vh;
     width: 70%;
+}
+
+/* D3 svg background */
+#map .background {
+    background: transparent;
+}
+
+#map svg {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+#map svg path {
+    cursor: pointer;
 }
 
 .map-overlay {
