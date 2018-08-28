@@ -381,41 +381,27 @@ Map
 ========================================================================== */
 
 #map-wrap {
-    display: block;
-    position: relative;
+    background: transparent;
     height: 80vh;
+    left: 0%;
+    position: relative;
+    top: -13vh;
     width: 100%;
-    z-index: 9;
+    z-index: 1;
 }
 
 #map {
-    background: transparent;
-    height: 70vh;
-    left: 30%;
+    height: 93vh;
+    left: 0;
     position: absolute;
-    top: -13vh;
-    width: 70%;
-}
-
-/* D3 svg background */
-#map .background {
-    background: transparent;
-}
-
-#map svg {
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-}
-
-#map svg path {
-    cursor: pointer;
+    top: 0;
+    width: 100%;
 }
 
 .map-overlay {
     position: absolute;
     left: 10%;
+    pointer-events:
     top: 20%;
     width: 80%;
     z-index: 1;
