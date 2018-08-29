@@ -42,8 +42,8 @@
       </div>
     </nav>
 
-    <nav class="main navbar navbar-expand-lg align-items-start">
-      <div class="container">
+    <div class="container relative">
+      <nav class="main navbar navbar-expand-lg align-items-start">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbartogglee" aria-controls="navbartogglee" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
         <div class="collapse navbar-collapse align-items-start" id="navbartogglee">
@@ -56,24 +56,18 @@
             <li class="nav-item"><a href="" class="nav-link">Projections</a></li>
           </ul>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   </header>
 
   <!-- Add your site or application content here -->
   <main id="main">
     <div id="main-styles">
       <div id="map-wrap">
-        <div class="map-overlay">
-          <h2>Welcome!
-            <br />Select a region or continent explore changes in marine species distributions.
-          </h2>
-          <button type="button" class="btn-download" data-toggle="modal" data-target="#dataDownloadModal">
-            <img src="./img/i_download.svg"> Download Data
-          </button>
-        </div>
+        <div class="map-overlay" id="map-overlay"></div>
         <div id="map"></div>
       </div>
+      <div id="page-overlay"></div>
     </div>
   </main>
 
@@ -163,6 +157,7 @@
 
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/map.js"></script>
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
