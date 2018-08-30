@@ -1,0 +1,222 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>About Us | Ocean Adapt </title>
+
+  <meta name="description" content="A website that tracks and visualizes changes in the distribution of marine animals using scientific survey data for North America.">
+  <meta name="keywords" content="climate change, fish, indicators, global change, fisheries, fishery, fishing, angling, temperature, warming, cod, United States, NOAA, NMFS, North America, biogeography, distribution, flounder, rockfish, herring, bottom trawl, scientific survey, invertebrate, lobster, crab, groundfish">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <!-- Place favicon.ico in the root directory -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <!-- Icon Font -->
+  <!-- <link href="https://file.myfontastic.com/tqiW29ys896M3tofYTvXXX/icons.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
+
+</head>
+
+<body>
+  <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+  <![endif]-->
+
+  <header>
+    <nav class="top navbar navbar-expand-lg">
+      <div class="container">
+        <a href="/" class="navbar-brand"><img src="./img/rutgers.svg" alt="rutgers logo" class="logo rutgers-logo" /></a>
+      </div>
+    </nav>
+
+    <div class="container relative">
+      <nav class="main navbar navbar-expand-lg align-items-start">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbartogglee" aria-controls="navbartogglee" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse align-items-start" id="navbartogglee">
+          <h1>Ocean<br />Adapt</h1>
+          <div class="col"></div>
+          <ul class="nav navbar-nav mt-2 mt-lg-0 justify-content-end">
+            <li class="nav-item"><a href="" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="" class="nav-link">Our Method</a></li>
+            <li class="nav-item"><a href="" class="nav-link">Resources</a></li>
+            <li class="nav-item"><a href="" class="nav-link">Projections</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section>
+      <h1>About Us</h1>
+      <p>OceanAdapt is a collaboration between the Pinsky Lab of Rutgers University and the National Marine Fisheries Service (NMFS) to provide information about the impacts of changing climate and other factors on the distribution of marine life to the National Climate Assessment, fisheries communities, policymakers, and to others. This website hosts an annually updated database of scientific surveys in the United States and provides tools for exploring changes in marine fish and invertebrate distributions. We are continually working to expand the site with new data and visualization tools.</p>
+    </section>
+
+    <section>
+      <h1>Our Method</h1>
+      <p>The distributions of fish and invertebrate populations are routinely monitored by NMFS and other agencies during bottom trawl surveys on the continental shelves of North America. These surveys provide core information for use in fisheries management and extend back two to five decades. For the indicators displayed on this website, a mean location (the centroid) is calculated for each species in each year of each survey, after the surveys have been standardized to a consistent spatial footprint through time. The centroid is the mean latitude and mean depth of catch in the survey, weighted by biomass. </p>
+      <p>For the regional and national indices, the first year is standardized to a value of zero and changes are then averaged across species in a region. Only regions with consistent survey methods and without coastlines that would prevent poleward shifts in distribution are included in the national average (currently Eastern Bering Sea and Northeast U.S. Spring). Only species caught every year are analyzed to prevent changes in species composition from affecting the indicator. The indicator begins in the first year that data are available from the focal regions. </p>
+      <p>The basic analyses and data are described in Pinsky, M. L., B. Worm, M. J. Fogarty, J. L. Sarmiento, and S. A. Levin. 2013. Marine taxa track local climate velocities. Science 341: 1239-1242 doi: 10.1126/science.1239352 </p>
+      <p><strong>Data contributors to this website include:</strong></p>
+
+      <ul>
+        <li>NOAA Northeast Fisheries Science Center Spring and Fall Bottom Trawl Surveys</li>
+        <li>NOAA Northwest Fisheries Science Center U.S. West Coast Groundfish Bottom Trawl Survey</li>
+        <li>NOAA Alaska Fisheries Science Center Groundfish Assessment Program surveys</li>
+        <li>Gulf States Marine Fisheries Commission SEAMAP Groundfish Surveys</li>
+        <li>Southeast Area Monitoring and Assessment Program - South Atlantic</li>
+      </ul>
+
+      <p>Note that the script for these calculations is also available (written for R). Development version of the script available on GitHub. </p>
+
+    </section>
+
+    <hr />
+
+    <section>
+      <h1>Our Data Policy</h1>
+      <p>All of the data underlying these analyses are available for download, including spatially georeferenced catches from more than fifty thousand bottom trawl tows in six regions of the U.S. Please notify us through the online form when you download the data, as this helps us justify maintaining the database as a community resource. </p>
+
+      <p><strong>As part of our Fair Use Policy, please:</strong></p>
+
+      <p>Notify us if you are preparing a manuscript using information from the OceanAdapt database (also helps justify funding). Coordinate your research efforts with others using the database by joining existing papers where efforts overlap (contact us if you want to check on potential overlap). If the database is particularly crucial to your research, please consider offering database developers and their colleagues an opportunity to become involved as co-authors.</p>
+
+      <p>In primary publications using data from the database, please cite Pinsky et al. 2013. Marine taxa track local climate velocities. Science 341: 1239-1242 doi: 10.1126/science.1239352, as well as the original data sources.</p>
+    </section>
+
+    <section>
+      <h1>Related Resources</h1>
+      <dl>
+        <dt>Government agencies</dt>
+          <dd>National Marine Fisheries Service</dd>
+          <dd>US Global Change Research Program</dd>
+        <dt>Climate, fish, and fisheries</dt>
+          <dd>National Climate Assessment</dd>
+          <dd>Northeast Fisheries Science Center: Climate Change</dd>
+          <dd>NOAA Climate, Fisheries, and Protected Resources</dd>
+          <dd>Nereus Program</dd>
+          <dd>ICES Report on Ocean Climate</dd>
+        <dt>Marine climate data</dt>
+          <dd>Ocean Climate Change Web Portal</dd>
+          <dd>ICES Report on Ocean Climate</dd>
+        <dt>Fish and fisheries data</dt>
+          <dd>RAM Legacy Database</dd>
+          <dd>Sea Around Us Project</dd>
+          <dd>Fishbase</dd>
+          <dd>Sealifebase</dd>
+        </dl>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="container-fluid">
+        <div class="row no-gutters">
+          <div class="mb-5">
+            <img src="./img/rutgers.svg" alt="rutgers logo" class="logo rutgers-logo" />
+          </div>
+        </div>
+        <div class="row align-items-start justify-content-center footer-row-wrap">
+          <div class="col-6 col-lg-3">
+            <div class="px-3">
+              <p><strong>Institute of Earth, Oceans, and Atmospheric Sciences</strong>
+                <br />
+                71 Dudley Road, 
+                <br />New Brunswick, NJ
+                <br />08901-8525 </p>
+              <p>(848) 932-8242
+                <br />
+                malin.pinsky@rutgers.edu</p>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="px-3 mr-4">
+              <p>Copyright ©2018, Rutgers, The State University of New Jersey, an equal opportunity, affirmative action institution.
+                <br />All rights reserved.
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-lg-5">
+            <p>Supported by:</p>
+            <div class="row align-items-center">
+              <div class="col-8">
+                <div class="noaa-logo">
+                  <a href="https://www.fisheries.noaa.gov/" title="NOAA website">
+                    <img src="img/noaa.svg" />
+                  </a>
+                  <a href="https://www.fisheries.noaa.gov/" title="NOAA website">
+                    <img class="noaa-text" src="img/noaa-logo-text.png" />
+                    <span>National Oceanic and Atmospheric Administration</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="img/CINAR-logo@2x.png" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModal" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">About Our Projections</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <hr />
+            <div>
+              <h5>Scenario 1: Business-as-usual</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            </div>
+            <div>
+              <h5>Scenario 2: Rapid climate change mitigation</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/map.js"></script>
+
+    <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+    <script>
+      window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+      ga('create', 'UA-57519426-1', 'auto'); ga('send', 'pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+    
+  </body>
+</html>
