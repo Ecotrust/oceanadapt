@@ -1,6 +1,7 @@
 function render() {
   // Render the page
   document.getElementById('map-overlay').innerHTML = `
+    <h1>Ocean<br />Adapt</h1>
     <h2>Welcome!
     <br />Select a region or continent explore changes in marine species distributions.
   </h2>

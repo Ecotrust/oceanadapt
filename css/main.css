@@ -224,12 +224,22 @@ button {
         text-decoration: none;
     }
 
+.btn-download-border {
+    border: 2px solid #cc0033;
+    padding: .4375em .675em;
+    line-height: 2;
+}
+
 .btn-download img {
     display: inline-block;
     height: 26px;
     margin: 0 8px 0 0;
     vertical-align: bottom;
     width: auto;
+}
+
+.btn-download-border img {
+    vertical-align: middle;
 }
 
 .btn-submit {
@@ -241,6 +251,10 @@ button {
     font-size: 1em;
     line-height: 2;
     padding: 2px 2em;
+}
+
+.icon_block {
+    display: block;
 }
 
 hr {
@@ -371,17 +385,96 @@ Header
     z-index: 1;
 }
 
-.navbar.main h1 {
-    color: #fff;
-    font-size: 4em;
-    margin: 2rem 0;
-    text-shadow: 0 0 6px rgba(80,80,80,0.4);
-}
-
 .rutgers-logo {
     height: 2.75vh;
     width: auto;
 }
+
+/* ==========================================================================
+    Page Overlay
+========================================================================== */
+
+#page-overlay {
+    background: #fff;
+    bottom: 0;
+    padding-top: 10vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+    #page-overlay:before {
+        background: linear-gradient(180deg, rgba(0, 17, 19, 0.7) -18.18%, rgba(0, 21, 25, 0.6743) -18.18%, rgba(64, 70, 120, 0.7) -18.18%, rgba(17, 32, 46, 0.7) -18.18%, rgba(0, 50, 64, 0.493437) 5.35%, rgba(0, 127, 172, 7e-05) 81.16%);
+        content: '';
+        height: 30vh;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: -1;
+    }
+
+    #page-overlay:after {
+        background-image: url('../img/terrain.svg');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        content: '';
+        height: 80vh;
+        left: 25%;
+        position: absolute;
+        right: 0;
+        top: -25%;
+        z-index: -1;
+        width: 100%;
+    }
+
+#page-overlay:empty {
+  display: none;
+}
+
+#map-overlay h1 {
+    color: #fff;
+    font-size: 4em;
+    margin: 0 0 1em;
+    text-shadow: 0 0 6px rgba(80,80,80,0.4);
+}
+
+.title {
+    border-bottom: 6px solid rgba(95, 106, 113, 0.1);
+    color: #00626d;
+    font-family: "Campton Bold", sans-serif;
+    font-size: 1.125em;
+    padding-bottom: .5rem;
+}
+
+.exit {
+    cursor: pointer;
+    color: #CC0033;
+    display: inline-block;
+    margin: 4rem 2rem;
+    position: relative;
+    vertical-align: middle;
+    font-family: 'Campton';
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 20px;
+}
+
+.chart-wrap {
+
+}
+
+
+/* ==========================================================================
+  Home Page
+========================================================================== */
+
+
+/* ==========================================================================
+  National Page
+========================================================================== */
 
 /* ==========================================================================
 Map
@@ -389,7 +482,7 @@ Map
 
 #map-wrap {
     background: transparent;
-    height: 80vh;
+    height: 90vh;
     left: 0%;
     position: relative;
     top: 0;
@@ -398,7 +491,7 @@ Map
 }
 
 #map {
-    height: 93vh;
+    height: 90vh;
     left: 0;
     position: absolute;
     top: 0;
@@ -413,26 +506,12 @@ Map
     z-index: 1;
 }
 
-#page-overlay {
-    background: #fff;
-    bottom: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-}
-
-#page-overlay:empty {
-  display: none;
-}
-
 @media (min-width: 62em) {
     .map-overlay {
         left: 50%;
         top: 0%;
         max-width: 400px;
-        transform: translate(-400px,100%);
+        transform: translate(-400px,20%);
     }
 }
 
