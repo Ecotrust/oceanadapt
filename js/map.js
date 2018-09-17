@@ -13,7 +13,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/pages/pacific-coast.js',
+        'page': '/pages/WC_ANN.js',
         'regional_code': 'WC_ANN',
         'name': 'Pacific Coast'
       },
@@ -29,7 +29,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/pages/gulf-of-mexico.js',
+        'page': '/pages/GOM.js',
         'regional_code': 'GOM',
         'name': 'Gulf of Mexico'
       },
@@ -45,7 +45,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/pages/gulf-of-alaska.js',
+        'page': '/pages/GOA.js',
         'regional_code': 'GOA',
         'name': 'Gulf of Alaska'
       },
@@ -61,7 +61,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/pages/south-atlantic.js',
+        'page': '/pages/SEUS_FALL.js',
         'regional_code': 'SEUS_FALL',
         'name': 'South Atlantic'
       },
@@ -77,7 +77,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/pages/aleutian-islands.js',
+        'page': '/pages/AI.js',
         'regional_code': 'AI',
         'name': 'Aleutian Islands'
       },
@@ -126,7 +126,7 @@ const pins = {
       'type': 'Feature',
       'properties': {
         'page': '/pages/national.js',
-        'regional_code': '',
+        'regional_code': 'National',
         'name': 'National'
       },
       'geometry': {

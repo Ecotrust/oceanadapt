@@ -477,10 +477,25 @@ Header
     position: relative;
 }
 
+.search-wrap h2 {
+    font-size: 1em;
+    color: #00626D;
+}
+
+.species-all button {
+  color: #00626D;
+  vertical-align: middle;
+}
+
 .species-search {
     color: #00626D;
     font-family: 'Campton Book', sans-serif;
     font-size: 2.25em;
+}
+
+button.search {
+    border: none;
+    background: #CC0033;
 }
 
 #species-listing-alphabetical {
