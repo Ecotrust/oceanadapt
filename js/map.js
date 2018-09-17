@@ -45,6 +45,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
+        'page': '/pages/gulf-of-alaska.js',
         'regional_code': 'GOA',
         'name': 'Gulf of Alaska'
       },
@@ -60,6 +61,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
+        'page': '/pages/south-atlantic.js',
         'regional_code': 'SEUS_FALL',
         'name': 'South Atlantic'
       },
@@ -75,6 +77,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
+        'page': '/pages/aleutian-islands.js',
         'regional_code': 'AI',
         'name': 'Aleutian Islands'
       },
@@ -90,6 +93,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
+        'page': '/pages/NEUS_F.js',
         'regional_code': 'NEUS_F',
         'name': 'North Atlantic'
       },
@@ -105,6 +109,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
+        'page': '/pages/ebs.js',
         'regional_code': 'EBS',
         'name': 'Eastern Bering Sea'
       },
@@ -157,6 +162,10 @@ map.on('load', function () {
           center: e.features[0].geometry.coordinates,
           zoom: 5
         });
+        // import the page for each point through a js file that replaces html content
+        // the page object should be a url
+        // that url should be a js file
+        // the js file will run a script to add page content
         import(e.features[0].properties.page);
     });
 
