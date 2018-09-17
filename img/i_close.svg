@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>close</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 0.0834397571 39.9178001 0.0834397571 39.9178001 40 0 40"></polygon>
+        <polygon id="path-3" points="0 0.0833597569 39.9158005 0.0833597569 39.9158005 39.9955601 0 39.9955601"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Download-Form" transform="translate(-1005.000000, -42.000000)">
+            <g id="close" transform="translate(1005.000000, 42.000000)">
+                <g id="Page-1">
+                    <g id="Group-3">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Clip-2"></g>
+                        <path d="M31.2832,1.56384 C33.2576,-0.41056 36.4608,-0.41056 38.4384,1.56704 C40.4112,3.53984 40.4112,6.73984 38.4368,8.71904 L8.6352,38.51904 C6.6592,40.49184 3.4576,40.49504 1.4816,38.52064 C-0.4944,36.54464 -0.4944,33.34144 1.4816,31.36384 L31.2832,1.56384 Z" id="Fill-1" fill="#000000" mask="url(#mask-2)"></path>
+                    </g>
+                    <g id="Group-6">
+                        <mask id="mask-4" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <g id="Clip-5"></g>
+                        <path d="M1.4816,8.71776 C-0.4944,6.74176 -0.4944,3.54016 1.4816,1.56416 C3.4544,-0.40864 6.6576,-0.41184 8.6336,1.56416 L38.4384,31.36416 C40.4096,33.33696 40.408,36.54016 38.4352,38.51456 C36.4592,40.48896 33.2576,40.48896 31.2816,38.51616 L1.4816,8.71776 Z" id="Fill-4" fill="#000000" mask="url(#mask-4)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
