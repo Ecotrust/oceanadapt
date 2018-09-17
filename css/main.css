@@ -470,15 +470,39 @@ Header
   Regional Page
 ========================================================================== */
 
+.search-wrap:not(:empty) {
+    background: #F0F4F6;
+    display: block;
+    padding: 4rem 2rem;
+    position: relative;
+}
+
 .species-search {
     color: #00626D;
     font-family: 'Campton Book', sans-serif;
     font-size: 2.25em;
 }
 
+#species-listing-alphabetical {
+    color: #9B9B9B;
+}
+
+#species-listing-alphabetical .nav-item {
+    background: transparent;
+    color: #9B9B9B;
+    font-size: .875em;
+    padding: 0;
+}
+
+#species-listing-alphabetical .nav-item.active {
+    background: transparent;
+    font-weight: bold;
+}
+
 .list {
     display: none;
 }
+
 
 /* ==========================================================================
   National Page

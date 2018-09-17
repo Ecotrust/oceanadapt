@@ -1,9 +1,8 @@
-
 var options = {
-  valueNames: [ 'name', 'born' ],
+  valueNames: [ 'common_name', 'scientific_name' ],
   searchClass: 'fuzzy-search',
   // Since there are no elements in the list, this will be used as template.
-  item: '<li><h3 class="name"></h3><p class="born"></p></li>',
+  item: '<li><p class="common_name"></p><p><i class="scientific_name"></i></p></li>',
   fuzzySearch: {
     searchClass: "fuzzy-search",
     location: 0,
@@ -15,15 +14,7 @@ var options = {
 
 var values = [
   {
-    name: 'Jonny Strömberg',
-    born: 1986
+    common_name: '',
+    scientific_name: ''
   },
-  {
-    name: 'Jonas Arnklint',
-    born: 1985
-  },
-  {
-    name: 'Martina Elm',
-    born: 1986
-  }
 ];
