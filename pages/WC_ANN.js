@@ -1,4 +1,5 @@
-import('/pages/search.js');
+(function() {
+  import('/pages/search.js');
 
 document.getElementById('map-overlay').classList.add('regional');
 document.getElementById('map-overlay').innerHTML = `
@@ -49,3 +50,4 @@ var speciesList = new List('species-list', options, values);
 
 // load_graph(1);
 // load_graph(2);
+})();

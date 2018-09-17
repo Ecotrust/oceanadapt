@@ -166,7 +166,7 @@ map.on('load', function () {
         // the page object should be a url
         // that url should be a js file
         // the js file will run a script to add page content
-        import(e.features[0].properties.page);
+        fetch(e.features[0].properties.page);
     });
 
     // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.
