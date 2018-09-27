@@ -334,10 +334,10 @@ AddDefaultCharset utf-8
     # RewriteOptions <options>
 
     # (6)
-    RewriteCond %{HTTPS} =on
-    RewriteRule ^ - [env=proto:https]
-    RewriteCond %{HTTPS} !=on
-    RewriteRule ^ - [env=proto:http]
+    # RewriteCond %{HTTPS} =on
+    # RewriteRule ^ - [env=proto:https]
+    # RewriteCond %{HTTPS} !=on
+    # RewriteRule ^ - [env=proto:http]
 
 </IfModule>
 
@@ -375,13 +375,13 @@ AddDefaultCharset utf-8
 #
 #     https://github.com/h5bp/server-configs-apache/issues/52
 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
+# <IfModule mod_rewrite.c>
+    # RewriteEngine On
     # (1)
     # RewriteCond %{HTTPS} !=on
-    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-    RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=301,L]
-</IfModule>
+    # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    # RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=301,L]
+# </IfModule>
 
 # ----------------------------------------------------------------------
 # | Forcing the `www.` at the beginning of URLs                        |
@@ -409,8 +409,8 @@ AddDefaultCharset utf-8
 
 # <IfModule mod_rewrite.c>
 #     RewriteEngine On
-#     # (1)
-#     # RewriteCond %{HTTPS} !=on
+     # (1)
+     # RewriteCond %{HTTPS} !=on
 #     RewriteCond %{HTTP_HOST} !^www\. [NC]
 #     RewriteCond %{SERVER_ADDR} !=127.0.0.1
 #     RewriteCond %{SERVER_ADDR} !=::1
@@ -515,7 +515,7 @@ AddDefaultCharset utf-8
 # includes rather private places such as the CMS's directories).
 
 <IfModule mod_autoindex.c>
-    Options -Indexes
+#    Options -Indexes
 </IfModule>
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -535,13 +535,13 @@ AddDefaultCharset utf-8
 # https://www.mnot.net/blog/2010/04/07/well-known
 # https://tools.ietf.org/html/rfc5785
 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{REQUEST_URI} "!(^|/)\.well-known/([^./]+./?)+$" [NC]
-    RewriteCond %{SCRIPT_FILENAME} -d [OR]
-    RewriteCond %{SCRIPT_FILENAME} -f
-    RewriteRule "(^|/)\." - [F]
-</IfModule>
+# <IfModule mod_rewrite.c>
+#    RewriteEngine On
+#    RewriteCond %{REQUEST_URI} "!(^|/)\.well-known/([^./]+./?)+$" [NC]
+#    RewriteCond %{SCRIPT_FILENAME} -d [OR]
+#    RewriteCond %{SCRIPT_FILENAME} -f
+#    RewriteRule "(^|/)\." - [F]
+# </IfModule>
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -559,11 +559,11 @@ AddDefaultCharset utf-8
 # include: configuration files, files that contain metadata about the
 # project (e.g.: project dependencies), build scripts, etc..
 
-<IfModule mod_authz_core.c>
-    <FilesMatch "(^#.*#|\.(bak|conf|dist|fla|in[ci]|log|orig|psd|sh|sql|sw[op])|~)$">
-        Require all denied
-    </FilesMatch>
-</IfModule>
+# <IfModule mod_authz_core.c>
+#    <FilesMatch "(^#.*#|\.(bak|conf|dist|fla|in[ci]|log|orig|psd|sh|sql|sw[op])|~)$">
+#        Require all denied
+#    </FilesMatch>
+# </IfModule>
 
 # ----------------------------------------------------------------------
 # | HTTP Strict Transport Security (HSTS)                              |
@@ -629,9 +629,9 @@ AddDefaultCharset utf-8
 # https://msdn.microsoft.com/en-us/library/ie/gg622941.aspx
 # https://mimesniff.spec.whatwg.org/
 
-<IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-</IfModule>
+# <IfModule mod_headers.c>
+    # Header set X-Content-Type-Options "nosniff"
+# </IfModule>
 
 # ----------------------------------------------------------------------
 # | Reflected Cross-Site Scripting (XSS) attacks                       |
@@ -741,9 +741,9 @@ AddDefaultCharset utf-8
 #
 # https://php.net/manual/en/ini.core.php#ini.expose-php
 
-<IfModule mod_headers.c>
-    Header unset X-Powered-By
-</IfModule>
+# <IfModule mod_headers.c>
+#    Header unset X-Powered-By
+# </IfModule>
 
 # ----------------------------------------------------------------------
 # | Server software information                                        |
@@ -755,7 +755,7 @@ AddDefaultCharset utf-8
 #
 # https://httpd.apache.org/docs/current/mod/core.html#serversignature
 
-ServerSignature Off
+# ServerSignature Off
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -768,7 +768,7 @@ ServerSignature Off
 #
 # https://httpd.apache.org/docs/current/mod/core.html#servertokens
 
-#ServerTokens Prod
+# ServerTokens Prod
 
 # ######################################################################
 # # WEB PERFORMANCE                                                    #
@@ -783,12 +783,12 @@ ServerSignature Off
     # Force compression for mangled `Accept-Encoding` request headers
     # https://developer.yahoo.com/blogs/ydn/pushing-beyond-gzipping-25601.html
 
-    <IfModule mod_setenvif.c>
-        <IfModule mod_headers.c>
-            SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
-            RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
-        </IfModule>
-    </IfModule>
+    # <IfModule mod_setenvif.c>
+    #    <IfModule mod_headers.c>
+    #        SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+    #        RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+    #    </IfModule>
+    # </IfModule>
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1021,8 +1021,8 @@ FileETag None
 
 <IfModule mod_expires.c>
 
-    ExpiresActive on
-    ExpiresDefault                                      "access plus 0 seconds"
+    # ExpiresActive on
+    # ExpiresDefault                                      "access plus 0 seconds"
 
   # CSS
 

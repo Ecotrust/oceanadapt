@@ -10,14 +10,14 @@ export function render() {
     <p><strong>Data contributors to this website include:</strong></p>
 
     <ul>
-      <li>NOAA Northeast Fisheries Science Center Spring and Fall Bottom Trawl Surveys</li>
-      <li>NOAA Northwest Fisheries Science Center U.S. West Coast Groundfish Bottom Trawl Survey</li>
-      <li>NOAA Alaska Fisheries Science Center Groundfish Assessment Program surveys</li>
-      <li>Gulf States Marine Fisheries Commission SEAMAP Groundfish Surveys</li>
-	    <li>Southeast Area Monitoring and Assessment Program - South Atlantic</li>
+      <li><a href="http://www.nefsc.noaa.gov/femad/ecosurvey/mainpage/" >NOAA Northeast Fisheries Science Center Spring and Fall Bottom Trawl Surveys</a></li>
+      <li><a href="http://www.nwfsc.noaa.gov/research/divisions/fram/groundfish/bottom_trawl.cfm" >NOAA Northwest Fisheries Science Center U.S. West Coast Groundfish Bottom Trawl Survey</a></li>
+      <li><a href="http://www.afsc.noaa.gov/RACE/groundfish/default.php" >NOAA Alaska Fisheries Science Center Groundfish Assessment Program surveys</a></li>
+      <li><a href="http://www.gsmfc.org/seamap.html" >Gulf States Marine Fisheries Commission SEAMAP Groundfish Surveys</a></li> <!-- http://seamap.gsmfc.org/ -->
+      <li><a href="http://www.seamap.org/" >Southeast Area Monitoring and Assessment Program - South Atlantic</a></li>
     </ul>
 
-    <p>Note that the script for these calculations is also available (written for R). Development version of the script available on GitHub. </p>
+      <p>Note that the script for these calculations is also available (written for <a href="http://www.r-project.org" >R</a>). Development version of the script available on GitHub. </p>
 
     <hr />
 

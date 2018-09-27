@@ -13,7 +13,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/oceanadapt/pages/WC_ANN.js',
+        'page': '/pages/WC_ANN.js',
         'regional_code': 'WC_ANN',
         'name': 'Pacific Coast'
       },
@@ -29,7 +29,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/oceanadapt/pages/GOM.js',
+        'page': '/pages/GOM.js',
         'regional_code': 'GOM',
         'name': 'Gulf of Mexico'
       },
@@ -45,7 +45,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/oceanadapt/pages/GOA.js',
+        'page': '/pages/GOA.js',
         'regional_code': 'GOA',
         'name': 'Gulf of Alaska'
       },
@@ -61,7 +61,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/oceanadapt/pages/SEUS_FALL.js',
+        'page': '/pages/SEUS_FALL.js',
         'regional_code': 'SEUS_FALL',
         'name': 'South Atlantic'
       },
@@ -77,7 +77,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/oceanadapt/pages/AI.js',
+        'page': '/pages/AI.js',
         'regional_code': 'AI',
         'name': 'Aleutian Islands'
       },
@@ -93,7 +93,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/oceanadapt/pages/NEUS_F.js',
+        'page': '/pages/NEUS_F.js',
         'regional_code': 'NEUS_F',
         'name': 'North Atlantic'
       },
@@ -109,7 +109,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/oceanadapt/pages/ebs.js',
+        'page': '/pages/EBS.js',
         'regional_code': 'EBS',
         'name': 'Eastern Bering Sea'
       },
@@ -125,7 +125,7 @@ const pins = {
     {
       'type': 'Feature',
       'properties': {
-        'page': '/oceanadapt/oceanadapt/pages/national.js',
+        'page': '/pages/national.js',
         'regional_code': 'National',
         'name': 'National'
       },
@@ -153,7 +153,7 @@ map.on('load', function () {
         'layout': {
           'icon-image': 'pin',
           'icon-allow-overlap': true,
-        }
+      }
     });
 
     // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
@@ -166,7 +166,11 @@ map.on('load', function () {
         // the page object should be a url
         // that url should be a js file
         // the js file will run a script to add page content
-        import(e.features[0].properties.page);
+        document.getElementById('map-overlay').classList.add('opacity-overlay');
+        loadScript(e.features[0].properties.page)
+          .then(function(script) {
+              console.log(script);
+          });
     });
 
     // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.

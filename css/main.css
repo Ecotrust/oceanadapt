@@ -212,8 +212,13 @@ p {
     line-height: 1.8375;
 }
 
+a {
+    pointer-events: all;
+}
+
 button {
     font-family: "Lato Black", sans-serif;
+    pointer-events: all;
 }
 
 .btn-download {
@@ -223,6 +228,7 @@ button {
     color: #cc0033;
     font-family: "Lato Black";
     font-size: 1em;
+    pointer-events: all;
 }
     .btn-download:hover {
         color: #cc0033;
@@ -257,6 +263,7 @@ button {
     font-size: 1em;
     line-height: 2;
     padding: 2px 2em;
+    pointer-events: all;
 }
 
 .icon_block {
@@ -461,8 +468,13 @@ Header
     font-size: 1.25em;
 }
 
-.chart-wrap {
-
+.chart-wrap div {
+    display: block;
+    margin-bottom: 2rem;
+    pointer-events: all;
+    position: relative;
+    width: 100%;
+    max-width: 980px;
 }
 
 
@@ -545,12 +557,27 @@ Map
     width: 100%;
 }
 
-.map-overlay {
+#map-overlay {
+    pointer-events: none;
     position: absolute;
     left: 10%;
     top: 20%;
     width: 80%;
     z-index: 1;
+}
+
+#map-overlay.opacity-overlay {
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+#map-overlay.regional {
+    color: #fff;
 }
 
 #map-overlay h1 {
@@ -561,16 +588,16 @@ Map
 }
 
 @media (min-width: 62em) {
-    .map-overlay {
+    #map-overlay {
         left: 50%;
         top: 0%;
         max-width: 400px;
         transform: translate(-400px,20%);
     }
-    .map-overlay.regional {
-        left: 10%;
-        max-width: 80%;
-        transform: translate(0,20%);
+    #map-overlay.opacity-overlay {
+        width: 100%;
+        max-width: 100%;
+        transform: translate(0,0);
     }
 }
 

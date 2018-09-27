@@ -46,6 +46,4 @@ document.getElementById('map-overlay').innerHTML = `
 
 var speciesList = new List('species-list', options, values);
 
-
-// load_graph(1);
-// load_graph(2);
+<!-- TODO: drop in graph-div scripts -->
