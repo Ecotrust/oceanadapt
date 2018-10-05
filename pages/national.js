@@ -21,7 +21,7 @@ document.getElementById('page-overlay').innerHTML = `
         </div>
         <div class="col"></div>
         <div class="col-3">
-          <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal">
+          <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal" data-tobedownloaded="national">
             <img src="./img/i_download.svg" /> Download Data
           </button>
         </div>

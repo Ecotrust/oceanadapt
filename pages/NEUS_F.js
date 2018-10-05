@@ -1,5 +1,3 @@
-import('/pages/search.js');
-
 document.getElementById('map-overlay').classList.add('regional');
 document.getElementById('map-overlay').innerHTML = `
   <div class="container">
@@ -27,7 +25,7 @@ document.getElementById('map-overlay').innerHTML = `
       </div>
       <div class="col"></div>
       <div class="col-3">
-        <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal">
+        <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal" data-tobedownloaded="NEUS_F">
           <img src="./img/i_download.svg" /> Download Data
         </button>
       </div>
@@ -43,7 +41,5 @@ document.getElementById('map-overlay').innerHTML = `
 
   </div>
 `;
-
-var speciesList = new List('species-list', options, values);
 
 <!-- TODO: drop in graph-div scripts -->

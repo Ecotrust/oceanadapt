@@ -167,10 +167,16 @@ map.on('load', function () {
         // that url should be a js file
         // the js file will run a script to add page content
         document.getElementById('map-overlay').classList.add('opacity-overlay');
+        document.getElementById('search-wrap').classList.add('show');
         loadScript(e.features[0].properties.page)
           .then(function(script) {
               console.log(script);
           });
+        loadScript('/js/search.js')
+          .then(function(script) {
+            console.log(script);
+          });
+
     });
 
     // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.

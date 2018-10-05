@@ -205,6 +205,7 @@ h3 {
     color: #00626D;
     font-family: 'Campton Book', sans-serif;
     font-size: 2.25em;
+    margin: 0 0 1em;
 }
 
 p {
@@ -278,7 +279,6 @@ hr {
     width: 100%;
 }
 
-
 /* ==========================================================================
     Main Content
 ========================================================================== */
@@ -322,21 +322,25 @@ main p {
 
 /* ---- Data download modal --*/
 
-#dataDownloadModal {
+#dataDownloadModal,
+#aboutModal {
     background: #f0f4f6;
 }
 
-#dataDownloadModal .modal-content {
+#dataDownloadModal .modal-content,
+#aboutModal .modal-content {
     background: transparent;
 }
 
-#dataDownloadModal .modal-header {
+#dataDownloadModal .modal-header,
+#aboutModal .modal-header {
     color: #00626d;
     font-family: "Campton Light", sans-serif;
     font-size: 3em;
 }
 
-#dataDownloadModal .form-group .form-control {
+#dataDownloadModal .form-group .form-control,
+#aboutModal .form-group .form-control {
     background: #e3e9ee;
     border: none;
     border-radius: 0;
@@ -344,15 +348,18 @@ main p {
     height: 2.5em;
 }
 
-#dataDownloadModal textarea {
+#dataDownloadModal textarea,
+#aboutModal textarea {
     height: 6em;
 }
 
-#dataDownloadModal .close {
+#dataDownloadModal .close,
+#aboutModal .close {
     color: #cc0033;
 }
 
-#dataDownloadModal label {
+#dataDownloadModal label,
+#aboutModal label {
     color: #5f6a72;
     font-size: 1.25em;
     font-family: 'Campton Book';
@@ -407,7 +414,8 @@ Header
     Page Overlay
 ========================================================================== */
 
-#page-overlay {
+#page-overlay,
+.page-overlay {
     background: #fff;
     bottom: 0;
     padding-top: 10vh;
@@ -445,7 +453,8 @@ Header
 #page-overlay.regional {
     background: transparent;
 }
-#page-overlay:empty {
+#page-overlay:empty,
+.page-overlay:empty {
   display: none;
 }
 
@@ -482,9 +491,15 @@ Header
   Regional Page
 ========================================================================== */
 
+.search-wrap {
+    display: none;
+}
+    .search-wrap.show {
+        display: block;
+    }
+
 .search-wrap:not(:empty) {
     background: #F0F4F6;
-    display: block;
     padding: 4rem 2rem;
     position: relative;
 }
@@ -500,8 +515,13 @@ Header
 }
 
 .species-search {
-    color: #00626D;
+    color: #9B9B9B;
     font-family: 'Campton Book', sans-serif;
+    font-size: 1em;
+}
+
+.species-search h2 {
+    color: #00626D;
     font-size: 2.25em;
 }
 
@@ -527,7 +547,19 @@ button.search {
 }
 
 .list {
+    background: #fff;
     display: none;
+    list-style: none;
+    max-height: 400px;
+    overflow: scroll;
+    padding: 20px;
+    position: absolute;
+    width: 150%;
+    z-index: 9;
+}
+
+.list li {
+    margin-bottom: 1em;
 }
 
 
