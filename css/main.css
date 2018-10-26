@@ -349,7 +349,9 @@ main p {
 }
 
 #dataDownloadModal textarea,
-#aboutModal textarea {
+#aboutModal textarea,
+#dataDownloadModal .form-group textarea.form-control,
+#aboutModal .form-group textarea.form-control {
     height: 6em;
 }
 
@@ -481,7 +483,8 @@ Header
 }
 
 
-.chart-title {
+.chart-title,
+.chart-title h2 {
     color: #00626d;
     margin: 2rem 0;
 }

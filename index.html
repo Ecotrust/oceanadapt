@@ -226,16 +226,144 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Download</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <div class="modal-body">
+          <div class="page-content">
+    				<div id="display-form">
+    					<h4>Help us demonstrate the value of keeping these data publicly available, by telling us about yourself.</h4>
+    					<form method="post"  onsubmit="return submit_my_information(this);">
+    						<div class="info-form form-group">
+    							<label for="my-name">Name</label>
+    							<input type="text" id="my-name" name="my-name" class="form-control" required="required" />
+                  <input type="hidden" id="page-action" name="page-action" value="submit-info" required="required" class="form-control" />
+    						</div>
+    						<div class="info-form form-group">
+    							<label for="my-email">Email</label>
+    							<input type="email" id="my-email" name="my-email" class="form-control" required="required" />
+    						</div>
+    						<div class="info-form form-group">
+    							<label for="my-institution">Institution</label>
+    							<input type="text" id="my-institution" name="my-institution" class="form-control" required="required" />
+    						</div>
+    						<div class="info-form form-group">
+    							<label for="my-purpose">Purpose</label>
+    							<textarea id="my-purpose" name="my-purpose" class="form-control" required="required" rows="3" ></textarea>
+    						</div>
+    						<div class="info-form form-group">
+    							<button class="helpme btn btn-primary">Submit My Information</button>
+    						</div>
+    					</form>
+    				</div>
 
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Download</button>
-      </div>
+
+    				<div id="download-form" style="display:none;">
+    					<span class="summary-download"> Data from Current Database </span>
+    					<input type="hidden" id="information-token" name="information-token" value="" />
+    					<div class="half-width has-border">
+    						<h3>Download Processed Data</h3>
+    						<div class="field-space">
+    							<label for="regionID"> Select a region: </label>
+    								<select id="regionID" name="regionID">
+    									<option value="-1"> All </option>
+    									<option value="1"> Aleutian Island </option>
+    									<option value="2"> Eastern Bering Sea </option>
+    									<option value="3"> Gulf of Alaska </option>
+    									<option value="4"> Gulf of Mexico </option>
+    									<option value="5"> Northeast US  </option>
+    									<option value="7"> Southeast US  </option>
+    									<option value="10"> West Coast - Annual </option>
+    									<option value="11"> West Coast - Triennial </option>
+    								</select>
+    						</div>
+    						<div class="field-space">
+    							<label for="selectAllData"> Select all available data: </label>
+    								<input id="selectAllData" type="checkbox" />
+    						</div>
+    						<div class="field-space"> -OR- </div>
+    						<div class="field-space">
+
+    							<label for="startYear"> Start Year: </label>
+    								<select id="startYear" name="startYear">
+
+    									{$this->getYearOptionsForDropdown(1963,date('Y'))}
+    								</select>
+    							TO
+    							<label for="endYear"> End Year: </label>
+    								<select id="endYear" name="endYear">
+    									{$this->getYearOptionsForDropdown(1963, date('Y'), true)}
+    								</select>
+    						</div>
+    						<div class="field-space">
+    							<label for="include_latitude"> Latitude: </label>
+    								<input id="include_latitude" type="checkbox" />
+    						</div>
+    						<div class="field-space">
+    							<label for="include_longitude"> Longitude: </label>
+    								<input id="include_longitude" type="checkbox" />
+    						</div>
+    						<div class="field-space">
+    							<label for="include_depth"> Depth: </label>
+    								<input id="include_depth" type="checkbox" />
+    						</div>
+
+    						<div>
+    							<button id="download-data" type="button" class="helpme"> Download Data</button>
+    							*<a href="/about_us/#fair-use-policy" target="_blank">Fair Use Policy</a>
+    						</div>
+    					</div>
+    					<div class="half-width">
+    						<h3>Original Downloads</h3>
+
+    						<div class="sub-category">
+    							<p> If you would like to download the Raw Data and R script that is used to generate the processed data, please click below: </p>
+    							<button id="download-latest-raw" type="button" class="positive"> Download Latest Raw Data </button>
+    							*<a href="/about_us/#fair-use-policy" target="_blank">Fair Use Policy</a>
+    						</div>
+
+    						<div class="sub-category">
+    							<p> If you would like to download the latest R script alone that is used to generate the processed data from the raw data, please click below: </p>
+    							<button id="download-r-script" type="button" class="positive"> Download R Script </button>
+                  <p>Development version of the script available on <a href="https://github.com/mpinsky/oceanadapt" target="_blank">GitHub</a>.</p>
+    						</div>
+
+    						<div class="sub-category">
+    							<p> If you would like to download the raster / map creation script, please click below: </p>
+    							<button id="download-map-script" type="button" class="positive"> Download Map / Raster Script</button>
+    							<p>Additional map / raster generation supplement found <a href="{$base_doc}/latest/ArcGIS_Analysis_Files.zip" target="_blank">here</a> (~213 MBs).</p>
+    						</div>
+    					</div>
+    					<br />
+    					<hr />
+    					<div style="float:center;">
+    						<div style="float:center;">
+    							<div>
+    								<span class="summary-download"> Data from Previous Database Versions </span>
+    								<label for="archiveID"> Select archived set: </label>
+    									<select id="archiveID">
+    										<option value="-1"> -- </option>
+    										{$this->get_archived_data()}
+    									</select>
+    							</div>
+    							<div style="margin-top:20px;">
+    								<button id="download-archived-data" type="button" class="helpme"> Download Archived Data</button>
+    							</div>
+    						</div>
+    						<div style="margin-top:10px;clear:right;">
+    							<p style="margin:0;font-size:small;"><em> *Note: Archived data might take a while to download depending on your connection. </em></p>
+    						</div>
+    					</div>
+    					<div id="dataDownloadDiv" style="display:none;" ><iframe id="dataDownloadIFRAME" name="dataDownloadIFRAME"></iframe> </div>
+    				</div>
+    			</div>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary">Download</button>
+        </div> -->
       </div>
     </div>
   </div>

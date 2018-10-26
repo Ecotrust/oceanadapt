@@ -176,7 +176,7 @@ map.on('load', function () {
             // loadScript(e.features[0].properties.page)
             loadScript('/pages/regional.js')
               .then(function(script) {
-                  console.log(script);
+                  chooseSpecies(-1);
               });
             loadScript('/js/search.js')
               .then(function(script) {

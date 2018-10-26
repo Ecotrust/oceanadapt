@@ -37,7 +37,6 @@
   speciesData.post('/regional_data', params)
     .then(function(response) {
       for (let species of response.data.values.speciesIDs) {
-        console.log(species);
         values.push({
           common_name: species.speciesCommonName,
           scientific_name: species.speciesName,
@@ -64,7 +63,6 @@
       // Listen for species search results item selection
       $('.species-selection').on('click', function(event) {
         event.preventDefault();
-        console.log(event.target);
         return chooseSpecies(event.target.parentNode.dataset.species_id);
       })
     })

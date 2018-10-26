@@ -18,6 +18,11 @@ function loadScript(src) {
 
 // update data to be downloaded
 $('#dataDownloadModal').on('show.bs.modal', function (event) {
+	var downloadForm = axios.create();
+	downloadForm.get('/download/')
+		.then(function(response) {
+			console.log(response);
+		});
   var button = $(event.relatedTarget); // Button that triggered the modal
   var dataToDownload = button.data('tobedownloaded'); // Extract info from data-* attributes
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -40,7 +45,6 @@ function chooseSpecies(selectedSpeciesID) {
   speciesSelectionParams.append('speciesID', selectedSpeciesID);
   speciesSelection.post('/regional_data', speciesSelectionParams)
     .then(function(response) {
-				console.log(response);
 				load_graph(1, response.data)
 			})
 			.then(function() {
@@ -48,7 +52,6 @@ function chooseSpecies(selectedSpeciesID) {
 				speciesSelection.post('/regional_data', speciesSelectionParams)
 					.then(function(res) {
 							load_graph(2, res.data);
-	         console.log(res);
 	       })
 				 .catch(function(error) {
 		       console.log(error);
@@ -190,10 +193,10 @@ function load_graph(graph_type, data) {
 
 
 			//If seus, show only graph 1
-			console.log('load_graph: set up graph if SEUS');
+			// console.log('load_graph: set up graph if SEUS');
 			// var regionID = $('#regionID').val();
 			// var speciesID = $('#speciesID').val();
-			console.log('load_graph: set up graph if SEUS ['+ regionID+','+speciesID+']');
+			// console.log('load_graph: set up graph if SEUS ['+ regionID+','+speciesID+']');
 
 			if( speciesID ==-1 && (regionID == '7' || regionID == '8' || regionID == '9')){
 				console.log('SEUS and no species selected');
@@ -228,4 +231,323 @@ var graph_helper = {
 	},
 	picture_files:[],
 	rotate_picture: null //The set interval
+};
+
+function submit_my_information( my_form ) {
+	//We'll be ajaxing the form
+
+
+	$.post({
+		url: "/download",
+		data: $(my_form).serializeArray(),
+	})
+	.done(function( data ) {
+		if( data['minor-error-code'] == '0' ) {
+			$('#information-token').val( data['values']['token'] );
+			$('#display-form').hide();
+			$('#download-form').show();
+		}else{
+			alert('There was a problem submitting your information. Please try again.');
+			$('#display-form').show();
+		}
+
+	})
+	.fail(function(data) {
+		console.error( "error" );
+	})
+
+	return false;
+}
+
+function showDownloadForm() {
+
+	$('#regionID').on('change', function () {
+
+		console.info('Region changed');
+		$('#startYear option').remove();
+		$('#endYear option').remove();
+
+		$.post(
+			"/download", {
+				'page-action':'5',
+				'regionID':$('#regionID').val()
+			},
+			null, //no function, taken care of in .done()
+			'json'
+		)
+		.done(function( data ) {
+			console.log('done');
+			console.log(data);
+
+			if( data['minor-error-code'] == '0' ) {
+
+				var startYear = data.values.startYear;
+				var endYear = data.values.endYear;
+				var i=0;
+				for(i=0;(i+startYear)<=endYear;i++) {
+					$('#startYear').append(
+						$('<option></option')
+							.text( (i+startYear) )
+							.val( (i+startYear) )
+					);
+					$('#endYear').append(
+						$('<option></option')
+							.text( (i+startYear) )
+							.val( (i+startYear) )
+					);
+
+				}
+
+				$('#endYear').val($('#endYear option:last').val() );
+			}else{
+				console.log('Error.');
+			}
+		})
+		.fail(function(data) {
+			console.log( "Server Error" );
+		})
+		.always(function() {
+
+		});
+
+		return true;
+
+	});
+
+	$('#download-archived-data').on('click', function () {
+		console.info('download archvied');
+
+		if( $('#archiveID').val() == '-1') {
+			return true;
+		}
+
+		ga('send', 'event',
+			'Archived Data',
+			$('#archiveID option:selected').text(),
+			''
+		);
+
+
+		location.href='{$base_doc}/archive/' + $('#archiveID').val() + '/Data_Updated.zip';
+		return true;
+
+	});
+
+	$('#download-data').on('click', function () {
+		console.info('Download data');
+
+
+
+		var regionID = $('#regionID').val();
+
+		var selectAllData = $('#selectAllData').is(':checked');
+
+		var startYear = $('#startYear').val();
+		var endYear = $('#endYear').val();
+
+		var dataTypeID = $('#dataTypeID').val();
+			var include_latitude=$('#include_latitude').is(':checked')
+			var include_longitude=$('#include_longitude').is(':checked')
+			var include_depth=$('#include_depth').is(':checked')
+
+
+		//Some error checking
+
+		if(
+			!selectAllData && (
+				startYear == "" &&
+				endYear == ""
+			)
+		){
+			alert('Please choose either:\\n1. "All available data" or \\n2. A start and/or end date');
+			return false;
+		}
+
+		//check for start date before endendDateendDate
+
+		if( startYear > endYear ) {
+			alert('End year cannot be before start year.');
+			return false;
+		}
+
+		//if they choose processed data, they have to choose a variable or more to download
+
+		if( dataTypeID == "1" ) {
+			if( !include_latitude && !include_longitude && !include_depth ) {
+				alert('Please select one variable for downloading processed data.');
+				return false;
+			}
+		}
+
+//Google analytic events
+		var ga_label = {
+			select_all_data : ( $('#selectAllData').is(':checked') ? 'checked' : 'not-checked' ),
+			data_type: (dataTypeID == "1" ? 'Processed Data' : 'RAW Data' ),
+			start_year: $('#startYear').val(),
+			end_year: $('#endYear').val()
+		};
+
+		if( dataTypeID == "1" ){
+			ga_label.include_latitude = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
+			ga_label.include_longitude = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
+			ga_label.include_depth = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
+		}
+
+		ga('send', 'event',
+			'Download Data',
+			$('#regionID option:selected').text(),
+			JSON.stringify( ga_label )
+		);
+
+
+
+		//For submission:
+		var submitObj = {
+			'page-action':'1',
+			'regionID': regionID,
+			'selectAllData': selectAllData,
+			'startYear': startYear,
+			'endYear': endYear,
+			'dataTypeID': dataTypeID,
+			'include_latitude': include_latitude,
+			'include_longitude': include_longitude,
+			'include_depth': include_depth,
+			'information-token': $('#information-token').val()
+
+		};
+		createLoader($('#download-data'), true);
+		//console.info(submitObj);
+	/*
+		//New: ask user for their info
+		open_information_window()
+	*/
+		$.post(
+			"/download",
+			submitObj,
+			null, //no function, taken care of in .done()
+			'json'
+		)
+		.done(function( data ) {
+			console.log('done');
+			console.log(data);
+
+			if( data['minor-error-code'] == '0' ) {
+				loadComplete();
+				$('<form/>')
+					.attr({
+						'id':'dataDownloadForm',
+						'name':'dataDownloadForm',
+						'method':'post',
+						'target':'dataDownloadIFRAME'
+					}).appendTo('body');
+				$('<input />')
+					.attr({
+						'type':'hidden',
+						'name':'page-action',
+						'id':'page-action',
+						'value':(dataTypeID == "2" ? "3" : "2" )
+					})
+					.appendTo('#dataDownloadForm');
+				$('<input />')
+					.attr({
+						'type':'hidden',
+						'name':'filename',
+						'id':'tempFileName',
+						'value':data.values.statistics.filename
+					})
+					.appendTo('#dataDownloadForm');
+				$('#dataDownloadForm').submit().remove();
+
+			}else{
+				console.log('Error.');
+			}
+		})
+		.fail(function(data) {
+			console.log( "Server Error" );
+		})
+		.always(function() {
+
+		});
+
+		return true;
+		return  performAction( 1, submitObj,
+				function (returnObject) {
+					switch (returnObject.actionPerformedStatus) {
+						case 0:
+							console.log(returnObject);
+							loadComplete();
+							$('<form/>')
+								.attr({
+									'id':'dataDownloadForm',
+									'name':'dataDownloadForm',
+									'method':'post',
+									'target':'dataDownloadIFRAME'
+								}).appendTo('body');
+							$('<input />')
+								.attr({
+									'type':'hidden',
+									'name':'actionPerform',
+									'id':'actionPerform',
+									'value':(dataTypeID == "2" ? "3" : "2" )
+								})
+								.appendTo('#dataDownloadForm');
+							$('<input />')
+								.attr({
+									'type':'hidden',
+									'name':'filename',
+									'id':'tempFileName',
+									'value':returnObject.returnValues.statistics.filename
+								})
+								.appendTo('#dataDownloadForm');
+							$('#dataDownloadForm').submit().remove();
+							break;
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 5:
+						case 6:
+							console.error("No Good!");
+							break;
+					}
+				}
+			);
+
+	});
+
+	$('#download-latest-raw').on('click', function () {
+		console.info('Download latest raw data.');
+
+		ga('send', 'event',
+			'Latest Raw Data',
+			'Download',
+			''
+		);
+
+		location.href='./latest/Data_Updated.zip';
+	});
+	$('#download-r-script').on('click', function () {
+		console.info('Download r script');
+
+		ga('send', 'event',
+			'RScript',
+			'Download',
+			''
+		);
+
+		location.href='./latest/complete_r_script.R';
+	});
+
+	$('#download-map-script').on('click', function () {
+		console.info('Download map / raster file script');
+
+		ga('send', 'event',
+			'Map / Raster Script File',
+			'Download',
+			''
+		);
+
+		location.href='./latest/OAGenerateRasterFiles.py';
+	});
+
 };
