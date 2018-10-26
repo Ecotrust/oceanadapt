@@ -1,41 +1,79 @@
-document.getElementById('page-overlay').classList.add('national');
-document.getElementById('page-overlay').innerHTML = `
-    <div class="container">
+(function() {
+    document.getElementById('page-overlay').classList.add('national');
+    document.getElementById('page-overlay').innerHTML = `
+        <div class="container">
 
-      <div class="row">
-        <a href="/" class="nav-back">
-          <div class="exit">
-            <img src="./img/i_north_america.svg" />
+          <div class="row">
+            <a href="/" class="nav-back">
+              <div class="exit">
+                <img src="./img/i_north_america.svg" />
+              </div>
+
+              <div class="exit">
+                <img src="./img/i_arrow-left.svg" class="icon_block mb-2" />
+                <span>Regional Selections</span>
+              </div>
+            </a>
           </div>
 
-          <div class="exit">
-            <img src="./img/i_arrow-left.svg" class="icon_block mb-2" />
-            <span>Regional Selections</span>
+          <div class="row">
+            <div class="col-3">
+              <div class="title">National Charts</div>
+            </div>
+            <div class="col"></div>
+            <div class="col-3">
+              <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal" data-tobedownloaded="national">
+                <img src="./img/i_download.svg" /> Download Data
+              </button>
+            </div>
           </div>
-        </a>
-      </div>
-
-      <div class="row">
-        <div class="col-3">
-          <div class="title">National Charts</div>
         </div>
-        <div class="col"></div>
-        <div class="col-3">
-          <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal" data-tobedownloaded="national">
-            <img src="./img/i_download.svg" /> Download Data
-          </button>
+    `;
+    document.getElementById('page-content').innerHTML = `
+      <div class="container">
+          <div class="row">
+            <div class="chart-title">
+              <h2>Changes in Latitude</h2>
+            </div>
+            <div class="chart-wrap">
+              <div class="graph_1 graph" id="graph_1"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="chart-title">
+              <h2>Changes in Latitude</h2>
+            </div>
+            <div class="chart-wrap">
+              <div class="graph_2 graph" id="graph_2"></div>
+            </div>
+          </div>
         </div>
       </div>
+    `;
 
-      <div class="row">
-        <div class="chart-wrap">
-            <h2 class="chart-title">Changes in Latitude</h2>
-            <div id="graph-div_1"></div>
-            <div id="graph-div_2"></div>
-        </div>
-      </div>
+    var nationalSelection = axios.create();
+    var nationalParams = new URLSearchParams();
+    nationalParams.append('page-action', 1);
+    nationalParams.append('graph_type', 1);
+    nationalSelection.post('/national_data', nationalParams)
+      .then(function(response) {
+        load_graph(1, response.data)
+      })
+      .then(function() {
+        nationalParams.set('graph_type', 2);
+        nationalSelection.post('/regional_data', nationalParams)
+          .then(function(res) {
+            load_graph(2, res.data);
+            console.log(res);
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+      .catch(function(error) {
+        console.log(error);
+      })
+    })
 
-    </div>
-`;
-
-<!-- TODO: drop in graph-div scripts -->
+    document.getElementById('page-content').classList.add('show');
+})();

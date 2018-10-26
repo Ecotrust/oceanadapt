@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <!-- <meta name="referrer" content="no-referrer-when-downgrade"> -->
 
   <title>Home Page | Ocean Adapt </title>
 
@@ -22,6 +23,7 @@
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
 
   <script>
     try { if (new URLSearchParams('q=%2B').get('q') !== '+') throw {}; }
@@ -34,7 +36,7 @@
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>
+  <script src="js/vendor/dygraph-combined.js"></script>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" />
 
 </head>
@@ -46,8 +48,10 @@
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
   <![endif]-->
 
-  <input type="hidden" name="speciesID" id="regionID" /> 
-  <input type="hidden" name="speciesID" id="speciesID" />
+  <input type="hidden" name="regionID" id="regionID" val="" />
+  <input type="hidden" name="regionName" id="regionName" val="" />
+  <input type="hidden" name="speciesID" id="speciesID" val="" />
+  <input type="hidden" name="speciesName" id="speciesName" val="" />
 
   <header>
     <nav class="top navbar navbar-expand-lg">
@@ -81,6 +85,7 @@
         <div id="map"></div>
       </div>
       <div id="page-overlay" class=""></div>
+      <div id="page-content" class=""></div>
     </div>
   </main>
 
@@ -221,24 +226,12 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-        <div class="modal-body">
-          <!-- TODO: add download data iframe or rework form -->
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Name:</label>
-              <input type="text" class="form-control" id="recipient-name">
-            </div>
-            <div class="form-group">
-              <label for="message-text" class="col-form-label">Reason for request:</label>
-              <textarea class="form-control" id="message-text"></textarea>
-            </div>
-          </form>
+          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary">Download</button>
@@ -258,6 +251,7 @@
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+  <script src="js/vendor/jquery-ui.js"></script>
 
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>

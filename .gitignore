@@ -3,3 +3,10 @@
 # Useful .gitignore templates: https://github.com/github/gitignore
 
 .DS_Store
+controller.php
+common_files/*
+*.zip
+*.php
+latest/*
+future_pictures/*
+old_.htaccess
