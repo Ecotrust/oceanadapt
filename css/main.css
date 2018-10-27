@@ -292,7 +292,7 @@ hr {
         background-color: #fff;
         background-image: linear-gradient(180deg, #11202E, transparent);
         content: '';
-        height: 88vh;
+        height: 82vh;
         left: 0;
         position: absolute;
         top: 0;
@@ -655,7 +655,7 @@ Map
 
 #map-wrap {
     background: transparent;
-    height: 90vh;
+    height: 84vh;
     left: 0%;
     position: relative;
     top: 0;
@@ -664,7 +664,7 @@ Map
 }
 
 #map {
-    height: 90vh;
+    height: 84vh;
     left: 0;
     position: absolute;
     top: 0;

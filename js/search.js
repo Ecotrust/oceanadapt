@@ -65,6 +65,10 @@
         event.preventDefault();
         return chooseSpecies(event.target.parentNode.dataset.species_id);
       })
+
+      $('#show-all').on('click', function() {
+        smoothScroll('#page-content');
+      })
     })
     .catch(function(error) {
       console.log(error);

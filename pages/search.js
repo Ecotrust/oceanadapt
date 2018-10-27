@@ -15,7 +15,7 @@
 
         <div class="col">
           <div class="species-all">
-            <button class="btn btn-link species-selection" data-id="-1" id="show-all">Average Across All Species</button>
+            <button class="btn btn-link" data-speciesId="-1" id="show-all">Average Across All Species</button>
           </div>
         </div>
 

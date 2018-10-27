@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
   <!-- Icon Font -->
-  <!-- <link href="https://file.myfontastic.com/tqiW29ys896M3tofYTvXXX/icons.css" rel="stylesheet"> -->
+  <link href="https://file.myfontastic.com/tqiW29ys896M3tofYTvXXX/icons.css" rel="stylesheet">
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
@@ -67,7 +67,6 @@
         <div class="collapse navbar-collapse align-items-start" id="navbartogglee">
           <ul class="nav navbar-nav mt-2 mt-lg-0 justify-content-end">
             <li class="nav-item"><a href="#aboutModal" data-toggle="modal" data-target="#aboutModal" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Our Method</a></li>
             <li class="nav-item"><a href="" class="nav-link">Resources</a></li>
             <li class="nav-item"><a href="" class="nav-link">Projections</a></li>
           </ul>
@@ -235,11 +234,10 @@
           <div class="page-content">
     				<div id="display-form">
     					<h4>Help us demonstrate the value of keeping these data publicly available, by telling us about yourself.</h4>
-    					<form method="post"  onsubmit="return submit_my_information(this);">
+    					<form method="post" id="user-info-form">
     						<div class="info-form form-group">
     							<label for="my-name">Name</label>
     							<input type="text" id="my-name" name="my-name" class="form-control" required="required" />
-                  <input type="hidden" id="page-action" name="page-action" value="submit-info" required="required" class="form-control" />
     						</div>
     						<div class="info-form form-group">
     							<label for="my-email">Email</label>
@@ -265,7 +263,7 @@
     					<input type="hidden" id="information-token" name="information-token" value="" />
     					<div class="half-width has-border">
     						<h3>Download Processed Data</h3>
-    						<div class="field-space">
+    						<div class="field-space form-group">
     							<label for="regionID"> Select a region: </label>
     								<select id="regionID" name="regionID">
     									<option value="-1"> All </option>
@@ -279,47 +277,42 @@
     									<option value="11"> West Coast - Triennial </option>
     								</select>
     						</div>
-    						<div class="field-space">
-    							<label for="selectAllData"> Select all available data: </label>
-    								<input id="selectAllData" type="checkbox" />
+    						<div class="field-space form-group">
+    							<label for="selectAllData">Select all available data:</label>
+    							<input id="selectAllData" type="checkbox" />
     						</div>
-    						<div class="field-space"> -OR- </div>
-    						<div class="field-space">
-
+    						<div class="field-space form-group"> -OR- </div>
+    						<div class="field-space form-group">
     							<label for="startYear"> Start Year: </label>
-    								<select id="startYear" name="startYear">
-
-    									{$this->getYearOptionsForDropdown(1963,date('Y'))}
-    								</select>
+    							<select id="startYear" name="startYear">
+    							</select>
     							TO
     							<label for="endYear"> End Year: </label>
-    								<select id="endYear" name="endYear">
-    									{$this->getYearOptionsForDropdown(1963, date('Y'), true)}
-    								</select>
+    							<select id="endYear" name="endYear">
+    							</select>
     						</div>
-    						<div class="field-space">
+    						<div class="field-space form-group">
     							<label for="include_latitude"> Latitude: </label>
     								<input id="include_latitude" type="checkbox" />
     						</div>
-    						<div class="field-space">
+    						<div class="field-space form-group">
     							<label for="include_longitude"> Longitude: </label>
     								<input id="include_longitude" type="checkbox" />
     						</div>
-    						<div class="field-space">
+    						<div class="field-space form-group">
     							<label for="include_depth"> Depth: </label>
     								<input id="include_depth" type="checkbox" />
     						</div>
 
     						<div>
-    							<button id="download-data" type="button" class="helpme"> Download Data</button>
+    							<button id="download-data" type="button" class="helpme btn btn-primary"> Download Data</button>
     							*<a href="/about_us/#fair-use-policy" target="_blank">Fair Use Policy</a>
     						</div>
     					</div>
     					<div class="half-width">
     						<h3>Original Downloads</h3>
-
     						<div class="sub-category">
-    							<p> If you would like to download the Raw Data and R script that is used to generate the processed data, please click below: </p>
+    							<p> If you would like to download the Raw Data and R script that is used to generate the processed data, please click below:</p>
     							<button id="download-latest-raw" type="button" class="positive"> Download Latest Raw Data </button>
     							*<a href="/about_us/#fair-use-policy" target="_blank">Fair Use Policy</a>
     						</div>

@@ -31,30 +31,6 @@
           </button>
         </div>
       </div>
-
-      <div class="row slider">
-        <div id="slider-div">
-          <div id="slider-area">
-            <div id="slider-row">
-              <div id="slider-start-year"></div>
-              <div id="slider-cell">
-                <div id="slider"></div>
-              </div>
-              <div id="slider-end-year"></div>
-            </div>
-          </div>
-          <div style="text-align:center;margin:1em 0;">
-            <span style="margin-right:1em;">
-              <button id="pause-button" type="button" class="greybutton"><i class="fa fa-pause"></i> Pause</button>
-            </span>
-            <span style="margin-left:1em;">
-              <button id="play-button" type="button" class="positive"><i class="fa fa-play"></i> Play</button>
-            </span>
-          </div>
-          <div style="left: 0; top: 1em; position: absolute;dispaly:none;" id="slider-value"></div>
-          <img id="species-picture" src="" style="display:block;max-width:100%;margin:1em auto 0;" />
-        </div>
-      </div>
     </div>
   `;
 
@@ -70,6 +46,30 @@
     </div>
 
     <div class="container">
+      <div id="animation-wrap" class="row slider d-none">
+        <div id="slider-div">
+          <img id="species-picture" src="" />
+          <div id="slider-area" class="p-2">
+            <div id="slider-row">
+              <div id="slider-start-year"></div>
+              <div id="slider-cell">
+                <div id="slider"></div>
+              </div>
+              <div id="slider-end-year"></div>
+            </div>
+          </div>
+          <div id="slider-value"></div>
+          <div class="text-center">
+            <span>
+              <button id="pause-button" type="button" class="greybutton btn btn-secondary">Pause</button>
+            </span>
+            <span>
+              <button id="play-button" type="button" class="positive btn btn-success">Play</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="chart-title">
           <h2>Changes in Latitude</h2>

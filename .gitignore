@@ -10,3 +10,8 @@ common_files/*
 latest/*
 future_pictures/*
 old_.htaccess
+archive/*
+old_data_vis_common_files/*
+old_data_vis_upload_folder/*
+pending/*
+pending_*

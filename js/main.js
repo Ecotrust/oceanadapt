@@ -16,13 +16,23 @@ function loadScript(src) {
   });
 }
 
+const smoothScroll = element =>
+	document.querySelector(element).scrollIntoView({
+  	behavior: 'smooth'
+	});
+
 // update data to be downloaded
 $('#dataDownloadModal').on('show.bs.modal', function (event) {
-	var downloadForm = axios.create();
-	downloadForm.get('/download/')
-		.then(function(response) {
-			console.log(response);
-		});
+	axios({
+		url: '/download',
+	}).then(function(response) {
+
+	});
+	$('#user-info-form').submit(function(event) {
+		console.log(event);
+		event.preventDefault();
+		submit_my_information(event.target)
+	});
   var button = $(event.relatedTarget); // Button that triggered the modal
   var dataToDownload = button.data('tobedownloaded'); // Extract info from data-* attributes
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -45,7 +55,10 @@ function chooseSpecies(selectedSpeciesID) {
   speciesSelectionParams.append('speciesID', selectedSpeciesID);
   speciesSelection.post('/regional_data', speciesSelectionParams)
     .then(function(response) {
-				load_graph(1, response.data)
+				load_graph(1, response.data);
+				if (selectedSpeciesID > 0) {
+					load_slider(response.data);
+				}
 			})
 			.then(function() {
 				speciesSelectionParams.set('graph_type', 2);
@@ -60,6 +73,67 @@ function chooseSpecies(selectedSpeciesID) {
     .catch(function(error) {
       console.log(error);
     });
+}
+
+function load_slider(data) {
+		document.getElementById('animation-wrap').classList.remove('d-none');
+		$('#species-picture').prop({src:''});
+		graph_helper.picture_files = data.values.pictures.files;
+		if( data.values.pictures.files.length > 0 ) {
+			var my_pics = data.values.pictures.files;
+			for(var i = 0;i<graph_helper.picture_files.length;i++) {
+				graph_helper.picture_files[i] = '/common_files/picture_folder/' + data.values.pictures.dir + '/' + graph_helper.picture_files[i];
+			}
+			$('#slider-start-year').text( graph_helper.picture_files[ 0 ].substr(-8, 4) );
+			$('#slider-end-year').text( graph_helper.picture_files[ graph_helper.picture_files.length -1 ].substr(-8, 4) );
+			$('#slider').slider('option','max', data.values.pictures.files.length - 1 );
+			$('#slider').slider('option','value', 0);
+
+			//$('#slider-year').text(graph_helper.picture_files[ 0 ].substr(-8, 4));
+			//$('#slider-units').text(data.values.pictures.units);
+			//$('#slider-value').text( data.values.min_year );
+			$('#species-picture').prop({src:graph_helper.picture_files[0]});
+
+		}else{
+			console.log('HIDE MAP DIV : `'+ graph_helper.picture_files +'`');
+		}
+
+		//$('#slider-year').text(graph_helper.picture_files[ my_val ].substr(-8, 4));
+
+		$('#play-button').on('click', function () {
+			$('#play-button').addClass('positive').removeClass('greybutton');
+			$('#pause-button').removeClass('negative').addClass('greybutton');
+			graph_helper.rotate_picture= setInterval(function(){
+				var my_val = $('#slider').slider('option','value') + 1 ;
+
+				$('#slider').slider('option','value', my_val);
+
+				////console.log(my_val);
+				if( !graph_helper.picture_files[ my_val ] ) {
+
+					//clearInterval(graph_helper.rotate_picture);
+					//graph_helper.rotate_picture = null;
+					//console.log('Rotation Loop complete. Restarting.');
+					//return true;
+					my_val = 0;
+					$('#slider').slider('option','value', 0);
+				}
+
+				$('#species-picture').prop({src: graph_helper.picture_files[ my_val ] });
+			}, 333)
+		});
+
+		$('#pause-button').on('click', function () {
+
+			if( graph_helper.rotate_picture != null ) {
+				clearInterval(graph_helper.rotate_picture);
+				graph_helper.rotate_picture = null;
+				console.log('Interval Cleared');
+			}
+
+			$('#play-button').removeClass('positive').addClass('greybutton');
+			$('#pause-button').addClass('negative').removeClass('greybutton');
+		});
 }
 
 // load graph taken from oceanadapt site files, which was written outside fo Ecotrust - 9.1.18 DP
@@ -235,15 +309,22 @@ var graph_helper = {
 
 function submit_my_information( my_form ) {
 	//We'll be ajaxing the form
-
-
-	$.post({
+	var fields = $(my_form).serializeArray();
+	var submitInfo = axios.create();
+  var submitInfoParams = new URLSearchParams();
+	jQuery.each( fields, function( i, field ) {
+		submitInfoParams.append(field.name, field.value);
+  });
+	submitInfoParams.append('page-action', 'submit-info');
+	axios({
 		url: "/download",
-		data: $(my_form).serializeArray(),
+		method: 'POST',
+		data: submitInfoParams,
 	})
-	.done(function( data ) {
-		if( data['minor-error-code'] == '0' ) {
-			$('#information-token').val( data['values']['token'] );
+	.then(function( data ) {
+		console.log(data);
+		if( data.data['minor-error-code'] == '0' || data.data['major-error-code'] == '6' ) {
+			$('#information-token').val( data.data['values']['token'] );
 			$('#display-form').hide();
 			$('#download-form').show();
 		}else{
@@ -251,9 +332,27 @@ function submit_my_information( my_form ) {
 			$('#display-form').show();
 		}
 
-	})
-	.fail(function(data) {
-		console.error( "error" );
+		var start = 1963;
+		var end = new Date().getFullYear();
+		var options = "";
+		for(var year = start; year <= end; year++){
+			if (year == start) {
+					options += "<option selected>"+ year +"</option>";
+				} else {
+					options += "<option>"+ year +"</option>";
+				}
+		}
+		document.getElementById("startYear").innerHTML = options;
+		var options2 = "";
+		for(var year = start; year <= end; year++) {
+			if (year == end) {
+				options2 += "<option selected>"+ year +"</option>";
+			} else {
+				options2 += "<option>"+ year +"</option>";
+			}
+		}
+		document.getElementById("endYear").innerHTML = options2;
+
 	})
 
 	return false;
