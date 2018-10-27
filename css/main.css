@@ -681,12 +681,13 @@ Map
 }
 
 #map-overlay.opacity-overlay {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.8);
     position: absolute;
     bottom: 0;
     left: 0;
+    padding: 5%;
     top: 0;
-    right: 0;
+    width: 50%;
     z-index: 1;
 }
 
@@ -709,7 +710,7 @@ Map
         transform: translate(-400px,20%);
     }
     #map-overlay.opacity-overlay {
-        width: 100%;
+        width: 35%;
         max-width: 100%;
         transform: translate(0,0);
     }
@@ -721,6 +722,9 @@ Map
     }
     .map-overlay.regional {
         left: 0;
+    }
+    #map-overlay.opacity-overlay {
+        width: 30%;
     }
 }
 
