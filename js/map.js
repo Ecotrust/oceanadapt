@@ -15,6 +15,7 @@ const pins = {
       'properties': {
         'regional_id': 10,
         'regional_code': 'WC_ANN',
+        'ocean_region': 'pacific-region',
         'name': 'Pacific Coast'
       },
       'geometry': {
@@ -31,6 +32,7 @@ const pins = {
       'properties': {
         'regional_id': 4,
         'regional_code': 'GOM',
+        'ocean_region': 'atlantic-region',
         'name': 'Gulf of Mexico'
       },
       'geometry': {
@@ -47,6 +49,7 @@ const pins = {
       'properties': {
         'regional_id': 3,
         'regional_code': 'GOA',
+        'ocean_region': 'pacific-region',
         'name': 'Gulf of Alaska'
       },
       'geometry': {
@@ -63,6 +66,7 @@ const pins = {
       'properties': {
         'regional_id': 7,
         'regional_code': 'GOA',
+        'ocean_region': 'atlantic-region',
         'name': 'South Atlantic'
       },
       'geometry': {
@@ -79,6 +83,7 @@ const pins = {
       'properties': {
         'regional_id': 1,
         'regional_code': 'AI',
+        'ocean_region': 'pacific-region',
         'name': 'Aleutian Islands'
       },
       'geometry': {
@@ -95,6 +100,7 @@ const pins = {
       'properties': {
         'regional_id': 5,
         'regional_code': 'NEUS_F',
+        'ocean_region': 'atlantic-region',
         'name': 'North Atlantic'
       },
       'geometry': {
@@ -111,6 +117,7 @@ const pins = {
       'properties': {
         'regional_id': 2,
         'regional_code': 'EBS',
+        'ocean_region': 'pacific-region',
         'name': 'Eastern Bering Sea'
       },
       'geometry': {
@@ -127,6 +134,7 @@ const pins = {
       'properties': {
         'page': '/pages/national.js',
         'regional_code': 'National',
+        'ocean_region': '',
         'name': 'National'
       },
       'geometry': {
@@ -173,6 +181,7 @@ map.on('load', function () {
             document.getElementById('search-wrap').classList.add('show');
             document.getElementById('regionID').value = e.features[0].properties.regional_id;
             document.getElementById('regionName').value = e.features[0].properties.name;
+            document.getElementById('oceanRegion').value = e.features[0].properties.ocean_region;
             // loadScript(e.features[0].properties.page)
             loadScript('/pages/regional.js')
               .then(function(script) {

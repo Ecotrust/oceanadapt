@@ -52,6 +52,7 @@
   <input type="hidden" name="regionName" id="regionName" val="" />
   <input type="hidden" name="speciesID" id="speciesID" val="" />
   <input type="hidden" name="speciesName" id="speciesName" val="" />
+  <input type="hidden" name="oceanRegion" id="oceanRegion" val="" />
 
   <header>
     <nav class="top navbar navbar-expand-lg">
@@ -68,7 +69,7 @@
           <ul class="nav navbar-nav mt-2 mt-lg-0 justify-content-end">
             <li class="nav-item"><a href="#aboutModal" data-toggle="modal" data-target="#aboutModal" class="nav-link">About</a></li>
             <li class="nav-item"><a href="" class="nav-link">Resources</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Projections</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" id="nav-projections">Projections</a></li>
           </ul>
         </div>
       </nav>
@@ -252,7 +253,7 @@
     							<textarea id="my-purpose" name="my-purpose" class="form-control" required="required" rows="3" ></textarea>
     						</div>
     						<div class="info-form form-group">
-    							<button class="helpme btn btn-primary">Submit My Information</button>
+    							<button class="helpme btn-download btn-download-border">Submit My Information</button>
     						</div>
     					</form>
     				</div>
@@ -277,20 +278,28 @@
     									<option value="11"> West Coast - Triennial </option>
     								</select>
     						</div>
-    						<div class="field-space form-group">
-    							<label for="selectAllData">Select all available data:</label>
-    							<input id="selectAllData" type="checkbox" />
-    						</div>
-    						<div class="field-space form-group"> -OR- </div>
-    						<div class="field-space form-group">
-    							<label for="startYear"> Start Year: </label>
-    							<select id="startYear" name="startYear">
-    							</select>
-    							TO
-    							<label for="endYear"> End Year: </label>
-    							<select id="endYear" name="endYear">
-    							</select>
-    						</div>
+
+    						<fieldset class="field-space form-group">
+                  <div class="row">
+                    <legend class="col-form-label col-sm-4 pt-0">Data Selection</legend>
+                    <div class="col-sm-8">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="selectAllData" id="selectAllData" value="selectAllData">
+                        <label class="form-check-label" for="selectAllData">
+                          All available data
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-label">-OR-</label>
+                      </div>
+                      <div class="form-check">
+                        <select class="form-control" name="startYear" id="startYear"></select>
+                        <label class="form-check-label" for="startYear"> TO </label>
+                        <select class="form-control" name="endYear" id="endYear"></select>
+                      </div>
+                    </div>
+                  </div>
+              </fieldset>
     						<div class="field-space form-group">
     							<label for="include_latitude"> Latitude: </label>
     								<input id="include_latitude" type="checkbox" />
@@ -305,27 +314,32 @@
     						</div>
 
     						<div>
-    							<button id="download-data" type="button" class="helpme btn btn-primary"> Download Data</button>
+    							<button id="download-data" type="button" class="helpme btn-download btn-download-border"> Download Data</button>
+                </div>
+                <div>
     							*<a href="/about_us/#fair-use-policy" target="_blank">Fair Use Policy</a>
     						</div>
     					</div>
+              <br />
+            <hr />
+            <br />
     					<div class="half-width">
     						<h3>Original Downloads</h3>
     						<div class="sub-category">
     							<p> If you would like to download the Raw Data and R script that is used to generate the processed data, please click below:</p>
-    							<button id="download-latest-raw" type="button" class="positive"> Download Latest Raw Data </button>
+    							<button id="download-latest-raw" type="button" class="positive btn-download btn-download-border"> Download Latest Raw Data </button><br />
     							*<a href="/about_us/#fair-use-policy" target="_blank">Fair Use Policy</a>
     						</div>
 
     						<div class="sub-category">
     							<p> If you would like to download the latest R script alone that is used to generate the processed data from the raw data, please click below: </p>
-    							<button id="download-r-script" type="button" class="positive"> Download R Script </button>
+    							<button id="download-r-script" type="button" class="positive btn-download btn-download-border"> Download R Script </button>
                   <p>Development version of the script available on <a href="https://github.com/mpinsky/oceanadapt" target="_blank">GitHub</a>.</p>
     						</div>
 
     						<div class="sub-category">
     							<p> If you would like to download the raster / map creation script, please click below: </p>
-    							<button id="download-map-script" type="button" class="positive"> Download Map / Raster Script</button>
+    							<button id="download-map-script" type="button" class="positive btn-download btn-download-border"> Download Map / Raster Script</button>
     							<p>Additional map / raster generation supplement found <a href="{$base_doc}/latest/ArcGIS_Analysis_Files.zip" target="_blank">here</a> (~213 MBs).</p>
     						</div>
     					</div>
@@ -342,7 +356,7 @@
     									</select>
     							</div>
     							<div style="margin-top:20px;">
-    								<button id="download-archived-data" type="button" class="helpme"> Download Archived Data</button>
+    								<button id="download-archived-data" type="button" class="helpme btn-download btn-download-border"> Download Archived Data</button>
     							</div>
     						</div>
     						<div style="margin-top:10px;clear:right;">

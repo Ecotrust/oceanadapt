@@ -11,10 +11,10 @@
 
   // list.js options
   var options = {
-    valueNames: [ 'common_name', 'scientific_name', { data:['species_id'] } ],
+    valueNames: [ 'common_name', 'scientific_name', { data:['species_id'] }, { data:['species_name'] } ],
     searchClass: 'fuzzy-search',
     // Since there are no elements in the list, this will be used as template.
-    item: '<a class="species_id species-selection dropdown-item" data-id="" href="#"><span class="scientific_name"></span> (<em><span class="common_name"></span></em>)</a>',
+    item: '<a class="species_id species_name species-selection dropdown-item" href="#"><span class="scientific_name"></span> (<em><span class="common_name"></span></em>)</a>',
     fuzzySearch: {
       searchClass: "fuzzy-search",
       location: 0,
@@ -41,6 +41,7 @@
           common_name: species.speciesCommonName,
           scientific_name: species.speciesName,
           species_id: species.speciesID,
+          species_name: species.speciesName,
         })
       }
     })
@@ -63,7 +64,7 @@
       // Listen for species search results item selection
       $('.species-selection').on('click', function(event) {
         event.preventDefault();
-        return chooseSpecies(event.target.parentNode.dataset.species_id);
+        return chooseSpecies(event.target.parentNode.dataset.species_id, event.target.parentNode.dataset.species_name);
       })
 
       $('#show-all').on('click', function() {

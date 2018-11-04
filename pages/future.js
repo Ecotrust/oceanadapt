@@ -20,10 +20,10 @@
 
           <div class="row">
             <div class="col">
-              <div class="title" id="regionName">${regionName.value}</div>
+              <div class="title" id="regionName">Future Changes</div>
               <hr />
               <div>
-                <p>Enter a species above or check “Average Across All Species” to begin.</p>
+                <p>Projected future changes in the distribution of marine animals in the U.S. by region (from <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0196127" target="_blank">Morley et al. 2018</a>)</p>
               </div>
             </div>
           </div>
@@ -34,9 +34,6 @@
   document.getElementById('page-content').innerHTML = `
     <div class="container-fluid bg-light-grey p-4">
       <div class="row justify-content-center">
-        <div class="col-4 text-center">
-          <button type="button" class="btn-download btn-download-border" id="nav-projections" onclick="chooseFuture()">View Projections</button>
-        </div>
         <div class="col-4 text-center">
           <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal" data-tobedownloaded="${regionID}">
             <img src="./img/i_download.svg" /> Download Data
@@ -56,6 +53,16 @@
                 <div id="slider"></div>
               </div>
               <div id="slider-end-year"></div>
+            </div>
+          </div>
+          <div style="text-align:center;margin 1em auto;">
+            <div style="max-width:47%;margin-right:1em;display: inline-block;">
+              <h3> RCP 26 </h3>
+              <img id="species-picture-rcp26" src="" style="max-width: 100%;" />
+            </div>
+            <div style="max-width:47%;margin-left:1em;display: inline-block;">
+              <h3> RCP 85 </h3>
+              <img id="species-picture-rcp85" src="" style="max-width: 100%;" />
             </div>
           </div>
           <div id="slider-value"></div>
@@ -90,17 +97,35 @@
     </div>
   `;
 
-		$( '#slider' ).slider({
-			slide: function( event, ui ) {
-				if( graph_helper.rotate_picture != null ) {
-					$('#pause-button').trigger('click');
-				}
-				$('#species-picture').prop({src: graph_helper.picture_files[ ui.value ] })
-			},
-			start: function( event, ui ) {
-				if( graph_helper.rotate_picture != null ) {
-					$('#pause-button').trigger('click');
-				}
-			}
-		});
+  function iframe_callback_data(my_iframe, my_loader) {
+    if( my_iframe.contents().text() == '' ) {
+      return true;
+    }
+
+    var data = JSON.parse( my_iframe.contents().text() );
+    my_loader.css({visibility:'hidden'});
+    //console.log(data);
+  }
+
+  $(function() {
+    $( '#slider-both' ).slider({
+      slide: function( event, ui ) {
+        ////console.log('sliding');
+
+        if( graph_helper.rotate_picture_both != null ) {
+          $('#pause-button-both').trigger('click');
+        }
+
+        $('#species-picture-rcp26').prop({src: graph_helper.picture_files.rcp26[ ui.value ] });
+        $('#species-picture-rcp85').prop({src: graph_helper.picture_files.rcp85[ ui.value ] });
+        //$('.slider-year').text(graph_helper.picture_files[ ui.value ].substr(-13, 9).replace('_',' - '));
+      },
+      start: function( event, ui ) {
+
+        if( graph_helper.rotate_picture_both != null ) {
+          $('#pause-button-both').trigger('click');
+        }
+      }
+    });
+  });
 })();
