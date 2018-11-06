@@ -49,6 +49,8 @@
       <div id="animation-wrap" class="row slider d-none">
         <div id="slider-div">
           <img id="species-picture" src="" />
+          <img id="species-picture-rcp26" src="" />
+          <img id="species-picture-rcp85" src="" />
           <div id="slider-area" class="p-2">
             <div id="slider-row">
               <div id="slider-start-year"></div>
