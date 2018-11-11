@@ -44,9 +44,9 @@ $('#dataDownloadModal').on('show.bs.modal', function (event) {
 
 // dropdown species selection
 function chooseSpecies(selectedSpeciesID, selectedSpeciesName) {
-	document.getElementById('page-content').classList.add('show');
-	var regionID = document.getElementById('regionID').value;
-	document.getElementById('speciesID').value = selectedSpeciesID;
+  document.getElementById('page-content').classList.add('show');
+  var regionID = document.getElementById('regionID').value;
+  document.getElementById('speciesID').value = selectedSpeciesID;
   document.getElementById('speciesName').value = selectedSpeciesName;
   var speciesSelection = axios.create();
   var speciesSelectionParams = new URLSearchParams();
@@ -91,9 +91,6 @@ function chooseFuture() {
       loadFutureSlider(1, response.data);
 				// loadFuture(1, response.data);
       load_slider(response.data);
-				if (speciesID > 0) {
-
-				}
 			})
 			// .then(function() {
 			// 	futureSelectionParams.append('graph_type', 1);
@@ -112,7 +109,11 @@ function chooseFuture() {
 
 function load_slider(data) {
   document.getElementById('animation-wrap').classList.remove('d-none');
+  document.getElementById('nav-projections').classList.remove('d-none');
   $('#species-picture').prop({src:''});
+  $('#species-picture-rcp26').prop({src:''});
+  $('#species-picture-rcp85').prop({src:''});
+
   if ( Array.isArray(data.values.pictures.files) ) {
     graph_helper.picture_files = data.values.pictures.files;
     if( data.values.pictures.files.length > 0 ) {
@@ -127,56 +128,83 @@ function load_slider(data) {
 		} else {
 			console.log('HIDE MAP DIV : `'+ graph_helper.picture_files +'`');
 		}
+
+    $('#play-button').on('click', function () {
+      $('#play-button').addClass('positive').removeClass('greybutton');
+      $('#pause-button').removeClass('negative').addClass('greybutton');
+  			graph_helper.rotate_picture = setInterval(function(){
+  				var my_val = $('#slider').slider('option','value') + 1 ;
+  				$('#slider').slider('option','value', my_val);
+  				////console.log(my_val);
+  				if( !graph_helper.picture_files[ my_val ] ) {
+  					//clearInterval(graph_helper.rotate_picture);
+  					//graph_helper.rotate_picture = null;
+  					//console.log('Rotation Loop complete. Restarting.');
+  					//return true;
+  					my_val = 0;
+  					$('#slider').slider('option','value', 0);
+  				}
+  				$('#species-picture').prop({src: graph_helper.picture_files[ my_val ] });
+  			}, 333)
+    });
+
+    $('#pause-button').on('click', function () {
+  			if( graph_helper.rotate_picture != null ) {
+  				clearInterval(graph_helper.rotate_picture);
+  				graph_helper.rotate_picture = null;
+  				console.log('Interval Cleared');
+  			}
+  			$('#play-button').removeClass('positive').addClass('greybutton');
+  			$('#pause-button').addClass('negative').removeClass('greybutton');
+    });
+
   } else if (data.values.pictures.files.hasOwnProperty('rcp26')) {
+
     graph_helper.future_picture_files.rcp26 = data.values.pictures.files.rcp26;
     graph_helper.future_picture_files.rcp85 = data.values.pictures.files.rcp85;
 
-    $('.slider-start-year').text( graph_helper.future_picture_files.rcp26[ 0 ].substr(-13, 9).replace('_',' - ') );
-    $('.slider-end-year').text( graph_helper.future_picture_files.rcp26[ graph_helper.future_picture_files.rcp26.length -1 ].substr(-13, 9).replace('_',' - ') );
-    $('#slider-both').slider('option','max', data.values.pictures.files.rcp26.length - 1 );
-    $('#slider-both').slider('option','value', 0);
-    $('#species-picture-rcp26').prop({src: graph_helper.future_picture_files.rcp26[ 0 ] });
-    $('#species-picture-rcp85').prop({src: graph_helper.future_picture_files.rcp85[ 0 ] });
+    $('#slider-start-year').text( graph_helper.future_picture_files.rcp26[ 0 ].substr(-13, 9).replace('_',' - ') );
+    $('#slider-end-year').text( graph_helper.future_picture_files.rcp26[ graph_helper.future_picture_files.rcp26.length - 1 ].substr(-13, 9).replace('_',' - ') );
+    $('#slider').slider('option','max', data.values.pictures.files.rcp26.length - 1 );
+    $('#slider').slider('option','value', 0);
+
+    $('#species-picture-rcp26').prop({src: graph_helper.future_picture_files.rcp26[0] });
+    $('#species-picture-rcp85').prop({src: graph_helper.future_picture_files.rcp85[0] });
+
+    $('#play-button').on('click', function () {
+      if( graph_helper.rotate_picture_both != null ) {
+        //It is already in motion.
+        return true;
+      }
+      graph_helper.rotate_picture_both= setInterval(function(){
+        var my_val = $('#slider').slider('option','value') + 1 ;
+        //console.debug('Rotato: `'+ my_val +'`');
+        $('#slider').slider('option','value', my_val);
+        if( !graph_helper.future_picture_files.rcp26[ my_val ] ) {
+          my_val = 0;
+          $('#slider').slider('option','value', 0);
+        }
+        $('#species-picture-rcp26').prop({src: graph_helper.future_picture_files.rcp26[ my_val ] });
+        $('#species-picture-rcp85').prop({src: graph_helper.future_picture_files.rcp85[ my_val ] });
+        //console.log( graph_helper.picture_files.rcp85[ my_val ] );
+        $('#play-button').addClass('positive').removeClass('greybutton');
+        $('#pause-button').removeClass('negative').addClass('greybutton');
+      }, 500);
+    });
+
+    $('#pause-button').on('click', function () {
+      $('#play-button').removeClass('positive').addClass('greybutton');
+      $('#pause-button').addClass('negative').removeClass('greybutton');
+      if( graph_helper.rotate_picture_both != null ) {
+        clearInterval(graph_helper.rotate_picture_both);
+        graph_helper.rotate_picture_both = null;
+      }
+      return true;
+    });
+
   } else {
     $('#animation-wrap').append('Sorry, no imagery available for species');
   }
-
-		//$('#slider-year').text(graph_helper.picture_files[ my_val ].substr(-8, 4));
-
-		$('#play-button').on('click', function () {
-			$('#play-button').addClass('positive').removeClass('greybutton');
-			$('#pause-button').removeClass('negative').addClass('greybutton');
-			graph_helper.rotate_picture= setInterval(function(){
-				var my_val = $('#slider').slider('option','value') + 1 ;
-
-				$('#slider').slider('option','value', my_val);
-
-				////console.log(my_val);
-				if( !graph_helper.picture_files[ my_val ] ) {
-
-					//clearInterval(graph_helper.rotate_picture);
-					//graph_helper.rotate_picture = null;
-					//console.log('Rotation Loop complete. Restarting.');
-					//return true;
-					my_val = 0;
-					$('#slider').slider('option','value', 0);
-				}
-
-				$('#species-picture').prop({src: graph_helper.picture_files[ my_val ] });
-			}, 333)
-		});
-
-		$('#pause-button').on('click', function () {
-
-			if( graph_helper.rotate_picture != null ) {
-				clearInterval(graph_helper.rotate_picture);
-				graph_helper.rotate_picture = null;
-				console.log('Interval Cleared');
-			}
-
-			$('#play-button').removeClass('positive').addClass('greybutton');
-			$('#pause-button').addClass('negative').removeClass('greybutton');
-		});
 }
 
 // load graph taken from oceanadapt site files

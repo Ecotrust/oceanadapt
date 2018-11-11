@@ -35,7 +35,7 @@
     <div class="container-fluid bg-light-grey p-4">
       <div class="row justify-content-center">
         <div class="col-4 text-center">
-          <button type="button" class="btn-download btn-download-border" id="nav-projections" onclick="chooseFuture()">View Projections</button>
+          <button type="button" class="btn-download btn-download-border d-none" id="nav-projections" onclick="chooseFuture()">View Projections</button>
         </div>
         <div class="col-4 text-center">
           <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal" data-tobedownloaded="${regionID}">
@@ -46,7 +46,7 @@
     </div>
 
     <div class="container">
-      <div id="animation-wrap" class="row slider d-none">
+      <div id="animation-wrap" class="row slider d-none justify-content-center">
         <div id="slider-div">
           <img id="species-picture" src="" />
           <img id="species-picture-rcp26" src="" />
