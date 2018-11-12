@@ -83,7 +83,7 @@
 
       <div class="row">
         <div class="chart-title">
-          <h2>Changes in Latitude</h2>
+          <h2 id="chart-title-two">Changes in Depth</h2>
         </div>
         <div class="chart-wrap">
           <div class="graph_2 graph" id="graph_2"></div>
@@ -97,7 +97,7 @@
 				if( graph_helper.rotate_picture != null ) {
 					$('#pause-button').trigger('click');
 				}
-				$('#species-picture').prop({src: graph_helper.picture_files[ ui.value ] })
+				// $('#species-picture').prop({src: graph_helper.picture_files[ ui.value ] })
 			},
 			start: function( event, ui ) {
 				if( graph_helper.rotate_picture != null ) {

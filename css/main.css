@@ -619,6 +619,15 @@ button.search {
     margin: 0 0 1rem;
 }
 
+#species-picture-rcp26 {
+    float: left;
+    max-width: 50%;
+}
+#species-picture-rcp85 {
+    float: left;
+    max-width: 50%;
+}
+
 #slider-div {
 min-height:3em;
 margin:1em 0;

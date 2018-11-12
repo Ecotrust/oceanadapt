@@ -171,14 +171,14 @@ function load_slider(data) {
     $('#species-picture-rcp26').prop({src: graph_helper.future_picture_files.rcp26[0] });
     $('#species-picture-rcp85').prop({src: graph_helper.future_picture_files.rcp85[0] });
 
+    $('#play-button').off('click');
     $('#play-button').on('click', function () {
       if( graph_helper.rotate_picture_both != null ) {
         //It is already in motion.
         return true;
       }
-      graph_helper.rotate_picture_both= setInterval(function(){
+      graph_helper.rotate_picture_both = setInterval(function(){
         var my_val = $('#slider').slider('option','value') + 1 ;
-        //console.debug('Rotato: `'+ my_val +'`');
         $('#slider').slider('option','value', my_val);
         if( !graph_helper.future_picture_files.rcp26[ my_val ] ) {
           my_val = 0;
@@ -186,12 +186,13 @@ function load_slider(data) {
         }
         $('#species-picture-rcp26').prop({src: graph_helper.future_picture_files.rcp26[ my_val ] });
         $('#species-picture-rcp85').prop({src: graph_helper.future_picture_files.rcp85[ my_val ] });
-        //console.log( graph_helper.picture_files.rcp85[ my_val ] );
+
         $('#play-button').addClass('positive').removeClass('greybutton');
         $('#pause-button').removeClass('negative').addClass('greybutton');
       }, 500);
     });
 
+    $('#pause-button').off('click');
     $('#pause-button').on('click', function () {
       $('#play-button').removeClass('positive').addClass('greybutton');
       $('#pause-button').addClass('negative').removeClass('greybutton');
@@ -846,9 +847,12 @@ function loadFutureSlider(graph_type, data) {
       }
     });
     graph_helper.graph2.graph = g2;
+    $('#chart-title-two').text('Changes in Latitude');
   } else {
     //No graph 2
     console.log('no graph 2');
+    $('#chart-title-two').text('');
+    $('#graph_2').addClass('d-none');
     if( graph_helper.graph2.graph ) {
       graph_helper.graph2.graph.destroy();
       graph_helper.graph2.graph = null;
