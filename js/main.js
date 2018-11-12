@@ -517,44 +517,30 @@ function showDownloadForm() {
 	});
 
 	$('#download-data').on('click', function () {
-		console.info('Download data');
-
-
-
-		var regionID = $('#regionID').val();
-
-		var selectAllData = $('#selectAllData').is(':checked');
-
-		var startYear = $('#startYear').val();
-		var endYear = $('#endYear').val();
-
-		var dataTypeID = $('#dataTypeID').val();
-			var include_latitude=$('#include_latitude').is(':checked')
-			var include_longitude=$('#include_longitude').is(':checked')
-			var include_depth=$('#include_depth').is(':checked')
-
+    console.info('Download data');
+    var regionID = $('#downloadRegionID').val();
+    var selectAllData = $('#selectAllData').is(':checked');
+    var startYear = $('#startYear').val();
+    var endYear = $('#endYear').val();
+    var dataTypeID = $('#dataTypeID').val();
+    var include_latitude=$('#include_latitude').is(':checked')
+    var include_longitude=$('#include_longitude').is(':checked')
+    var include_depth=$('#include_depth').is(':checked')
 
 		//Some error checking
 
-		if(
-			!selectAllData && (
-				startYear == "" &&
-				endYear == ""
-			)
-		){
+		if(!selectAllData && (startYear == "" &&endYear == "")) {
 			alert('Please choose either:\\n1. "All available data" or \\n2. A start and/or end date');
 			return false;
 		}
 
 		//check for start date before endendDateendDate
-
 		if( startYear > endYear ) {
 			alert('End year cannot be before start year.');
 			return false;
 		}
 
 		//if they choose processed data, they have to choose a variable or more to download
-
 		if( dataTypeID == "1" ) {
 			if( !include_latitude && !include_longitude && !include_depth ) {
 				alert('Please select one variable for downloading processed data.');
@@ -562,7 +548,7 @@ function showDownloadForm() {
 			}
 		}
 
-//Google analytic events
+  //Google analytic events
 		var ga_label = {
 			select_all_data : ( $('#selectAllData').is(':checked') ? 'checked' : 'not-checked' ),
 			data_type: (dataTypeID == "1" ? 'Processed Data' : 'RAW Data' ),
@@ -578,42 +564,36 @@ function showDownloadForm() {
 
 		ga('send', 'event',
 			'Download Data',
-			$('#regionID option:selected').text(),
+			$('#downloadRegionID option:selected').text(),
 			JSON.stringify( ga_label )
 		);
 
-
-
 		//For submission:
 		var submitObj = {
-			'page-action':'1',
+			'page-action': '1',
 			'regionID': regionID,
 			'selectAllData': selectAllData,
 			'startYear': startYear,
 			'endYear': endYear,
-			'dataTypeID': dataTypeID,
+			// 'dataTypeID': dataTypeID,
 			'include_latitude': include_latitude,
 			'include_longitude': include_longitude,
 			'include_depth': include_depth,
 			'information-token': $('#information-token').val()
-
 		};
-		// createLoader($('#download-data'), true);
-		//console.info(submitObj);
-	/*
-		//New: ask user for their info
-		open_information_window()
-	*/
-		$.post(
-			"/download",
-			submitObj,
-			null, //no function, taken care of in .done()
-			'json'
-		)
-		.done(function( data ) {
+
+  	var dataSubmitInfo = axios.create();
+    var dataSubmitInfoParams = new URLSearchParams();
+  	jQuery.each( submitObj, function( i, field ) {
+      dataSubmitInfoParams.append(i, field);
+    });
+  	axios({
+  		method: 'post',
+  		url: "/download/",
+  		data: dataSubmitInfoParams,
+  	}).then(function( data ) {
 			console.log('done');
 			console.log(data);
-
 			if( data['minor-error-code'] == '0' ) {
 				// loadComplete();
 				$('<form/>')
@@ -645,12 +625,6 @@ function showDownloadForm() {
 				console.log('Error.');
 			}
 		})
-		.fail(function(data) {
-			console.log( "Server Error" );
-		})
-		.always(function() {
-
-		});
 
 		return true;
 		return  performAction( 1, submitObj,

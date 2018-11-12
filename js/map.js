@@ -171,6 +171,7 @@ map.on('load', function () {
           zoom: 5
         });
         if (e.features[0].properties.regional_code === "National") {
+            document.getElementById('map-wrap').classList.add('half-height');
             loadScript('/pages/national.js');
         } else {
             // import the page for each point through a js file that replaces html content

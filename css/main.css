@@ -459,6 +459,7 @@ Header
 #page-overlay.regional {
     background: transparent;
 }
+
 #page-overlay:empty,
 .page-overlay:empty {
   display: none;
@@ -470,6 +471,8 @@ Header
 
 #page-content.show {
     display: block;
+    position: relative;
+    z-index: 3;
 }
 
 .title {
@@ -679,6 +682,9 @@ Map
     width: 100%;
     z-index: 1;
 }
+    #map-wrap.half-height {
+        height: 45vh;
+    }
 
 #map {
     height: 84vh;

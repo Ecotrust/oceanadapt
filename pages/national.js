@@ -2,7 +2,6 @@
     document.getElementById('page-overlay').classList.add('national');
     document.getElementById('page-overlay').innerHTML = `
         <div class="container">
-
           <div class="row">
             <a href="/" class="nav-back">
               <div class="exit">
@@ -31,22 +30,21 @@
     `;
     document.getElementById('page-content').innerHTML = `
       <div class="container">
-          <div class="row">
-            <div class="chart-title">
-              <h2>Changes in Latitude</h2>
-            </div>
-            <div class="chart-wrap">
-              <div class="graph_1 graph" id="graph_1"></div>
-            </div>
+        <div class="row justify-content-center">
+          <div class="chart-title">
+            <h2>Changes in Latitude</h2>
           </div>
+          <div class="chart-wrap">
+            <div class="graph_1 graph" id="graph_1"></div>
+          </div>
+        </div>
 
-          <div class="row">
-            <div class="chart-title">
-              <h2>Changes in Latitude</h2>
-            </div>
-            <div class="chart-wrap">
-              <div class="graph_2 graph" id="graph_2"></div>
-            </div>
+        <div class="row justify-content-center mb-4">
+          <div class="chart-title">
+            <h2 id="chart-title-two">Changes in Depth</h2>
+          </div>
+          <div class="chart-wrap">
+            <div class="graph_2 graph" id="graph_2"></div>
           </div>
         </div>
       </div>

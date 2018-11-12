@@ -72,7 +72,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="chart-title">
           <h2>Changes in Latitude</h2>
         </div>
@@ -81,7 +81,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row justify-content-center mb-4">
         <div class="chart-title">
           <h2 id="chart-title-two">Changes in Depth</h2>
         </div>
