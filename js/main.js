@@ -48,6 +48,10 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName) {
   var regionID = document.getElementById('regionID').value;
   document.getElementById('speciesID').value = selectedSpeciesID;
   document.getElementById('speciesName').value = selectedSpeciesName;
+  if (selectedSpeciesID !== -1) { // -1 is region selection
+    // if not -1 then species should have a name
+    document.getElementById('selected-species').innerHTML = `<h4 class="mt-4 mb-0">${selectedSpeciesName} selected</h4>`;
+  }
   var speciesSelection = axios.create();
   var speciesSelectionParams = new URLSearchParams();
   speciesSelectionParams.append('page-action', 1);

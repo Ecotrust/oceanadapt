@@ -208,6 +208,11 @@ h3 {
     margin: 0 0 1em;
 }
 
+h4 {
+    color: #00626D;
+    font-family: 'Campton Book', sans-serif;
+}
+
 p {
     font-size: 1em;
     line-height: 1.8375;
@@ -542,7 +547,7 @@ Header
 
 .search-wrap:not(:empty) {
     background: #F0F4F6;
-    padding: 4rem 0;
+    padding: 2rem 0;
     position: relative;
 }
 
@@ -631,9 +636,19 @@ button.search {
     max-width: 50%;
 }
 
+#animation-wrap {
+    background: rgba(240,244,246,0.95);
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    max-width: 50%;
+    z-index: 9;
+}
 #slider-div {
 min-height:3em;
-margin:1em 0;
+margin: 1em 0 0;
 }
 
 #slider-area {
@@ -704,7 +719,7 @@ Map
 }
 
 #map-overlay.opacity-overlay {
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.9);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -726,6 +741,11 @@ Map
 }
 
 @media (min-width: 62em) {
+    #animation-wrap {
+        width: 65%;
+        max-width: 65%;
+    }
+
     #map-overlay {
         left: 50%;
         top: 0%;
@@ -740,6 +760,11 @@ Map
 }
 
 @media (min-width: 84em) {
+    #animation-wrap {
+        width: 70%;
+        max-width: 100%;
+    }
+
     .map-overlay {
         left: 42%;
     }

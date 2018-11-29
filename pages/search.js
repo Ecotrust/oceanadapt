@@ -18,6 +18,8 @@
             <button class="btn btn-link" data-speciesId="-1" id="show-all">Average Across All Species</button>
           </div>
         </div>
+      </div>
+      <div id="selected-species"></div>
     </div>
   `;
 })();
