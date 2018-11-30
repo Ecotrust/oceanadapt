@@ -332,6 +332,10 @@ main p {
     background: #f0f4f6;
 }
 
+#aboutModal {
+    z-index: 1054;
+}
+
 #dataDownloadModal .modal-content,
 #aboutModal .modal-content {
     background: transparent;
@@ -627,18 +631,17 @@ button.search {
     margin: 0 0 1rem;
 }
 
-#species-picture-rcp26 {
-    float: left;
-    max-width: 50%;
-}
+#species-picture-rcp26,
 #species-picture-rcp85 {
-    float: left;
-    max-width: 50%;
+    display: inline-block;
+    margin: 0 -2px;
+    max-width: 49%;
 }
 
 #animation-wrap {
     background: rgba(240,244,246,0.95);
     height: 100%;
+    overflow: auto;
     position: absolute;
     right: 0;
     top: 0;
@@ -648,7 +651,7 @@ button.search {
 }
 #slider-div {
 min-height:3em;
-margin: 1em 0 0;
+margin: 0 0;
 }
 
 #slider-area {
@@ -687,7 +690,7 @@ text-align:center;
 /* ==========================================================================
 Map
 ========================================================================== */
-
+/* keep map-wrap and map the same height */
 #map-wrap {
     background: transparent;
     height: 84vh;

@@ -515,7 +515,7 @@ function showDownloadForm() {
 		);
 
 
-		location.href='./archive/' + $('#archiveID').val() + '/Data_Updated.zip';
+		location.href='/archive/' + $('#archiveID').val() + '/Data_Updated.zip';
 		return true;
 
 	});
@@ -593,7 +593,7 @@ function showDownloadForm() {
     });
   	axios({
   		method: 'post',
-  		url: "/download/",
+  		url: "download/",
   		data: dataSubmitInfoParams,
   	}).then(function( data ) {
 			console.log('done');
@@ -685,7 +685,7 @@ function showDownloadForm() {
 			''
 		);
 
-		location.href='./latest/Data_Updated.zip';
+		location.href='/latest/Data_Updated.zip';
 	});
 	$('#download-r-script').on('click', function () {
 		console.info('Download r script');
@@ -696,7 +696,7 @@ function showDownloadForm() {
 			''
 		);
 
-		location.href='./latest/complete_r_script.R';
+		location.href='/latest/complete_r_script.R';
 	});
 
 	$('#download-map-script').on('click', function () {
@@ -708,7 +708,7 @@ function showDownloadForm() {
 			''
 		);
 
-		location.href='./latest/OAGenerateRasterFiles.py';
+		location.href='/latest/OAGenerateRasterFiles.py';
 	});
 
 };
