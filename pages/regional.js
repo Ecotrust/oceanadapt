@@ -97,7 +97,13 @@
 				if( graph_helper.rotate_picture != null ) {
 					$('#pause-button').trigger('click');
 				}
-				// $('#species-picture').prop({src: graph_helper.picture_files[ ui.value ] })
+        console.log(graph_helper.future_picture_files.rcp26);
+				if (graph_helper.future_picture_files.rcp26.length > 0) {
+        $('#species-picture-rcp26').prop({src: graph_helper.future_picture_files.rcp26[ ui.value ] });
+        $('#species-picture-rcp85').prop({src: graph_helper.future_picture_files.rcp85[ ui.value ] });
+      } else {
+        $('#species-picture').prop({src: graph_helper.picture_files[ ui.value ] })
+      }
 			},
 			start: function( event, ui ) {
 				if( graph_helper.rotate_picture != null ) {
