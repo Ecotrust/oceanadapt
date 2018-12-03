@@ -38,8 +38,8 @@ $('#dataDownloadModal').on('show.bs.modal', function (event) {
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this);
-  modal.find('.modal-title').text('Download ' + dataToDownload);
-  modal.find('.modal-body input').val(dataToDownload);
+  modal.find('.modal-title').text('Download ' /* + dataToDownload */ );
+  // modal.find('.modal-body input').val(dataToDownload);
 });
 
 // dropdown species selection
@@ -453,6 +453,35 @@ function submit_my_information( my_form ) {
 	return false;
 }
 
+function performAction(actionID, postArray, callback) {
+	var returnObject = postDataInformation(actionID, postArray , callback);
+	return true;
+}
+
+function postDataInformation(actionID, dataObject, callback) {
+	dataObject.actionPerform = actionID;
+	var returnData = {};
+	$.post(
+		'/download',
+		dataObject
+	)
+	.done(
+		function (data) {
+			callback( JSON.parse(data) );
+		}
+	)
+	.fail(
+		function (data) {
+			alert('Status Text:'+data.statusText);
+		}
+	)
+	.always(
+		function (data) {
+		}
+	);
+	return true;
+}
+
 function showDownloadForm() {
 
 	$('#regionID').on('change', function () {
@@ -464,7 +493,7 @@ function showDownloadForm() {
 		$.post(
 			"/download", {
 				'page-action':'5',
-				'regionID':$('#regionID').val()
+				'downloadRegionID':$('#regionID').val()
 			},
 			null, //no function, taken care of in .done()
 			'json'
@@ -534,9 +563,9 @@ function showDownloadForm() {
     var startYear = $('#startYear').val();
     var endYear = $('#endYear').val();
     var dataTypeID = $('#dataTypeID').val();
-    var include_latitude=$('#include_latitude').is(':checked')
-    var include_longitude=$('#include_longitude').is(':checked')
-    var include_depth=$('#include_depth').is(':checked')
+    var include_latitude=$('#include_latitude').is(':checked');
+    var include_longitude=$('#include_longitude').is(':checked');
+    var include_depth=$('#include_depth').is(':checked');
 
 		//Some error checking
 
@@ -582,11 +611,11 @@ function showDownloadForm() {
 		//For submission:
 		var submitObj = {
 			'page-action': '1',
-			'regionID': regionID,
+			'downloadRegionID': regionID,
 			'selectAllData': selectAllData,
 			'startYear': startYear,
 			'endYear': endYear,
-			// 'dataTypeID': dataTypeID,
+			'dataTypeID': dataTypeID,
 			'include_latitude': include_latitude,
 			'include_longitude': include_longitude,
 			'include_depth': include_depth,
@@ -631,14 +660,13 @@ function showDownloadForm() {
 					})
 					.appendTo('#dataDownloadForm');
 				$('#dataDownloadForm').submit().remove();
-
 			}else{
 				console.log('Error.');
 			}
 		})
 
-		return true;
-		return  performAction( 1, submitObj,
+		// return true;
+		return performAction( 1, submitObj,
 				function (returnObject) {
 					switch (returnObject.actionPerformedStatus) {
 						case 0:
@@ -669,12 +697,12 @@ function showDownloadForm() {
 								.appendTo('#dataDownloadForm');
 							$('#dataDownloadForm').submit().remove();
 							break;
-						case 1:
-						case 2:
-						case 3:
-						case 4:
-						case 5:
-						case 6:
+  						case 1:
+  						case 2:
+  						case 3:
+  						case 4:
+  						case 5:
+  						case 6:
 							console.error("No Good!");
 							break;
 					}
@@ -718,7 +746,7 @@ function showDownloadForm() {
 		location.href='/latest/OAGenerateRasterFiles.py';
 	});
 
-};
+}
 
 function loadFutureSlider(graph_type, data) {
   var mycallBack = function (ctx, area, dygraph) { };
