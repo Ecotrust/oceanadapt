@@ -462,12 +462,12 @@ function postDataInformation(actionID, dataObject, callback) {
 	dataObject.actionPerform = actionID;
 	var returnData = {};
 	$.post(
-		'/download',
+		'/download/',
 		dataObject
 	)
 	.done(
 		function (data) {
-			callback( JSON.parse(data) );
+			callback( data );
 		}
 	)
 	.fail(
@@ -622,6 +622,8 @@ function showDownloadForm() {
 			'information-token': $('#information-token').val()
 		};
 
+    var submitObjDownload;
+
   	var dataSubmitInfo = axios.create();
     var dataSubmitInfoParams = new URLSearchParams();
   	jQuery.each( submitObj, function( i, field ) {
@@ -629,12 +631,12 @@ function showDownloadForm() {
     });
   	axios({
   		method: 'post',
-  		url: "download/",
+  		url: "/download",
   		data: dataSubmitInfoParams,
   	}).then(function( data ) {
 			console.log('done');
 			console.log(data);
-			if( data['minor-error-code'] == '0' ) {
+			if( data.data['minor-error-code'] == '0' ) {
 				// loadComplete();
 				$('<form/>')
 					.attr({
@@ -656,58 +658,65 @@ function showDownloadForm() {
 						'type':'hidden',
 						'name':'filename',
 						'id':'tempFileName',
-						'value':data.values.statistics.filename
+						'value': data.data.values.statistics.filename
 					})
 					.appendTo('#dataDownloadForm');
-				$('#dataDownloadForm').submit().remove();
+				  $('#dataDownloadForm').submit().remove();
 			}else{
 				console.log('Error.');
 			}
-		})
-
-		// return true;
-		return performAction( 1, submitObj,
-				function (returnObject) {
-					switch (returnObject.actionPerformedStatus) {
-						case 0:
-							console.log(returnObject);
-							loadComplete();
-							$('<form/>')
-								.attr({
-									'id':'dataDownloadForm',
-									'name':'dataDownloadForm',
-									'method':'post',
-									'target':'dataDownloadIFRAME'
-								}).appendTo('body');
-							$('<input />')
-								.attr({
-									'type':'hidden',
-									'name':'actionPerform',
-									'id':'actionPerform',
-									'value':(dataTypeID == "2" ? "3" : "2" )
-								})
-								.appendTo('#dataDownloadForm');
-							$('<input />')
-								.attr({
-									'type':'hidden',
-									'name':'filename',
-									'id':'tempFileName',
-									'value':returnObject.returnValues.statistics.filename
-								})
-								.appendTo('#dataDownloadForm');
-							$('#dataDownloadForm').submit().remove();
-							break;
-  						case 1:
-  						case 2:
-  						case 3:
-  						case 4:
-  						case 5:
-  						case 6:
-							console.error("No Good!");
-							break;
-					}
-				}
-			);
+      submitObjDownload = {
+        'page-action': '2',
+        'filename': data.data.values.statistics.filename
+      };
+		}).then(function(data) {
+      // return true;
+  		return performAction( 1, submitObjDownload,
+  				function (returnObject) {
+          let csvContent = "data:text/csv;charset=utf-8," + returnObject;
+          var csvURI = encodeURI(csvContent);
+          window.open(csvURI);
+  					switch (returnObject.actionPerformedStatus) {
+  						case 0:
+  							console.log(returnObject);
+  							loadComplete();
+  							$('<form/>')
+  								.attr({
+  									'id':'dataDownloadForm',
+  									'name':'dataDownloadForm',
+  									'method':'post',
+  									'target':'dataDownloadIFRAME'
+  								}).appendTo('body');
+  							$('<input />')
+  								.attr({
+  									'type':'hidden',
+  									'name':'actionPerform',
+  									'id':'actionPerform',
+  									'value':(dataTypeID == "2" ? "3" : "2" )
+  								})
+  								.appendTo('#dataDownloadForm');
+  							$('<input />')
+  								.attr({
+  									'type':'hidden',
+  									'name':'filename',
+  									'id':'tempFileName',
+  									'value':returnObject.returnValues.statistics.filename
+  								})
+  								.appendTo('#dataDownloadForm');
+  							$('#dataDownloadForm').submit().remove();
+  							break;
+    						case 1:
+    						case 2:
+    						case 3:
+    						case 4:
+    						case 5:
+    						case 6:
+  							console.error("No Good!");
+  							break;
+  					}
+  				}
+  			);
+    });
 
 	});
 

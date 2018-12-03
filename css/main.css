@@ -649,13 +649,14 @@ button.search {
 #species-picture-rcp85 {
     display: inline-block;
     margin: 0 -2px;
-    max-width: 47%;
+    max-width: 48%;
     width: auto;
 }
 
 #species-picture-rcp26[src*="future"],
 #species-picture-rcp85[src*="future"] {
-    height: 72vh;
+    height: auto;
+    max-height: 72vh;
 }
 
 #animation-wrap {
