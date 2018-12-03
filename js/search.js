@@ -25,14 +25,14 @@
   };
 
   // list.js options
-  // TODO: alphabetical listing of species
-  // var optionsAlpha = {
-  //   valueNames: [ 'common_name', 'scientific_name', { name: 'species_id', attr: 'data-id' } ],
-  //   item: '<a class="species_id species-selection" data-id="" href="#"><span class="common_name"></span><span class="scientific_name"></span></a>',
-  // }
+  var optionsAlpha = {
+    valueNames: [ 'common_name', 'scientific_name', { data:['species_id'] }, { data:['species_name'] } ],
+    item: '<a class="species_id species_name species-selection dropdown-item" href="#"><strong><span class="common_name"></span> </strong> (<span class="scientific_name"></span>)</a>',
+  }
 
   // list.js values
   var values = [];
+  var valuesAlpha = [];
 
   speciesData.post('/regional_data', params)
     .then(function(response) {
@@ -42,16 +42,22 @@
           scientific_name: species.speciesName,
           species_id: species.speciesID,
           species_name: species.speciesName,
-        })
+        });
+        valuesAlpha.push({
+          common_name: species.speciesCommonName,
+          scientific_name: species.speciesName,
+          species_id: species.speciesID,
+          species_name: species.speciesName,
+        });
       }
     })
     .then(function() {
       // create alphabetical list
-      // TODO: alphabetical listing of species
-      // var speciesListAlpha = new List('species-listing-alphabetical-list', optionsAlpha, values);
+      var speciesListAlpha = new List('species-list-alpha', optionsAlpha, valuesAlpha);
 
       // create species type ahead search
       var speciesList = new List('species-list', options, values);
+
       // Listen for search input
       document.getElementById('species-search-input').addEventListener('focus', function() {
         document.querySelector('.list').style.display = 'block';
@@ -61,15 +67,16 @@
           document.querySelector('.list').style.display = 'none';
         }, 300);
       });
+
       // Listen for species search results item selection
       $('.species-selection').on('click', function(event) {
         event.preventDefault();
         return chooseSpecies(event.target.parentNode.dataset.species_id, event.target.parentNode.dataset.species_name);
-      })
+      });
 
       $('#show-all').on('click', function() {
         smoothScroll('#page-content');
-      })
+      });
     })
     .catch(function(error) {
       console.log(error);

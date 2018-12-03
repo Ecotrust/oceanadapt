@@ -12,14 +12,22 @@
             <div class="list dropdown"></div>
           </div>
         </div>
-
+        <button type="button" class="col btn-download btn-download-border d-none" id="nav-projections" onclick="chooseFuture()">View Projections</button>
+        <button class="col species-all btn btn-link" data-speciesId="-1" id="show-all">Average Across All Species</button>
+        <button id="species-list-alpha-toggle" class="col btn btn-link" type="button" data-toggle="collapse" data-target="#search-options" aria-expanded="false" aria-controls="search-options">Species List</button>
+      </div>
+      <div class="row align-items-end">
+        <div id="selected-species" class="col"></div>
         <div class="col">
-          <div class="species-all">
-            <button class="btn btn-link" data-speciesId="-1" id="show-all">Average Across All Species</button>
+          <div class="collapse" id="search-options">
+            <div class="card" id="species-list-alpha">
+              <div class="card-body">
+                <div class="list"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div id="selected-species"></div>
     </div>
   `;
 })();

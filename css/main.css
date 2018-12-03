@@ -272,6 +272,12 @@ button {
     pointer-events: all;
 }
 
+.btn-link {
+    color: #CC0033;
+    font-family: "Campton Light", sans-serif;
+    font-weight: normal;
+}
+
 .icon_block {
     display: block;
 }
@@ -323,6 +329,10 @@ main p {
     font-size: 1.125em;
     line-height: 1.8375;
     margin: 0 0 2rem;
+}
+
+#species-list-alpha {
+  text-transform: capitalize;
 }
 
 /* ---- Data download modal --*/
@@ -560,7 +570,7 @@ Header
     color: #00626D;
 }
 
-.species-all button {
+.species-all {
   color: #00626D;
   vertical-align: middle;
 }
@@ -568,7 +578,7 @@ Header
 .species-search {
     color: #9B9B9B;
     font-family: 'Campton Book', sans-serif;
-    font-size: 1em;
+    font-size: .9375em;
 }
 
 .species-search h2 {
@@ -579,6 +589,10 @@ Header
 button.search {
     border: none;
     background: #CC0033;
+}
+
+#species-search-input {
+    padding: .25rem .5rem;
 }
 
 #species-listing-alphabetical {
@@ -634,10 +648,14 @@ button.search {
 #species-picture-rcp26,
 #species-picture-rcp85 {
     display: inline-block;
-    height: 72vh;
     margin: 0 -2px;
     max-width: 47%;
     width: auto;
+}
+
+#species-picture-rcp26[src*="future"],
+#species-picture-rcp85[src*="future"] {
+    height: 72vh;
 }
 
 #animation-wrap {

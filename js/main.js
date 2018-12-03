@@ -45,6 +45,7 @@ $('#dataDownloadModal').on('show.bs.modal', function (event) {
 // dropdown species selection
 function chooseSpecies(selectedSpeciesID, selectedSpeciesName) {
   document.getElementById('page-content').classList.add('show');
+  document.getElementById('search-options').classList.remove('show')
   var regionID = document.getElementById('regionID').value;
   document.getElementById('speciesID').value = selectedSpeciesID;
   document.getElementById('speciesName').value = selectedSpeciesName;
@@ -111,9 +112,15 @@ function chooseFuture() {
     });
 }
 
+function speciesLevelNav() {
+  document.getElementById('nav-projections').classList.remove('d-none');
+  document.getElementById('show-all').classList.add('d-none');
+  document.getElementById('species-list-alpha-toggle').classList.add('d-none');
+}
+
 function load_slider(data) {
   document.getElementById('animation-wrap').classList.remove('d-none');
-  document.getElementById('nav-projections').classList.remove('d-none');
+  speciesLevelNav();
   $('#species-picture').prop({src:''});
   $('#species-picture-rcp26').prop({src:''});
   $('#species-picture-rcp85').prop({src:''});
