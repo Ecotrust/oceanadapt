@@ -6,7 +6,7 @@ window.onload = function() {
 // Promise wrapper to load scripts
 function loadScript(src) {
   return new Promise(function(resolve, reject) {
-    let script = document.createElement('script');
+    var script = document.createElement('script');
     script.src = src;
 
     script.onload = () => resolve(script);
@@ -45,8 +45,9 @@ $('#dataDownloadModal').on('show.bs.modal', function (event) {
 // dropdown species selection
 function chooseSpecies(selectedSpeciesID, selectedSpeciesName) {
   document.getElementById('page-content').classList.add('show');
-  document.getElementById('search-options').classList.remove('show')
+  document.getElementById('search-options').classList.remove('show');
   var regionID = document.getElementById('regionID').value;
+  document.getElementById('regionalName').innerHTML = document.getElementById('regionName').value;
   document.getElementById('speciesID').value = selectedSpeciesID;
   document.getElementById('speciesName').value = selectedSpeciesName;
   if (selectedSpeciesID !== -1) { // -1 is region selection
@@ -114,6 +115,7 @@ function chooseFuture() {
 
 function speciesLevelNav() {
   document.getElementById('nav-projections').classList.remove('d-none');
+  document.getElementById('species-list-alpha-toggle').classList.remove('d-none');
   document.getElementById('show-all').classList.add('d-none');
   document.getElementById('species-list-alpha-toggle').classList.add('d-none');
 }
@@ -439,15 +441,14 @@ function submit_my_information( my_form ) {
 
 		// Add end years
 		var options2 = "";
-		for(var year = start; year <= end; year++) {
-			if (year == end) {
-				options2 += "<option selected>"+ year +"</option>";
+		for(var i = start; i <= end; i++) {
+			if (i == end) {
+				options2 += "<option selected>"+ i +"</option>";
 			} else {
-				options2 += "<option>"+ year +"</option>";
+				options2 += "<option>"+ i +"</option>";
 			}
 		}
 		document.getElementById("endYear").innerHTML = options2;
-
 	})
 
 	return false;
@@ -673,9 +674,13 @@ function showDownloadForm() {
       // return true;
   		return performAction( 1, submitObjDownload,
   				function (returnObject) {
-          let csvContent = "data:text/csv;charset=utf-8," + returnObject;
+          var csvContent = "data:text/csv;charset=utf-8," + returnObject;
           var csvURI = encodeURI(csvContent);
-          window.open(csvURI);
+          var link = document.createElement("a");
+          link.setAttribute("href", csvURI);
+          link.setAttribute("download", "datadownload.csv");
+          document.body.appendChild(link); // Required for FF
+          link.click(); // This will download the data file named "my_data.csv".
   					switch (returnObject.actionPerformedStatus) {
   						case 0:
   							console.log(returnObject);
@@ -731,6 +736,7 @@ function showDownloadForm() {
 
 		location.href='/latest/Data_Updated.zip';
 	});
+
 	$('#download-r-script').on('click', function () {
 		console.info('Download r script');
 

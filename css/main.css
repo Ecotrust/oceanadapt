@@ -1,4 +1,4 @@
-/*! HTML5 Boilerplate v6.1.0 | MIT License | https://html5boilerplate.com/ */
+/* HTML5 Boilerplate v6.1.0 | MIT License | https://html5boilerplate.com/ */
 
 /*
 * What follows is the result of much research on cross-browser styling.
@@ -502,12 +502,16 @@ Header
     padding-bottom: .5rem;
 }
 
-#regionName {
+#regionalName {
     color: #fff;
     font-family: "Campton Book", sans-serif;
     font-size: 2em;
 }
 
+.region-option .btn-link {
+    color: #fff;
+    font-size: 1.25em;
+}
 
 .chart-title,
 .chart-title h2 {

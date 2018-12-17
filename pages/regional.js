@@ -20,7 +20,7 @@
 
           <div class="row">
             <div class="col">
-              <div class="title" id="regionName">${regionName.value}</div>
+              <div class="title" id="regionalName"></div>
               <hr />
               <div>
                 <p>Search for a species above or check “Average Across All Species”  to begin.</p>
@@ -60,17 +60,17 @@
   document.getElementById('page-content').innerHTML = `
     <div class="container-fluid bg-light-grey p-4">
       <div class="row justify-content-center">
-        <div class="col-4 text-center">
+        <div class="col text-center">
           <button type="button" class="btn-download btn-download-border d-none" id="nav-projections" onclick="chooseFuture()">View Projections</button>
         </div>
-        <div class="col-4 text-center">
+        <div class="col text-center">
           <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal" data-tobedownloaded="${regionID}">
             <img src="./img/i_download.svg" /> Download Data
           </button>
         </div>
-        <div class="col-4 text-center">
+        <!-- <div class="col-4 text-center">
           <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal" data-tobedownloaded="${regionID}">Share</button>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -105,7 +105,7 @@
         $('#species-picture-rcp26').prop({src: graph_helper.future_picture_files.rcp26[ ui.value ] });
         $('#species-picture-rcp85').prop({src: graph_helper.future_picture_files.rcp85[ ui.value ] });
       } else {
-        $('#species-picture').prop({src: graph_helper.picture_files[ ui.value ] })
+        $('#species-picture').prop({src: graph_helper.picture_files[ ui.value ] });
       }
 			},
 			start: function( event, ui ) {

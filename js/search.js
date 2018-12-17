@@ -28,7 +28,7 @@
   var optionsAlpha = {
     valueNames: [ 'common_name', 'scientific_name', { data:['species_id'] }, { data:['species_name'] } ],
     item: '<a class="species_id species_name species-selection dropdown-item" href="#"><strong><span class="common_name"></span> </strong> (<span class="scientific_name"></span>)</a>',
-  }
+  };
 
   // list.js values
   var values = [];

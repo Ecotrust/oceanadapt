@@ -56,7 +56,7 @@
     nationalParams.append('graph_type', 1);
     nationalSelection.post('/national_data', nationalParams)
       .then(function(response) {
-        load_graph(1, response.data)
+        load_graph(1, response.data);
       })
       .then(function() {
         nationalParams.set('graph_type', 2);
@@ -70,8 +70,8 @@
           })
       .catch(function(error) {
         console.log(error);
-      })
-    })
+      });
+    });
 
     document.getElementById('page-content').classList.add('show');
 })();
