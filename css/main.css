@@ -41,10 +41,10 @@ html {
 */
 
 hr {
+    background: #fff;
     display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
+    height: 5px;
+    border: none;
     margin: 1em 0;
     padding: 0;
 }
@@ -285,8 +285,8 @@ button {
 hr {
     background: #e3e9ee;
     border: none;
-    height: 1px;
-    margin: 2em 0;
+    height: 6px;
+    margin: 1.5em 0;
     width: 100%;
 }
 
@@ -502,7 +502,13 @@ Header
     padding-bottom: .5rem;
 }
 
+.title:empty {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
 #regionalName {
+    border-bottom: none;
     color: #fff;
     font-family: "Campton Book", sans-serif;
     font-size: 2em;
@@ -523,7 +529,7 @@ Header
     cursor: pointer;
     color: #CC0033;
     display: inline-block;
-    margin: 4rem 2rem;
+    margin: 2rem;
     position: relative;
     vertical-align: middle;
     font-family: 'Campton Book', sans-serif;
@@ -751,7 +757,7 @@ Map
     position: absolute;
     bottom: 0;
     left: 0;
-    padding: 5%;
+    padding: 2.5%;
     top: 0;
     width: 50%;
     z-index: 1;
@@ -759,6 +765,7 @@ Map
 
 #map-overlay.regional {
     color: #fff;
+    pointer-events: auto;
 }
 
 #map-overlay h1 {
@@ -802,6 +809,16 @@ Map
     #map-overlay.opacity-overlay {
         width: 30%;
     }
+}
+
+@media (min-height: 60em) {
+  .exit {
+    margin: 4rem 2rem;
+  }
+
+  #map-overlay.opacity-overlay {
+    padding: 5%;
+  }
 }
 
 

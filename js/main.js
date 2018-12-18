@@ -47,7 +47,7 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName) {
   document.getElementById('page-content').classList.add('show');
   document.getElementById('search-options').classList.remove('show');
   var regionID = document.getElementById('regionID').value;
-  document.getElementById('regionalName').innerHTML = document.getElementById('regionName').value;
+  document.getElementById('regionalName').innerHTML = document.getElementById('regionName').value + ' ' + document.getElementById('season').value;
   document.getElementById('speciesID').value = selectedSpeciesID;
   document.getElementById('speciesName').value = selectedSpeciesName;
   if (selectedSpeciesID !== -1) { // -1 is region selection

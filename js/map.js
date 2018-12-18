@@ -83,13 +83,13 @@ var pins = {
             'regional_id': 5,
             'regional_code': 'NEUS_F',
             'ocean_region': 'atlantic-region',
-            'name': 'Fall'
+            'season': 'Fall'
           },
           'NEUS_S': {
             'regional_id': 6,
             'regional_code': 'NEUS_S',
             'ocean_region': 'atlantic-region',
-            'name': 'Spring'
+            'season': 'Spring'
           }
         }
       },
@@ -110,19 +110,19 @@ var pins = {
             'regional_id': 7,
             'regional_code': 'SEUS_F',
             'ocean_region': 'atlantic-region',
-            'name': 'Fall'
+            'season': 'Fall'
           },
           'SEUS_SP': {
             'regional_id': 8,
             'regional_code': 'SEUS_S',
             'ocean_region': 'atlantic-region',
-            'name': 'Spring'
+            'season': 'Spring'
           },
           'SEUS_SU': {
             'regional_id': 9,
             'regional_code': 'SEUS_S',
             'ocean_region': 'atlantic-region',
-            'name': 'Summer'
+            'season': 'Summer'
           }
         }
       },
@@ -143,13 +143,13 @@ var pins = {
             'regional_id': 10,
             'regional_code': 'WC_ANN',
             'ocean_region': 'pacific-region',
-            'name': 'Annual'
+            'season': 'Annual 2003-present'
           },
           'WC_TRI': {
             'regional_id': 11,
             'regional_code': 'WC_TRI',
             'ocean_region': 'pacific-region',
-            'name': 'Triennial'
+            'season': 'Triennial 1977-2004'
           }
         },
       },
@@ -211,22 +211,32 @@ map.on('load', function () {
 
     if (e.features[0].properties.regions) {
       var regions = e.features[0].properties.regions;
+      var regionParent = e.features[0].properties.name;
+      document.getElementById('regionName').value = regionParent;
       loadScript('/pages/regional-selection.js')
       .then(function(script) {
         var regionsWrap = document.getElementById('region-options');
         var regionsParsed = JSON.parse(regions);
         for (var region in regionsParsed) {
-          regionsWrap.insertAdjacentHTML('beforeend', `<div class="region-option"><button class="btn btn-link" data-regionid="${regionsParsed[region].regional_id}" data-regionname="${regionsParsed[region].name}" data-regioncode="${regionsParsed[region].regional_code}" data-regionocean="${regionsParsed[region].ocean_region}">${regionsParsed[region].name}</button></div>`);
+          regionsWrap.insertAdjacentHTML('beforeend', `<div class="region-option">
+            <button class="btn btn-link" data-regionid="${regionsParsed[region].regional_id}" data-regionname="${regionParent}" data-regionseason="${regionsParsed[region].season}" data-regioncode="${regionsParsed[region].regional_code}" data-regionocean="${regionsParsed[region].ocean_region}">${regionsParsed[region].season}</button>
+          </div>`);
         }
-        regionsWrap.insertAdjacentHTML('beforeend', '<hr /><p>choice a season</p>');
+        regionsWrap.insertAdjacentHTML('beforeend', '<p>Choose A Season</p>');
         regionsWrap.addEventListener('click', function(event) {
           document.getElementById('regionID').value = event.target.dataset.regionid;
           document.getElementById('regionName').value = event.target.dataset.regionname;
           document.getElementById('oceanRegion').value = event.target.dataset.regionocean;
+          document.getElementById('season').value = event.target.dataset.regionseason;
           document.getElementById('search-wrap').classList.add('show');
           loadScript('/pages/regional.js')
           .then(function(script) {
             chooseSpecies(-1);
+          })
+          .then(function() {
+            console.log(regionsWrap);
+            var options = document.getElementById('region-options');
+            options.appendChild(regionsWrap);
           });
           loadScript('/js/search.js')
           .then(function(script) {

@@ -25,6 +25,8 @@
               <div>
                 <p>Search for a species above or check “Average Across All Species”  to begin.</p>
               </div>
+              <hr />
+              <div id="region-options"></div>
             </div>
           </div>
         </div>
