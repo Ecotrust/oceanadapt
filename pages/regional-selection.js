@@ -19,9 +19,8 @@
           </div>
 
           <div class="row">
-            <div class="col">
+            <div class="col ml-4">
               <div class="title" id="regionalName"></div>
-              <hr />
               <div id="region-options"></div>
             </div>
           </div>
