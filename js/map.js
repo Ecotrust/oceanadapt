@@ -224,6 +224,11 @@ map.on('load', function () {
         }
         regionsWrap.insertAdjacentHTML('beforeend', '<p>Choose A Season</p>');
         regionsWrap.addEventListener('click', function(event) {
+          var selections = document.querySelector('.selected');
+          if (selections) {
+            selections.classList.remove('selected');
+          }
+          event.target.classList.add('selected');
           document.getElementById('regionID').value = event.target.dataset.regionid;
           document.getElementById('regionName').value = event.target.dataset.regionname;
           document.getElementById('oceanRegion').value = event.target.dataset.regionocean;

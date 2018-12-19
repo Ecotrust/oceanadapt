@@ -513,7 +513,7 @@ Header
     display: inline-block;
     font-family: "Campton Book", sans-serif;
     font-size: 2em;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     padding-bottom: 1.25rem;
 }
 
@@ -526,7 +526,11 @@ Header
     font-family: "Campton Book", sans-serif;
     font-size: 1.75em;
     padding: .5rem 2rem .5rem 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
+}
+
+.region-option .btn-link.selected {
+    color: #CC0033;
 }
 
 .chart-title,
@@ -539,7 +543,7 @@ Header
     cursor: pointer;
     color: #CC0033;
     display: inline-block;
-    margin: 2rem 1.5rem;
+    margin: 1.75rem 1.5rem;
     position: relative;
     vertical-align: middle;
     font-family: 'Campton Book', sans-serif;
@@ -795,7 +799,7 @@ Map
         left: 50%;
         top: 0%;
         max-width: 400px;
-        transform: translate(-400px,20%);
+        transform: translate(-400px,0%);
     }
     #map-overlay.opacity-overlay {
         width: 35%;
@@ -829,6 +833,12 @@ Map
   #map-overlay.opacity-overlay {
     padding: 5%;
   }
+}
+
+@media (min-width: 62em) and (min-height: 40em) {
+    #map-overlay {
+        transform: translate(-400px,20%);
+    }
 }
 
 
