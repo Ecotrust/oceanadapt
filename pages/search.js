@@ -12,7 +12,7 @@
             <div class="list"></div>
           </div>
         </div>
-        <button id="nav-projections" class="col btn-download btn-download-border d-none" type="button" onclick="chooseFuture()">View Projections</button>
+        <!-- <button id="nav-projections" class="col btn-download btn-download-border d-none" type="button" onclick="chooseFuture()">View Projections</button> -->
         <button class="col species-all btn btn-link" data-speciesId="-1" id="show-all" data-toggle="button" aria-pressed="false" autocomplete="off">Average Across All Species</button>
         <button id="species-list-alpha-toggle" class="col btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#search-options" aria-expanded="false" aria-controls="search-options">Expand Options <span class="chevron"></span></button>
       </div>

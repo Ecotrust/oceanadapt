@@ -72,7 +72,6 @@
       $('.species-selection').on('click', function(event) {
         event.preventDefault();
         document.querySelector('.list').style.display = 'none';
-        console.log(event);
         return chooseSpecies(event.target.dataset.species_id, event.target.dataset.species_name);
       });
 

@@ -17,22 +17,22 @@ function loadScript(src) {
 }
 
 const smoothScroll = element =>
-	document.querySelector(element).scrollIntoView({
-  	behavior: 'smooth'
-	});
+document.querySelector(element).scrollIntoView({
+  behavior: 'smooth'
+});
 
 // update data to be downloaded
 $('#dataDownloadModal').on('show.bs.modal', function (event) {
-	axios({
-		url: '/download',
-	}).then(function(response) {
+  axios({
+    url: '/download',
+  }).then(function(response) {
 
-	});
-	$('#user-info-form').submit(function(event) {
-		console.log(event);
-		event.preventDefault();
-		submit_my_information(event.target)
-	});
+  });
+  $('#user-info-form').submit(function(event) {
+    console.log(event);
+    event.preventDefault();
+    submit_my_information(event.target)
+  });
   var button = $(event.relatedTarget); // Button that triggered the modal
   var dataToDownload = button.data('tobedownloaded'); // Extract info from data-* attributes
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -61,31 +61,31 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName) {
   speciesSelectionParams.append('regionID', regionID);
   speciesSelectionParams.append('speciesID', selectedSpeciesID);
   speciesSelection.post('/regional_data', speciesSelectionParams)
-    .then(function(response) {
-				load_graph(1, response.data);
-				if (selectedSpeciesID > 0) {
-					load_slider(response.data);
-				}
-			})
-			.then(function() {
-				speciesSelectionParams.set('graph_type', 2);
-				speciesSelection.post('/regional_data', speciesSelectionParams)
-					.then(function(res) {
-							load_graph(2, res.data);
-	       })
-				 .catch(function(error) {
-		       console.log(error);
-		     })
-			})
+  .then(function(response) {
+    load_graph(1, response.data);
+    if (selectedSpeciesID > 0) {
+      load_slider(response.data);
+    }
+  })
+  .then(function() {
+    speciesSelectionParams.set('graph_type', 2);
+    speciesSelection.post('/regional_data', speciesSelectionParams)
+    .then(function(res) {
+      load_graph(2, res.data);
+    })
     .catch(function(error) {
       console.log(error);
-    });
+    })
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
 }
 
 // future projection selection
 function chooseFuture() {
-	var oceanRegion = document.getElementById('oceanRegion').value;
-	var speciesName = document.getElementById('speciesName').value;
+  var oceanRegion = document.getElementById('oceanRegion').value;
+  var speciesName = document.getElementById('speciesName').value;
   var futureSelection = axios.create();
   var futureSelectionParams = new URLSearchParams();
   futureSelectionParams.append('page-action', 1);
@@ -93,31 +93,31 @@ function chooseFuture() {
   futureSelectionParams.append('regionID', oceanRegion);
   futureSelectionParams.append('speciesID', speciesName);
   futureSelection.post('/future_data/', futureSelectionParams)
-    .then(function(response) {
-      loadFutureSlider(1, response.data);
-				// loadFuture(1, response.data);
-      load_slider(response.data);
-		})
-			// .then(function() {
-			// 	futureSelectionParams.append('graph_type', 1);
-			// 	futureSelection.post('/future_data', futureSelectionParams)
-			// 		.then(function(res) {
-			// 				loadFuture(2, res.data);
-	    //    })
-			// 	 .catch(function(error) {
-		  //      console.log(error);
-		  //    })
-			// })
-    .catch(function(error) {
-      console.log(error);
-    });
+  .then(function(response) {
+    loadFutureSlider(1, response.data);
+    // loadFuture(1, response.data);
+    load_slider(response.data);
+  })
+  // .then(function() {
+  // 	futureSelectionParams.append('graph_type', 1);
+  // 	futureSelection.post('/future_data', futureSelectionParams)
+  // 		.then(function(res) {
+  // 				loadFuture(2, res.data);
+  //    })
+  // 	 .catch(function(error) {
+  //      console.log(error);
+  //    })
+  // })
+  .catch(function(error) {
+    console.log(error);
+  });
 }
 
 function speciesLevelNav() {
   document.getElementById('nav-projections').classList.remove('d-none');
   document.getElementById('species-list-alpha-toggle').classList.remove('d-none');
   document.getElementById('show-all').classList.add('d-none');
-  document.getElementById('species-list-alpha-toggle').classList.add('d-none');
+  // document.getElementById('species-list-alpha-toggle').classList.add('d-none');
 }
 
 function load_slider(data) {
@@ -138,37 +138,29 @@ function load_slider(data) {
       $('#slider').slider('option','max', data.values.pictures.files.length - 1 );
       $('#slider').slider('option','value', 0);
       $('#species-picture').prop({src:graph_helper.picture_files[0]});
-		} else {
-			console.log('HIDE MAP DIV : `'+ graph_helper.picture_files +'`');
-		}
+    } else {
+      console.log('HIDE MAP DIV : `'+ graph_helper.picture_files +'`');
+    }
 
     $('#play-button').on('click', function () {
-      $('#play-button').addClass('positive').removeClass('greybutton');
-      $('#pause-button').removeClass('negative').addClass('greybutton');
-  			graph_helper.rotate_picture = setInterval(function(){
-  				var my_val = $('#slider').slider('option','value') + 1 ;
-  				$('#slider').slider('option','value', my_val);
-  				////console.log(my_val);
-  				if( !graph_helper.picture_files[ my_val ] ) {
-  					//clearInterval(graph_helper.rotate_picture);
-  					//graph_helper.rotate_picture = null;
-  					//console.log('Rotation Loop complete. Restarting.');
-  					//return true;
-  					my_val = 0;
-  					$('#slider').slider('option','value', 0);
-  				}
-  				$('#species-picture').prop({src: graph_helper.picture_files[ my_val ] });
-  			}, 333)
+      graph_helper.rotate_picture = setInterval(function() {
+        var my_val = $('#slider').slider('option','value') + 1 ;
+        $('#slider').slider('option','value', my_val);
+        if (!graph_helper.picture_files[ my_val ]) {
+          my_val = 0;
+          $('#slider').slider('option','value', 0);
+        }
+        $('#species-picture').prop({src: graph_helper.picture_files[ my_val ] });
+      }, 400);
+      $('#play-button').addClass('disabled').attr('disabled', true);
+      $('#pause-button').removeClass('disabled').attr('disabled', false);
     });
 
     $('#pause-button').on('click', function () {
-  			if( graph_helper.rotate_picture != null ) {
-  				clearInterval(graph_helper.rotate_picture);
-  				graph_helper.rotate_picture = null;
-  				console.log('Interval Cleared');
-  			}
-  			$('#play-button').removeClass('positive').addClass('greybutton');
-  			$('#pause-button').addClass('negative').removeClass('greybutton');
+      clearInterval(graph_helper.rotate_picture);
+      graph_helper.rotate_picture = null;
+      $('#play-button').removeClass('disabled').attr('disabled', false);
+      $('#pause-button').addClass('disabled').attr('disabled', true);
     });
 
   } else if (data.values.pictures.files.hasOwnProperty('rcp26')) {
@@ -224,162 +216,162 @@ function load_slider(data) {
 // load graph taken from oceanadapt site files
 // written outside fo Ecotrust by rutgers - 9.1.18 DP
 function load_graph(graph_type, data) {
-	var regionID = document.getElementById('regionID').value;
-	var speciesID = document.getElementById('speciesID').value;
+  var regionID = document.getElementById('regionID').value;
+  var speciesID = document.getElementById('speciesID').value;
 
-	if (data['minor-error-code'] == '0') {
-		var mycallBack = function (ctx, area, dygraph) { };
-		if (speciesID == "-1"){
-			 mycallBack =function (ctx, area, dygraph) {
-					var graph_range = dygraph.xAxisRange();
-					var p1 = dygraph.toDomCoords(graph_range[0],0);
-					var p2 = dygraph.toDomCoords(graph_range[1],0);
+  if (data['minor-error-code'] == '0') {
+    var mycallBack = function (ctx, area, dygraph) { };
+    if (speciesID == "-1"){
+      mycallBack =function (ctx, area, dygraph) {
+        var graph_range = dygraph.xAxisRange();
+        var p1 = dygraph.toDomCoords(graph_range[0],0);
+        var p2 = dygraph.toDomCoords(graph_range[1],0);
 
-					ctx.strokeStyle='blue';
-					ctx.beginPath();
-					ctx.moveTo(p1[0],p1[1]);
-					ctx.lineTo(p2[0],p2[1]);
-					ctx.closePath();
-					ctx.stroke();
-				};
-		}
+        ctx.strokeStyle='blue';
+        ctx.beginPath();
+        ctx.moveTo(p1[0],p1[1]);
+        ctx.lineTo(p2[0],p2[1]);
+        ctx.closePath();
+        ctx.stroke();
+      };
+    }
 
-		var g = new Dygraph(
-			document.getElementById('graph_' + graph_type),
-			data.values.csv_data,
-			{
-				errorBars: true,
-				sigma: 1, //only one std
-				//customBars: true, //don't use with errorBars
-				legend:'always',
-				ylabel: data.values.csv_data_y_label,
-				xlabel: 'Year',
-				labelsDivWidth: 265,
-				underlayCallback: mycallBack,
-			}
-		);
+    var g = new Dygraph(
+      document.getElementById('graph_' + graph_type),
+      data.values.csv_data,
+      {
+        errorBars: true,
+        sigma: 1, //only one std
+        //customBars: true, //don't use with errorBars
+        legend:'always',
+        ylabel: data.values.csv_data_y_label,
+        xlabel: 'Year',
+        labelsDivWidth: 265,
+        underlayCallback: mycallBack,
+      }
+    );
 
-		if (graph_type=="1") {
-			g.updateOptions({
-				axes:{
-					y: {
-						valueFormatter: function(x) {
-							var mystring= '' + x;
-							return mystring;
-						}
-					}
-				}
-			});
+    if (graph_type=="1") {
+      g.updateOptions({
+        axes:{
+          y: {
+            valueFormatter: function(x) {
+              var mystring= '' + x;
+              return mystring;
+            }
+          }
+        }
+      });
 
-			graph_helper.latGraph.data = data.values.csv_data;
-			graph_helper.latGraph.graph = g;
+      graph_helper.latGraph.data = data.values.csv_data;
+      graph_helper.latGraph.graph = g;
 
-		} else if (graph_type=="2") {
-			//PLEASE NOTE: We're reversing the values before they are sent back to us for depth only.
-			//When returning data for the depth chart using action 1, we return -1*depth to get the line in the proper positioning.
-			//	After, we simply modify the labels to show the appropriate y axis and y axis value
-			g.updateOptions({
-				axes:{
-					y: {
-						valueFormatter: function(x) {
-							////console.log(x);
-							var mystring= '' + x;
-							if( mystring=="0" ) { return "0" }
-							else if( mystring.charAt(0) == "-"  ) {
-								return mystring.substr(1);
-							}
-							return'-'+mystring;
-						},
-						axisLabelFormatter: function(x) {
-							////console.log(x);
-							var mystring= '' + x;
-							if( mystring=="0" ) { return "0" }
-							else if( mystring.charAt(0) == "-"  ) {
-								return mystring.substr(1);
-							}
-							return'-'+mystring;
-						}
-					}
-				}
-			});
-			graph_helper.depthGraph.data = data.values.csv_data;
-			graph_helper.depthGraph.graph = g;
-		}else if(graph_type=="3") {
-			g.updateOptions({
-				axes:{
-					y: {
-						valueFormatter: function(x) {
-							////console.log(x);
-							var mystring= '' + x;
-							return mystring;
-						}
-					}
-				}
-			});
+    } else if (graph_type=="2") {
+      //PLEASE NOTE: We're reversing the values before they are sent back to us for depth only.
+      //When returning data for the depth chart using action 1, we return -1*depth to get the line in the proper positioning.
+      //	After, we simply modify the labels to show the appropriate y axis and y axis value
+      g.updateOptions({
+        axes:{
+          y: {
+            valueFormatter: function(x) {
+              ////console.log(x);
+              var mystring= '' + x;
+              if( mystring=="0" ) { return "0" }
+              else if( mystring.charAt(0) == "-"  ) {
+                return mystring.substr(1);
+              }
+              return'-'+mystring;
+            },
+            axisLabelFormatter: function(x) {
+              ////console.log(x);
+              var mystring= '' + x;
+              if( mystring=="0" ) { return "0" }
+              else if( mystring.charAt(0) == "-"  ) {
+                return mystring.substr(1);
+              }
+              return'-'+mystring;
+            }
+          }
+        }
+      });
+      graph_helper.depthGraph.data = data.values.csv_data;
+      graph_helper.depthGraph.graph = g;
+    }else if(graph_type=="3") {
+      g.updateOptions({
+        axes:{
+          y: {
+            valueFormatter: function(x) {
+              ////console.log(x);
+              var mystring= '' + x;
+              return mystring;
+            }
+          }
+        }
+      });
 
-			graph_helper.lonGraph.data = data.values.csv_data;
-			graph_helper.lonGraph.graph = g;
-		}
+      graph_helper.lonGraph.data = data.values.csv_data;
+      graph_helper.lonGraph.graph = g;
+    }
 
-		if( data.values.isSpeciesData == 'true' ) {
+    if( data.values.isSpeciesData == 'true' ) {
 
-				// expand_graph_set(0);
+      // expand_graph_set(0);
 
-				if( graph_type == '1' ) {
-					$('#species-picture').prop({src:''});
-					graph_helper.picture_files = data.values.pictures.files;
-					if( data.values.pictures.files.length > 0 ) {
-						var i=0;
-						for(i;i<graph_helper.picture_files.length;i++) {
-							graph_helper.picture_files[i] = '/common_files/picture_folder/' + data.values.pictures.dir + '/' + graph_helper.picture_files[i];
-						}
-						$('#slider-start-year').text( graph_helper.picture_files[ 0 ].substr(-8, 4) );
-						$('#slider-end-year').text( graph_helper.picture_files[ graph_helper.picture_files.length -1 ].substr(-8, 4) );
-						$('#slider').slider('option','max', data.values.pictures.files.length - 1 );
-						$('#slider').slider('option','value', 0);
+      if( graph_type == '1' ) {
+        $('#species-picture').prop({src:''});
+        graph_helper.picture_files = data.values.pictures.files;
+        if( data.values.pictures.files.length > 0 ) {
+          var i=0;
+          for(i;i<graph_helper.picture_files.length;i++) {
+            graph_helper.picture_files[i] = '/common_files/picture_folder/' + data.values.pictures.dir + '/' + graph_helper.picture_files[i];
+          }
+          $('#slider-start-year').text( graph_helper.picture_files[ 0 ].substr(-8, 4) );
+          $('#slider-end-year').text( graph_helper.picture_files[ graph_helper.picture_files.length -1 ].substr(-8, 4) );
+          $('#slider').slider('option','max', data.values.pictures.files.length - 1 );
+          $('#slider').slider('option','value', 0);
 
-						//$('#slider-year').text(graph_helper.picture_files[ 0 ].substr(-8, 4));
-						//$('#slider-units').text(data.values.pictures.units);
-						//$('#slider-value').text( data.values.min_year );
-						$('#species-picture').prop({src:graph_helper.picture_files[0]});
+          //$('#slider-year').text(graph_helper.picture_files[ 0 ].substr(-8, 4));
+          //$('#slider-units').text(data.values.pictures.units);
+          //$('#slider-value').text( data.values.min_year );
+          $('#species-picture').prop({src:graph_helper.picture_files[0]});
 
-					}else{
-						// $('#graph_4').hide();
-						// $('#map-div').hide();
-					}
-				}
+        }else{
+          // $('#graph_4').hide();
+          // $('#map-div').hide();
+        }
+      }
 
-			if( speciesID ==-1 && (regionID == '7' || regionID == '8' || regionID == '9')){
-				console.log('SEUS and no species selected');
-				// expand_graph_set(1);
-			}
+      if( speciesID ==-1 && (regionID == '7' || regionID == '8' || regionID == '9')){
+        console.log('SEUS and no species selected');
+        // expand_graph_set(1);
+      }
 
-			if( $('#play-button').is(':visible') ) {
-				// $('#play-button').trigger('click');
-			}
-		}else{
-			//console.log('Error');
-		}
-	}
-	return true;
+      if( $('#play-button').is(':visible') ) {
+        // $('#play-button').trigger('click');
+      }
+    }else{
+      //console.log('Error');
+    }
+  }
+  return true;
 }
 
 var graph_helper = {
-	latGraph:{
-		graph_num: 1,
-		data:'',
-		graph:null
-	},
-	depthGraph:{
-		graph_num: 2,
-		data:'',
-		graph:null
-	},
-	lonGraph:{
-		graph_num: 3,
-		data:'',
-		graph:null
-	},
+  latGraph:{
+    graph_num: 1,
+    data:'',
+    graph:null
+  },
+  depthGraph:{
+    graph_num: 2,
+    data:'',
+    graph:null
+  },
+  lonGraph:{
+    graph_num: 3,
+    data:'',
+    graph:null
+  },
   graph1:{
     graph_num: 1,
     data:'',
@@ -394,372 +386,372 @@ var graph_helper = {
     rcp26:[],
     rcp85:[]
   },
-	picture_files:[],
+  picture_files:[],
   rotate_picture_both: null,
-	rotate_picture: null //The set interval
+  rotate_picture: null //The set interval
 };
 
 function submit_my_information( my_form ) {
-	//We'll be ajaxing the form
-	var fields = $(my_form).serializeArray();
-	var submitInfo = axios.create();
+  //We'll be ajaxing the form
+  var fields = $(my_form).serializeArray();
+  var submitInfo = axios.create();
   var submitInfoParams = new URLSearchParams();
-	jQuery.each( fields, function( i, field ) {
-		submitInfoParams.append(field.name, field.value);
+  jQuery.each( fields, function( i, field ) {
+    submitInfoParams.append(field.name, field.value);
   });
-	submitInfoParams.append('page-action', 'submit-info');
-	axios({
-		method: 'post',
-		url: "/download",
-		data: submitInfoParams,
-	})
-	.then(function( data ) {
-		if( data.data['minor-error-code'] == '0' || data.data['major-error-code'] == '6' ) {
-			showDownloadForm();
-			$('#information-token').val( data.data['values']['token'] );
-			$('#display-form').hide();
-			$('#download-form').show();
-		}else{
-			alert('There was a problem submitting your information. Please try again.');
-			$('#display-form').show();
-		}
+  submitInfoParams.append('page-action', 'submit-info');
+  axios({
+    method: 'post',
+    url: "/download",
+    data: submitInfoParams,
+  })
+  .then(function( data ) {
+    if( data.data['minor-error-code'] == '0' || data.data['major-error-code'] == '6' ) {
+      showDownloadForm();
+      $('#information-token').val( data.data['values']['token'] );
+      $('#display-form').hide();
+      $('#download-form').show();
+    }else{
+      alert('There was a problem submitting your information. Please try again.');
+      $('#display-form').show();
+    }
 
-		// start and end years
-		var start = 1963;
-		var end = new Date().getFullYear();
-		var options = "";
+    // start and end years
+    var start = 1963;
+    var end = new Date().getFullYear();
+    var options = "";
 
-		// add start years
-		for(var year = start; year <= end; year++){
-			if (year == start) {
-					options += "<option selected>"+ year +"</option>";
-				} else {
-					options += "<option>"+ year +"</option>";
-				}
-		}
-		document.getElementById("startYear").innerHTML = options;
+    // add start years
+    for(var year = start; year <= end; year++){
+      if (year == start) {
+        options += "<option selected>"+ year +"</option>";
+      } else {
+        options += "<option>"+ year +"</option>";
+      }
+    }
+    document.getElementById("startYear").innerHTML = options;
 
-		// Add end years
-		var options2 = "";
-		for(var i = start; i <= end; i++) {
-			if (i == end) {
-				options2 += "<option selected>"+ i +"</option>";
-			} else {
-				options2 += "<option>"+ i +"</option>";
-			}
-		}
-		document.getElementById("endYear").innerHTML = options2;
-	})
+    // Add end years
+    var options2 = "";
+    for(var i = start; i <= end; i++) {
+      if (i == end) {
+        options2 += "<option selected>"+ i +"</option>";
+      } else {
+        options2 += "<option>"+ i +"</option>";
+      }
+    }
+    document.getElementById("endYear").innerHTML = options2;
+  })
 
-	return false;
+  return false;
 }
 
 function performAction(actionID, postArray, callback) {
-	var returnObject = postDataInformation(actionID, postArray , callback);
-	return true;
+  var returnObject = postDataInformation(actionID, postArray , callback);
+  return true;
 }
 
 function postDataInformation(actionID, dataObject, callback) {
-	dataObject.actionPerform = actionID;
-	var returnData = {};
-	$.post(
-		'/download/',
-		dataObject
-	)
-	.done(
-		function (data) {
-			callback( data );
-		}
-	)
-	.fail(
-		function (data) {
-			alert('Status Text:'+data.statusText);
-		}
-	)
-	.always(
-		function (data) {
-		}
-	);
-	return true;
+  dataObject.actionPerform = actionID;
+  var returnData = {};
+  $.post(
+    '/download/',
+    dataObject
+  )
+  .done(
+    function (data) {
+      callback( data );
+    }
+  )
+  .fail(
+    function (data) {
+      alert('Status Text:'+data.statusText);
+    }
+  )
+  .always(
+    function (data) {
+    }
+  );
+  return true;
 }
 
 function showDownloadForm() {
 
-	$('#regionID').on('change', function () {
+  $('#regionID').on('change', function () {
 
-		console.info('Region changed');
-		$('#startYear option').remove();
-		$('#endYear option').remove();
+    console.info('Region changed');
+    $('#startYear option').remove();
+    $('#endYear option').remove();
 
-		$.post(
-			"/download", {
-				'page-action':'5',
-				'downloadRegionID':$('#regionID').val()
-			},
-			null, //no function, taken care of in .done()
-			'json'
-		)
-		.done(function( data ) {
-			console.log('done');
-			console.log(data);
+    $.post(
+      "/download", {
+        'page-action':'5',
+        'downloadRegionID':$('#regionID').val()
+      },
+      null, //no function, taken care of in .done()
+      'json'
+    )
+    .done(function( data ) {
+      console.log('done');
+      console.log(data);
 
-			if( data['minor-error-code'] == '0' ) {
+      if( data['minor-error-code'] == '0' ) {
 
-				var startYear = data.values.startYear;
-				var endYear = data.values.endYear;
-				var i=0;
-				for(i=0;(i+startYear)<=endYear;i++) {
-					$('#startYear').append(
-						$('<option></option')
-							.text( (i+startYear) )
-							.val( (i+startYear) )
-					);
-					$('#endYear').append(
-						$('<option></option')
-							.text( (i+startYear) )
-							.val( (i+startYear) )
-					);
+        var startYear = data.values.startYear;
+        var endYear = data.values.endYear;
+        var i=0;
+        for(i=0;(i+startYear)<=endYear;i++) {
+          $('#startYear').append(
+            $('<option></option')
+            .text( (i+startYear) )
+            .val( (i+startYear) )
+          );
+          $('#endYear').append(
+            $('<option></option')
+            .text( (i+startYear) )
+            .val( (i+startYear) )
+          );
 
-				}
+        }
 
-				$('#endYear').val($('#endYear option:last').val() );
-			}else{
-				console.log('Error.');
-			}
-		})
-		.fail(function(data) {
-			console.log( "Server Error" );
-		})
-		.always(function() {
+        $('#endYear').val($('#endYear option:last').val() );
+      }else{
+        console.log('Error.');
+      }
+    })
+    .fail(function(data) {
+      console.log( "Server Error" );
+    })
+    .always(function() {
 
-		});
+    });
 
-		return true;
+    return true;
 
-	});
+  });
 
-	$('#download-archived-data').on('click', function () {
-		console.info('download archvied');
+  $('#download-archived-data').on('click', function () {
+    console.info('download archvied');
 
-		if( $('#archiveID').val() == '-1') {
-			return true;
-		}
+    if( $('#archiveID').val() == '-1') {
+      return true;
+    }
 
-		ga('send', 'event',
-			'Archived Data',
-			$('#archiveID option:selected').text(),
-			''
-		);
+    ga('send', 'event',
+    'Archived Data',
+    $('#archiveID option:selected').text(),
+    ''
+  );
 
 
-		location.href='/archive/' + $('#archiveID').val() + '/Data_Updated.zip';
-		return true;
+  location.href='/archive/' + $('#archiveID').val() + '/Data_Updated.zip';
+  return true;
 
-	});
+});
 
-	$('#download-data').on('click', function () {
-    console.info('Download data');
-    var regionID = $('#downloadRegionID').val();
-    var selectAllData = $('#selectAllData').is(':checked');
-    var startYear = $('#startYear').val();
-    var endYear = $('#endYear').val();
-    var dataTypeID = $('#dataTypeID').val();
-    var include_latitude=$('#include_latitude').is(':checked');
-    var include_longitude=$('#include_longitude').is(':checked');
-    var include_depth=$('#include_depth').is(':checked');
+$('#download-data').on('click', function () {
+  console.info('Download data');
+  var regionID = $('#downloadRegionID').val();
+  var selectAllData = $('#selectAllData').is(':checked');
+  var startYear = $('#startYear').val();
+  var endYear = $('#endYear').val();
+  var dataTypeID = $('#dataTypeID').val();
+  var include_latitude=$('#include_latitude').is(':checked');
+  var include_longitude=$('#include_longitude').is(':checked');
+  var include_depth=$('#include_depth').is(':checked');
 
-		//Some error checking
+  //Some error checking
 
-		if(!selectAllData && (startYear == "" &&endYear == "")) {
-			alert('Please choose either:\\n1. "All available data" or \\n2. A start and/or end date');
-			return false;
-		}
+  if(!selectAllData && (startYear == "" &&endYear == "")) {
+    alert('Please choose either:\\n1. "All available data" or \\n2. A start and/or end date');
+    return false;
+  }
 
-		//check for start date before endendDateendDate
-		if( startYear > endYear ) {
-			alert('End year cannot be before start year.');
-			return false;
-		}
+  //check for start date before endendDateendDate
+  if( startYear > endYear ) {
+    alert('End year cannot be before start year.');
+    return false;
+  }
 
-		//if they choose processed data, they have to choose a variable or more to download
-		if( dataTypeID == "1" ) {
-			if( !include_latitude && !include_longitude && !include_depth ) {
-				alert('Please select one variable for downloading processed data.');
-				return false;
-			}
-		}
+  //if they choose processed data, they have to choose a variable or more to download
+  if( dataTypeID == "1" ) {
+    if( !include_latitude && !include_longitude && !include_depth ) {
+      alert('Please select one variable for downloading processed data.');
+      return false;
+    }
+  }
 
   //Google analytic events
-		var ga_label = {
-			select_all_data : ( $('#selectAllData').is(':checked') ? 'checked' : 'not-checked' ),
-			data_type: (dataTypeID == "1" ? 'Processed Data' : 'RAW Data' ),
-			start_year: $('#startYear').val(),
-			end_year: $('#endYear').val()
-		};
+  var ga_label = {
+    select_all_data : ( $('#selectAllData').is(':checked') ? 'checked' : 'not-checked' ),
+    data_type: (dataTypeID == "1" ? 'Processed Data' : 'RAW Data' ),
+    start_year: $('#startYear').val(),
+    end_year: $('#endYear').val()
+  };
 
-		if( dataTypeID == "1" ){
-			ga_label.include_latitude = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
-			ga_label.include_longitude = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
-			ga_label.include_depth = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
-		}
+  if( dataTypeID == "1" ){
+    ga_label.include_latitude = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
+    ga_label.include_longitude = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
+    ga_label.include_depth = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
+  }
 
-		ga('send', 'event',
-			'Download Data',
-			$('#downloadRegionID option:selected').text(),
-			JSON.stringify( ga_label )
-		);
+  ga('send', 'event',
+  'Download Data',
+  $('#downloadRegionID option:selected').text(),
+  JSON.stringify( ga_label )
+);
 
-		//For submission:
-		var submitObj = {
-			'page-action': '1',
-			'downloadRegionID': regionID,
-			'selectAllData': selectAllData,
-			'startYear': startYear,
-			'endYear': endYear,
-			'dataTypeID': dataTypeID,
-			'include_latitude': include_latitude,
-			'include_longitude': include_longitude,
-			'include_depth': include_depth,
-			'information-token': $('#information-token').val()
-		};
+//For submission:
+var submitObj = {
+  'page-action': '1',
+  'downloadRegionID': regionID,
+  'selectAllData': selectAllData,
+  'startYear': startYear,
+  'endYear': endYear,
+  'dataTypeID': dataTypeID,
+  'include_latitude': include_latitude,
+  'include_longitude': include_longitude,
+  'include_depth': include_depth,
+  'information-token': $('#information-token').val()
+};
 
-    var submitObjDownload;
+var submitObjDownload;
 
-  	var dataSubmitInfo = axios.create();
-    var dataSubmitInfoParams = new URLSearchParams();
-  	jQuery.each( submitObj, function( i, field ) {
-      dataSubmitInfoParams.append(i, field);
-    });
-  	axios({
-  		method: 'post',
-  		url: "/download",
-  		data: dataSubmitInfoParams,
-  	}).then(function( data ) {
-			console.log('done');
-			console.log(data);
-			if( data.data['minor-error-code'] == '0' ) {
-				// loadComplete();
-				$('<form/>')
-					.attr({
-						'id':'dataDownloadForm',
-						'name':'dataDownloadForm',
-						'method':'post',
-						'target':'dataDownloadIFRAME'
-					}).appendTo('body');
-				$('<input />')
-					.attr({
-						'type':'hidden',
-						'name':'page-action',
-						'id':'page-action',
-						'value':(dataTypeID == "2" ? "3" : "2" )
-					})
-					.appendTo('#dataDownloadForm');
-				$('<input />')
-					.attr({
-						'type':'hidden',
-						'name':'filename',
-						'id':'tempFileName',
-						'value': data.data.values.statistics.filename
-					})
-					.appendTo('#dataDownloadForm');
-				  $('#dataDownloadForm').submit().remove();
-			}else{
-				console.log('Error.');
-			}
-      submitObjDownload = {
-        'page-action': '2',
-        'filename': data.data.values.statistics.filename
-      };
-		}).then(function(data) {
-      // return true;
-  		return performAction( 1, submitObjDownload,
-  				function (returnObject) {
-          var csvContent = "data:text/csv;charset=utf-8," + returnObject;
-          var csvURI = encodeURI(csvContent);
-          var link = document.createElement("a");
-          link.setAttribute("href", csvURI);
-          link.setAttribute("download", "datadownload.csv");
-          document.body.appendChild(link); // Required for FF
-          link.click(); // This will download the data file named "my_data.csv".
-  					switch (returnObject.actionPerformedStatus) {
-  						case 0:
-  							console.log(returnObject);
-  							loadComplete();
-  							$('<form/>')
-  								.attr({
-  									'id':'dataDownloadForm',
-  									'name':'dataDownloadForm',
-  									'method':'post',
-  									'target':'dataDownloadIFRAME'
-  								}).appendTo('body');
-  							$('<input />')
-  								.attr({
-  									'type':'hidden',
-  									'name':'actionPerform',
-  									'id':'actionPerform',
-  									'value':(dataTypeID == "2" ? "3" : "2" )
-  								})
-  								.appendTo('#dataDownloadForm');
-  							$('<input />')
-  								.attr({
-  									'type':'hidden',
-  									'name':'filename',
-  									'id':'tempFileName',
-  									'value':returnObject.returnValues.statistics.filename
-  								})
-  								.appendTo('#dataDownloadForm');
-  							$('#dataDownloadForm').submit().remove();
-  							break;
-    						case 1:
-    						case 2:
-    						case 3:
-    						case 4:
-    						case 5:
-    						case 6:
-  							console.error("No Good!");
-  							break;
-  					}
-  				}
-  			);
-    });
+var dataSubmitInfo = axios.create();
+var dataSubmitInfoParams = new URLSearchParams();
+jQuery.each( submitObj, function( i, field ) {
+  dataSubmitInfoParams.append(i, field);
+});
+axios({
+  method: 'post',
+  url: "/download",
+  data: dataSubmitInfoParams,
+}).then(function( data ) {
+  console.log('done');
+  console.log(data);
+  if( data.data['minor-error-code'] == '0' ) {
+    // loadComplete();
+    $('<form/>')
+    .attr({
+      'id':'dataDownloadForm',
+      'name':'dataDownloadForm',
+      'method':'post',
+      'target':'dataDownloadIFRAME'
+    }).appendTo('body');
+    $('<input />')
+    .attr({
+      'type':'hidden',
+      'name':'page-action',
+      'id':'page-action',
+      'value':(dataTypeID == "2" ? "3" : "2" )
+    })
+    .appendTo('#dataDownloadForm');
+    $('<input />')
+    .attr({
+      'type':'hidden',
+      'name':'filename',
+      'id':'tempFileName',
+      'value': data.data.values.statistics.filename
+    })
+    .appendTo('#dataDownloadForm');
+    $('#dataDownloadForm').submit().remove();
+  }else{
+    console.log('Error.');
+  }
+  submitObjDownload = {
+    'page-action': '2',
+    'filename': data.data.values.statistics.filename
+  };
+}).then(function(data) {
+  // return true;
+  return performAction( 1, submitObjDownload,
+    function (returnObject) {
+      var csvContent = "data:text/csv;charset=utf-8," + returnObject;
+      var csvURI = encodeURI(csvContent);
+      var link = document.createElement("a");
+      link.setAttribute("href", csvURI);
+      link.setAttribute("download", "datadownload.csv");
+      document.body.appendChild(link); // Required for FF
+      link.click(); // This will download the data file named "my_data.csv".
+      switch (returnObject.actionPerformedStatus) {
+        case 0:
+        console.log(returnObject);
+        loadComplete();
+        $('<form/>')
+        .attr({
+          'id':'dataDownloadForm',
+          'name':'dataDownloadForm',
+          'method':'post',
+          'target':'dataDownloadIFRAME'
+        }).appendTo('body');
+        $('<input />')
+        .attr({
+          'type':'hidden',
+          'name':'actionPerform',
+          'id':'actionPerform',
+          'value':(dataTypeID == "2" ? "3" : "2" )
+        })
+        .appendTo('#dataDownloadForm');
+        $('<input />')
+        .attr({
+          'type':'hidden',
+          'name':'filename',
+          'id':'tempFileName',
+          'value':returnObject.returnValues.statistics.filename
+        })
+        .appendTo('#dataDownloadForm');
+        $('#dataDownloadForm').submit().remove();
+        break;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        console.error("No Good!");
+        break;
+      }
+    }
+  );
+});
 
-	});
+});
 
-	$('#download-latest-raw').on('click', function () {
-		console.info('Download latest raw data.');
+$('#download-latest-raw').on('click', function () {
+  console.info('Download latest raw data.');
 
-		ga('send', 'event',
-			'Latest Raw Data',
-			'Download',
-			''
-		);
+  ga('send', 'event',
+  'Latest Raw Data',
+  'Download',
+  ''
+);
 
-		location.href='/latest/Data_Updated.zip';
-	});
+location.href='/latest/Data_Updated.zip';
+});
 
-	$('#download-r-script').on('click', function () {
-		console.info('Download r script');
+$('#download-r-script').on('click', function () {
+  console.info('Download r script');
 
-		ga('send', 'event',
-			'RScript',
-			'Download',
-			''
-		);
+  ga('send', 'event',
+  'RScript',
+  'Download',
+  ''
+);
 
-		location.href='/latest/complete_r_script.R';
-	});
+location.href='/latest/complete_r_script.R';
+});
 
-	$('#download-map-script').on('click', function () {
-		console.info('Download map / raster file script');
+$('#download-map-script').on('click', function () {
+  console.info('Download map / raster file script');
 
-		ga('send', 'event',
-			'Map / Raster Script File',
-			'Download',
-			''
-		);
+  ga('send', 'event',
+  'Map / Raster Script File',
+  'Download',
+  ''
+);
 
-		location.href='/latest/OAGenerateRasterFiles.py';
-	});
+location.href='/latest/OAGenerateRasterFiles.py';
+});
 
 }
 
@@ -890,26 +882,26 @@ function loadFutureSlider(graph_type, data) {
   function get_period(rankID){
     switch(rankID){
       case 1:
-        return '2007-2020';
-        break;
+      return '2007-2020';
+      break;
       case 2:
-        return '2021-2040';
-        break;
+      return '2021-2040';
+      break;
       case 3:
-        return '2041-2060';
-        break;
+      return '2041-2060';
+      break;
       case 4:
-        return '2061-2080';
-        break;
+      return '2061-2080';
+      break;
       case 5:
-        return '2081-2100';
-        break;
+      return '2081-2100';
+      break;
       case 5.25:
-        return '';
+      return '';
       default:
-        console.warn('Rank ID not found: `'+ rankID +'`');
-        return '';
-        break;
+      console.warn('Rank ID not found: `'+ rankID +'`');
+      return '';
+      break;
     }
   }
 }
