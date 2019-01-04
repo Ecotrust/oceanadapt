@@ -97,7 +97,7 @@ function chooseFuture() {
       loadFutureSlider(1, response.data);
 				// loadFuture(1, response.data);
       load_slider(response.data);
-			})
+		})
 			// .then(function() {
 			// 	futureSelectionParams.append('graph_type', 1);
 			// 	futureSelection.post('/future_data', futureSelectionParams)

@@ -517,6 +517,9 @@ Header
     padding-bottom: 1.25rem;
 }
 
+.region-options {
+}
+
 .region-option {
     display: inline-block;
 }
@@ -616,6 +619,10 @@ button.search {
 }
 
 #species-search-input {
+    background-image: url('/img/search_red.svg');
+    background-position: 96% 50%;
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
     padding: .25rem .5rem;
 }
 
@@ -662,6 +669,13 @@ button.search {
     background: #fff;
     display: block;
     position: relative;
+}
+
+.common_name,
+.scientific_name,
+.species-selection em,
+.no-events {
+    pointer-events: none;
 }
 
 #species-listing-alphabetical-list .list a {
