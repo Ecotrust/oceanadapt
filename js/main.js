@@ -539,8 +539,6 @@ function showDownloadForm() {
   });
 
   $('#download-archived-data').on('click', function () {
-    console.info('download archvied');
-
     if( $('#archiveID').val() == '-1') {
       return true;
     }
@@ -549,13 +547,13 @@ function showDownloadForm() {
     'Archived Data',
     $('#archiveID option:selected').text(),
     ''
-  );
+    );
 
 
-  location.href='/archive/' + $('#archiveID').val() + '/Data_Updated.zip';
-  return true;
+    location.href='/archive/' + $('#archiveID').val() + '/Data_Updated.zip';
+    return true;
 
-});
+  });
 
 $('#download-data').on('click', function () {
   console.info('Download data');

@@ -118,8 +118,8 @@
           </div>
         </div>
         <div class="col-12 col-lg-5">
-          <p>Supported by:</p>
-          <div class="row align-items-center">
+          <p>In partnership with:</p>
+          <div class="row">
             <div class="col-8">
               <div class="noaa-logo">
                 <a href="https://www.fisheries.noaa.gov/" title="NOAA website">
@@ -130,6 +130,16 @@
                   <span>National Oceanic and Atmospheric Administration</span>
                 </a>
               </div>
+            </div>
+          </div>
+
+          <p>Supported by:</p>
+          <div class="row align-items-center">
+            <div class="col-3">
+              <img src="img/noaa-2.svg" />
+            </div>
+            <div class="col-5">
+              <img src="img/pew.svg" />
             </div>
             <div class="col-4">
               <img src="img/CINAR-logo@2x.png" />
@@ -179,7 +189,7 @@
 
           <hr />
 
-          <h3>Our Data Policy</h3>
+          <h3 id="fairusepolicy">Our Data Policy</h3>
           <p>All of the data underlying these analyses are available for download, including spatially georeferenced catches from more than fifty thousand bottom trawl tows in six regions of the U.S. Please notify us through the online form when you download the data, as this helps us justify maintaining the database as a community resource. </p>
 
           <p><strong>As part of our Fair Use Policy, please:</strong></p>
@@ -265,62 +275,91 @@
     					<input type="hidden" id="information-token" name="information-token" value="" />
     					<div class="half-width has-border">
     						<h3>Download Processed Data</h3>
-    						<div class="field-space form-group">
-    							<label for="downloadRegionID"> Select a region: </label>
-    								<select id="downloadRegionID" name="regionID">
-    									<option value="-1"> All </option>
-    									<option value="1"> Aleutian Island </option>
-    									<option value="2"> Eastern Bering Sea </option>
-    									<option value="3"> Gulf of Alaska </option>
-    									<option value="4"> Gulf of Mexico </option>
-    									<option value="5"> Northeast US  </option>
-    									<option value="7"> Southeast US  </option>
-    									<option value="10"> West Coast - Annual </option>
-    									<option value="11"> West Coast - Triennial </option>
-    								</select>
-    						</div>
+    						<fieldset class="field-space form-group">
+                  <div class="row">
+                    <legend class="col-form-label col-sm-4 pt-0">Select a region</legend>
+                    <div class="col-sm-8">
+                      <div class="form-group">
+                        <select id="downloadRegionID" name="regionID">
+                        	<option value="-1">All</option>
+                        	<option value="1"> Aleutian Island </option>
+                        	<option value="2"> Eastern Bering Sea </option>
+                        	<option value="3"> Gulf of Alaska </option>
+                        	<option value="4"> Gulf of Mexico </option>
+                        	<option value="5"> Northeast US  </option>
+                        	<option value="7"> Southeast US  </option>
+                        	<option value="10"> West Coast - Annual </option>
+                        	<option value="11"> West Coast - Triennial </option>
+                        </select>
+                      </div>
+                    </div>
+    						</fieldset>
 
     						<fieldset class="field-space form-group">
                   <div class="row">
                     <legend class="col-form-label col-sm-4 pt-0">Data Selection</legend>
                     <div class="col-sm-8">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="selectAllData" id="selectAllData" value="selectAllData">
-                        <label class="form-check-label" for="selectAllData">
-                          All available data
-                        </label>
+                      <div class="form-row">
+                        <div class="form-group">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="selectAllData" id="selectAllData" value="selectAllData">
+                            <label class="form-check-label" for="selectAllData">
+                              All available data
+                            </label>
+                          </div>
+                        </div>
                       </div>
-                      <div class="form-check">
-                        <label class="form-label">-OR-</label>
+                      <div class="form-row">
+                        <div class="form-check">
+                          <label class="form-label">-OR-</label>
+                        </div>
                       </div>
-                      <div class="form-check">
-                        <select class="form-control" name="startYear" id="startYear"></select>
-                        <label class="form-check-label" for="startYear"> TO </label>
-                        <select class="form-control" name="endYear" id="endYear"></select>
-                      </div>
+                      <div class="form-row">
+                        <div class="row col">
+                          <div class="col">
+                            <select class="form-control" name="startYear" id="startYear"></select>
+                          </div>
+                          <div class="col-2 text-center">
+                            <label class="form-check-label">-</label>
+                          </div>
+                          <div class="col">
+                            <select class="form-control" name="endYear" id="endYear"></select>
+                          </div>
+                        </div>
                     </div>
                   </div>
               </fieldset>
-    						<div class="form-check">
-    								<input id="include_latitude" type="checkbox" />
-                    <label for="include_latitude"> Latitude: </label>
-    						</div>
-    						<div class="form-check">
-    								<input id="include_longitude" type="checkbox" />
-                    <label for="include_longitude"> Longitude: </label>
-    						</div>
-    						<div class="form-check">
-                  <input id="include_depth" type="checkbox" />
-    							<label for="include_depth"> Depth: </label>
-    						</div>
 
-    						<div class="form-group row">
-    							<button id="download-data" type="button" class="helpme btn-download btn-download-border"> Download Data</button>
+              <fieldset class="field-space form-group">
+                <div class="row">
+                  <legend class="col-form-label col-sm-4 pt-0">Include</legend>
+                  <div class="col-sm-8">
+                    <div class="form-group form-check">
+                      <input id="include_latitude" type="checkbox" />
+                      <label for="include_latitude">Latitude</label>
+                    </div>
+                    <div class="form-group form-check">
+                      <input id="include_longitude" type="checkbox" />
+                      <label for="include_longitude"> Longitude</label>
+                    </div>
+                    <div class="form-group form-check">
+                      <input id="include_depth" type="checkbox" />
+                      <label for="include_depth"> Depth: </label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+  						<div class="form-group row">
+                <div class="col">
+                  <button id="download-data" type="button" class="helpme btn-download btn-download-border"> Download Data</button>
+                </div>
               </div>
               <div class="form-group row">
-    							*<a onclick="$('#aboutModal').modal('show')" href="#">Fair Use Policy</a>
-    						</div>
-    					</div>
+                <div class="col">
+                  *<a onclick="$('#aboutModal').modal('show');window.setTimeout(function() { smoothScroll('#fairusepolicy') }, 1000);" href="#">Fair Use Policy</a>
+                </div>
+              </div>
               <br />
             <hr />
             <br />
@@ -353,7 +392,10 @@
     								<label for="archiveID"> Select archived set: </label>
     									<select id="archiveID">
     										<option value="-1"> -- </option>
-    										{$this->get_archived_data()}
+    										<option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
     									</select>
     							</div>
     							<div style="margin-top:20px;">
