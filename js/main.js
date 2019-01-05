@@ -127,6 +127,14 @@ function load_slider(data) {
   $('#species-picture-rcp26').prop({src:''});
   $('#species-picture-rcp85').prop({src:''});
 
+  // clear possible intervals
+  clearInterval(graph_helper.rotate_picture);
+  clearInterval(graph_helper.rotate_picture_both);
+
+  // set default control state
+  $('#play-button').removeClass('disabled').attr('disabled', false);
+  $('#pause-button').addClass('disabled').attr('disabled', true);
+
   if ( Array.isArray(data.values.pictures.files) ) {
     graph_helper.picture_files = data.values.pictures.files;
     if( data.values.pictures.files.length > 0 ) {
@@ -142,6 +150,7 @@ function load_slider(data) {
       console.log('HIDE MAP DIV : `'+ graph_helper.picture_files +'`');
     }
 
+    $('#play-button').off('click');
     $('#play-button').on('click', function () {
       graph_helper.rotate_picture = setInterval(function() {
         var my_val = $('#slider').slider('option','value') + 1 ;
@@ -156,6 +165,7 @@ function load_slider(data) {
       $('#pause-button').removeClass('disabled').attr('disabled', false);
     });
 
+    $('#pause-button').off('click');
     $('#pause-button').on('click', function () {
       clearInterval(graph_helper.rotate_picture);
       graph_helper.rotate_picture = null;
@@ -192,19 +202,17 @@ function load_slider(data) {
         $('#species-picture-rcp26').prop({src: graph_helper.future_picture_files.rcp26[ my_val ] });
         $('#species-picture-rcp85').prop({src: graph_helper.future_picture_files.rcp85[ my_val ] });
 
-        $('#play-button').addClass('positive').removeClass('greybutton');
-        $('#pause-button').removeClass('negative').addClass('greybutton');
+        $('#play-button').addClass('disabled').attr('disabled', true);
+        $('#pause-button').removeClass('disabled').attr('disabled', false);
       }, 500);
     });
 
     $('#pause-button').off('click');
     $('#pause-button').on('click', function () {
-      $('#play-button').removeClass('positive').addClass('greybutton');
-      $('#pause-button').addClass('negative').removeClass('greybutton');
-      if( graph_helper.rotate_picture_both != null ) {
-        clearInterval(graph_helper.rotate_picture_both);
-        graph_helper.rotate_picture_both = null;
-      }
+      clearInterval(graph_helper.rotate_picture_both);
+      graph_helper.rotate_picture_both = null;
+      $('#play-button').removeClass('disabled').attr('disabled', false);
+      $('#pause-button').addClass('disabled').attr('disabled', true);
       return true;
     });
 

@@ -48,7 +48,7 @@
       <div id="slider-value"></div>
       <div class="text-center">
         <span>
-          <button id="pause-button" type="button" class="greybutton btn btn-secondary">Pause</button>
+          <button id="pause-button" type="button" class="greybutton btn btn-secondary disabled" disabled="disabled">Pause</button>
         </span>
         <span>
           <button id="play-button" type="button" class="positive btn btn-success">Play</button>
