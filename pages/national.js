@@ -10,7 +10,7 @@
 
               <div class="exit">
                 <img src="./img/i_arrow-left.svg" class="icon_block mb-2" />
-                <span>Regional Selections</span>
+                <span>Back</span>
               </div>
             </a>
           </div>
@@ -60,7 +60,7 @@
       })
       .then(function() {
         nationalParams.set('graph_type', 2);
-        nationalSelection.post('/regional_data', nationalParams)
+        nationalSelection.post('/national_data', nationalParams)
           .then(function(res) {
             load_graph(2, res.data);
             console.log(res);

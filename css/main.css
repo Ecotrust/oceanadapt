@@ -797,7 +797,7 @@ Map
     z-index: 1;
 }
     #map-wrap.half-height {
-        height: 45vh;
+        height: 25vh;
     }
 
 #map {

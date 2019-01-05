@@ -3,11 +3,11 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Ecotrust
 
 # THANKS
 
-    <name>
+
 
 # TECHNOLOGY COLOPHON
 
