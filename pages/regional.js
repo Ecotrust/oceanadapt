@@ -61,7 +61,7 @@
     <div class="container-fluid bg-light-grey p-4">
       <div class="row justify-content-center">
         <div class="col text-center">
-          <button type="button" class="btn-download btn-download-border" id="nav-projections" onclick="chooseFuture()">View Projections</button>
+          <button type="button" class="btn-download btn-download-border d-none" id="nav-projections" onclick="chooseFuture()">View Projections</button>
         </div>
         <div class="col text-center">
           <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal" data-tobedownloaded="${regionID}">

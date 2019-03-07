@@ -63,6 +63,11 @@
       // Listen for search input
       document.getElementById('species-search-input').addEventListener('focus', function() {
         document.querySelector('.list').style.display = 'block';
+        window.setTimeout(function() {
+          $('body').one('click', function(event) {
+            document.querySelector('.list').style.display = 'none';
+          });
+        }, 2000);
       });
       document.getElementById('species-list').addEventListener('blur', function() {
         window.setTimeout(function() {
@@ -74,7 +79,6 @@
       $('.species-selection').on('click', function(event) {
         event.preventDefault();
         document.querySelector('.list').style.display = 'none';
-        console.log(this.dataset);
         return chooseSpecies(this.dataset.species_id, this.dataset.species_name, this.dataset.data_common_name);
       });
 
