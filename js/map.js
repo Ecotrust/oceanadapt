@@ -222,7 +222,7 @@ map.on('load', function () {
             <button class="btn btn-link" data-regionid="${regionsParsed[region].regional_id}" data-regionname="${regionParent}" data-regionseason="${regionsParsed[region].season}" data-regioncode="${regionsParsed[region].regional_code}" data-regionocean="${regionsParsed[region].ocean_region}">${regionsParsed[region].season}</button>
           </div>`);
         }
-        regionsWrap.insertAdjacentHTML('beforeend', '<p class="no-events">Choose A Season</p>');
+        regionsWrap.insertAdjacentHTML('beforeend', '<p class="no-events">Choose a survey</p>');
         regionsWrap.addEventListener('click', function(event) {
           var selections = document.querySelector('.selected');
           if (selections) {

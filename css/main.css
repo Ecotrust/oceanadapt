@@ -545,15 +545,22 @@ Header
 }
 
 .region-option .btn-link {
-    color: #fff;
+    /* color: #fff; */
     font-family: "Campton Book", sans-serif;
     font-size: 1.75em;
     padding: .5rem 2rem .5rem 0;
     margin-bottom: 1.25rem;
 }
 
+.region-option .btn-link:hover,
+.region-option .btn-link:active,
+.region-option .btn-link:focus {
+    color: #fff;
+}
+
 .region-option .btn-link.selected {
-    color: #CC0033;
+    color: #fff;
+    text-decoration: underline;
 }
 
 .chart-title,
