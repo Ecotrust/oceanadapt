@@ -756,6 +756,11 @@ button.search {
     margin: 0 0 1rem;
 }
 
+#species-picture {
+    max-height: 72vh;
+    min-height: 400px;
+}
+
 #species-picture-rcp26,
 #species-picture-rcp85 {
     display: inline-block;
@@ -768,6 +773,7 @@ button.search {
 #species-picture-rcp85[src*="future"] {
     height: auto;
     max-height: 72vh;
+    min-height: 400px;
 }
 
 #animation-wrap {
@@ -826,6 +832,7 @@ Map
 #map-wrap {
     background: transparent;
     height: 84vh;
+    min-height: 500px;
     left: 0%;
     position: relative;
     top: 0;
@@ -838,6 +845,7 @@ Map
 
 #map {
     height: 84vh;
+    min-height: 500px;
     left: 0;
     position: absolute;
     top: 0;
