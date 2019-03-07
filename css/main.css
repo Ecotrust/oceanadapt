@@ -290,7 +290,6 @@ button {
 
 .sort {
     cursor: pointer;
-    cursor: ns-resize;
     color: #CC0033;
     display: block;
     font-family: "Campton Book", sans-serif;
@@ -600,6 +599,16 @@ Header
   Regional Page
 ========================================================================== */
 
+#selected-species h4 {
+    font-family: 'Campton Light', sans-serif;
+    font-size: 1.25em;
+}
+
+#selected-species strong {
+    font-family: "Campton Book", sans-serif;
+    font-size: 1.25em;
+}
+
 .search-wrap {
     display: none;
 }
@@ -710,6 +719,12 @@ button.search {
     color: #9B9B9B;
     padding: .125rem .5rem;
     font-size: 1em;
+}
+
+#search-options.show {
+    border-top: 5px solid #E3E9EE;
+    margin-top: 2rem;
+    padding-top: 2rem;
 }
 
 .species-search .list {

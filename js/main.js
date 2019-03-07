@@ -54,7 +54,7 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName, selectedCommonNam
   document.getElementById('speciesName').value = selectedSpeciesName;
   if (selectedSpeciesID !== -1) { // -1 is region selection
     // if not -1 then species should have a name
-    document.getElementById('selected-species').innerHTML = `<h4 class="mt-4 mb-0">${selectedSpeciesName} (${selectedCommonName}) selected</h4>`;
+    document.getElementById('selected-species').innerHTML = `<h4 class="mt-4 mb-0">Selected: <strong>${selectedCommonName} (<em>${selectedSpeciesName}</em>)</strong></h4>`;
   }
   var speciesSelection = axios.create();
   var speciesSelectionParams = new URLSearchParams();
