@@ -17,12 +17,15 @@
         <button id="species-list-alpha-toggle" class="col btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#search-options" aria-expanded="false" aria-controls="search-options">Expand Options <span class="chevron"></span></button>
       </div>
       <div class="row align-items-end">
-        <div id="selected-species" class="col"></div>
-        <div class="col">
+        <div id="selected-species" class="col-5"></div>
+        <div class="col-7">
           <div class="collapse" id="search-options">
             <div class="card" id="species-list-alpha">
               <div class="card-body">
-                <div class="list"></div>
+                <div class="row">
+                  <div class="col-6"><span class="sort" data-sort="common_name">Sort by common name</span></div>
+                  <div class="col-6 pl-0"><span class="sort" data-sort="scientific_name">Sort by scientific name</span></div>
+                  <div class="list"></div>
               </div>
             </div>
           </div>

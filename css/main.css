@@ -282,6 +282,23 @@ button {
     display: block;
 }
 
+.icon-inline {
+  display: inline;
+  height: auto;
+  max-width: 20px;
+}
+
+.sort {
+    cursor: pointer;
+    cursor: ns-resize;
+    color: #CC0033;
+    display: block;
+    font-family: "Campton Book", sans-serif;
+    font-size: 1em;
+    font-weight: normal;
+    line-height: 2;
+}
+
 hr {
     background: #e3e9ee;
     border: none;
@@ -333,6 +350,10 @@ main p {
 
 #species-list-alpha {
   text-transform: capitalize;
+}
+
+#species-list-alpha .list {
+    width: 100%;
 }
 
 /* ---- Data download modal --*/

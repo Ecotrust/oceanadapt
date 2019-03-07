@@ -11,10 +11,10 @@
 
   // list.js options
   var options = {
-    valueNames: [ 'common_name', 'scientific_name', { data:['species_id'] }, { data:['species_name'] } ],
+    valueNames: [ 'common_name', 'scientific_name', { data:['species_id'] }, { data:['species_name'] }, { data:['data_common_name'] } ],
     searchClass: 'fuzzy-search',
     // Since there are no elements in the list, this will be used as template.
-    item: '<a class="species_id species_name species-selection dropdown-item" href="#"><span class="scientific_name"></span> (<em><span class="common_name"></span></em>)</a>',
+    item: '<a class="species_id species_name data_common_name species-selection dropdown-item" href="#"><span class="scientific_name"></span> (<em><span class="common_name"></span></em>)</a>',
     fuzzySearch: {
       searchClass: "fuzzy-search",
       location: 0,
@@ -26,8 +26,8 @@
 
   // list.js options
   var optionsAlpha = {
-    valueNames: [ 'common_name', 'scientific_name', { data:['species_id'] }, { data:['species_name'] } ],
-    item: '<a class="species_id species_name species-selection dropdown-item" href="#"><strong><span class="common_name"></span> </strong> (<span class="scientific_name"></span>)</a>',
+    valueNames: [ 'common_name', 'scientific_name', { data:['species_id'] }, { data:['species_name'] }, { data:['data_common_name'] } ],
+    item: '<a class="species_id species_name data_common_name species-selection dropdown-item" href="#"><div class="row"><div class="col-6"><span class="common_name"></span></div><div class="col-6"><span class="scientific_name"></span></div></div></a>',
   };
 
   // list.js values
@@ -39,12 +39,14 @@
       for (let species of response.data.values.speciesIDs) {
         values.push({
           common_name: species.speciesCommonName,
+          data_common_name: species.speciesCommonName,
           scientific_name: species.speciesName,
           species_id: species.speciesID,
           species_name: species.speciesName,
         });
         valuesAlpha.push({
           common_name: species.speciesCommonName,
+          data_common_name: species.speciesCommonName,
           scientific_name: species.speciesName,
           species_id: species.speciesID,
           species_name: species.speciesName,
@@ -72,7 +74,8 @@
       $('.species-selection').on('click', function(event) {
         event.preventDefault();
         document.querySelector('.list').style.display = 'none';
-        return chooseSpecies(event.target.dataset.species_id, event.target.dataset.species_name);
+        console.log(this.dataset);
+        return chooseSpecies(this.dataset.species_id, this.dataset.species_name, this.dataset.data_common_name);
       });
 
       $('#show-all').on('click', function() {

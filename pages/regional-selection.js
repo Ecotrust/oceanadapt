@@ -28,6 +28,6 @@
     </div>
   `;
 
-  document.getElementById('regionalName').innerHTML = document.getElementById('regionName').value;
+  document.getElementById('regionalName').innerHTML = regionNameVal;
 
 })();

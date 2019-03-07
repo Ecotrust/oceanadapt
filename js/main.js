@@ -16,10 +16,12 @@ function loadScript(src) {
   });
 }
 
-const smoothScroll = element =>
-document.querySelector(element).scrollIntoView({
-  behavior: 'smooth'
-});
+function smoothScroll(element) {
+  return document.querySelector(element).scrollIntoView(true, {
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
 
 // update data to be downloaded
 $('#dataDownloadModal').on('show.bs.modal', function (event) {
@@ -43,7 +45,7 @@ $('#dataDownloadModal').on('show.bs.modal', function (event) {
 });
 
 // dropdown species selection
-function chooseSpecies(selectedSpeciesID, selectedSpeciesName) {
+function chooseSpecies(selectedSpeciesID, selectedSpeciesName, selectedCommonName) {
   document.getElementById('page-content').classList.add('show');
   document.getElementById('search-options').classList.remove('show');
   var regionID = document.getElementById('regionID').value;
@@ -52,7 +54,7 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName) {
   document.getElementById('speciesName').value = selectedSpeciesName;
   if (selectedSpeciesID !== -1) { // -1 is region selection
     // if not -1 then species should have a name
-    document.getElementById('selected-species').innerHTML = `<h4 class="mt-4 mb-0">${selectedSpeciesName} selected</h4>`;
+    document.getElementById('selected-species').innerHTML = `<h4 class="mt-4 mb-0">${selectedSpeciesName} (${selectedCommonName}) selected</h4>`;
   }
   var speciesSelection = axios.create();
   var speciesSelectionParams = new URLSearchParams();
