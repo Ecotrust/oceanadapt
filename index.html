@@ -191,7 +191,7 @@
           <hr />
 
           <h3 id="fairusepolicy">Our Data Policy</h3>
-          <p>All of the data underlying these analyses are available for download, including spatially georeferenced catches from more than fifty thousand bottom trawl tows in six regions of the U.S. Please notify us through the online form when you download the data, as this helps us justify maintaining the database as a community resource. </p>
+          <p>All of the data underlying these analyses are available for <a href="#" data-toggle="modal" data-target="#dataDownloadModal" class="download-about">download</a>, including spatially georeferenced catches from more than fifty thousand bottom trawl tows in six regions of the U.S. Please notify us through the online form when you download the data, as this helps us justify maintaining the database as a community resource. </p>
 
           <p><strong>As part of our Fair Use Policy, please:</strong></p>
 
@@ -373,9 +373,9 @@
     					<div class="half-width">
     						<h3>Original Downloads</h3>
     						<div class="sub-category">
-    							<p> If you would like to download the Raw Data and R script that is used to generate the processed data, please click below:</p>
+    							<p>If you would like to download the Raw Data and R script that is used to generate the processed data, please click below:</p>
     							<button id="download-latest-raw" type="button" class="positive btn-download btn-download-border"> Download Latest Raw Data </button><br />
-    							*<a href="/about_us/#fair-use-policy" target="_blank">Fair Use Policy</a>
+    							*<a onclick="$('#aboutModal').modal('show');window.setTimeout(function() { smoothScroll('#fairusepolicy') }, 1000);" href="#">Fair Use Policy</a>
     						</div>
 
     						<div class="sub-category">
@@ -387,7 +387,7 @@
     						<div class="sub-category">
     							<p> If you would like to download the raster / map creation script, please click below: </p>
     							<button id="download-map-script" type="button" class="positive btn-download btn-download-border"> Download Map / Raster Script</button>
-    							<p>Additional map / raster generation supplement found <a href="{$base_doc}/latest/ArcGIS_Analysis_Files.zip" target="_blank">here</a> (~213 MBs).</p>
+    							<p>Additional map / raster generation supplement found <a href="./latest/ArcGIS_Analysis_Files.zip" target="_blank">here</a> (~213 MBs).</p>
     						</div>
     					</div>
     					<br />

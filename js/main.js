@@ -1,6 +1,10 @@
 window.onload = function() {
   loadScript('../pages/home.js');
   loadScript('../pages/search.js');
+
+  document.querySelector('.download-about').addEventListener('click', function() {
+    $('#dataDownloadModal').addClass('high-z');
+  });
 };
 
 // Promise wrapper to load scripts
@@ -557,209 +561,206 @@ function showDownloadForm() {
 
   });
 
-$('#download-data').on('click', function () {
-  console.info('Download data');
-  var regionID = $('#downloadRegionID').val();
-  var selectAllData = $('#selectAllData').is(':checked');
-  var startYear = $('#startYear').val();
-  var endYear = $('#endYear').val();
-  var dataTypeID = $('#dataTypeID').val();
-  var include_latitude=$('#include_latitude').is(':checked');
-  var include_longitude=$('#include_longitude').is(':checked');
-  var include_depth=$('#include_depth').is(':checked');
+  $('#download-data').on('click', function () {
+    console.info('Download data');
+    var regionID = $('#downloadRegionID').val();
+    var selectAllData = $('#selectAllData').is(':checked');
+    var startYear = $('#startYear').val();
+    var endYear = $('#endYear').val();
+    var dataTypeID = $('#dataTypeID').val();
+    var include_latitude=$('#include_latitude').is(':checked');
+    var include_longitude=$('#include_longitude').is(':checked');
+    var include_depth=$('#include_depth').is(':checked');
 
-  //Some error checking
+    //Some error checking
 
-  if(!selectAllData && (startYear == "" &&endYear == "")) {
-    alert('Please choose either:\\n1. "All available data" or \\n2. A start and/or end date');
-    return false;
-  }
-
-  //check for start date before endendDateendDate
-  if( startYear > endYear ) {
-    alert('End year cannot be before start year.');
-    return false;
-  }
-
-  //if they choose processed data, they have to choose a variable or more to download
-  if( dataTypeID == "1" ) {
-    if( !include_latitude && !include_longitude && !include_depth ) {
-      alert('Please select one variable for downloading processed data.');
+    if(!selectAllData && (startYear == "" &&endYear == "")) {
+      alert('Please choose either:\\n1. "All available data" or \\n2. A start and/or end date');
       return false;
     }
-  }
 
-  //Google analytic events
-  var ga_label = {
-    select_all_data : ( $('#selectAllData').is(':checked') ? 'checked' : 'not-checked' ),
-    data_type: (dataTypeID == "1" ? 'Processed Data' : 'RAW Data' ),
-    start_year: $('#startYear').val(),
-    end_year: $('#endYear').val()
-  };
+    //check for start date before endendDateendDate
+    if( startYear > endYear ) {
+      alert('End year cannot be before start year.');
+      return false;
+    }
 
-  if( dataTypeID == "1" ){
-    ga_label.include_latitude = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
-    ga_label.include_longitude = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
-    ga_label.include_depth = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
-  }
-
-  ga('send', 'event',
-  'Download Data',
-  $('#downloadRegionID option:selected').text(),
-  JSON.stringify( ga_label )
-);
-
-//For submission:
-var submitObj = {
-  'page-action': '1',
-  'downloadRegionID': regionID,
-  'selectAllData': selectAllData,
-  'startYear': startYear,
-  'endYear': endYear,
-  'dataTypeID': dataTypeID,
-  'include_latitude': include_latitude,
-  'include_longitude': include_longitude,
-  'include_depth': include_depth,
-  'information-token': $('#information-token').val()
-};
-
-var submitObjDownload;
-
-var dataSubmitInfo = axios.create();
-var dataSubmitInfoParams = new URLSearchParams();
-jQuery.each( submitObj, function( i, field ) {
-  dataSubmitInfoParams.append(i, field);
-});
-axios({
-  method: 'post',
-  url: "/download",
-  data: dataSubmitInfoParams,
-}).then(function( data ) {
-  console.log('done');
-  console.log(data);
-  if( data.data['minor-error-code'] == '0' ) {
-    // loadComplete();
-    $('<form/>')
-    .attr({
-      'id':'dataDownloadForm',
-      'name':'dataDownloadForm',
-      'method':'post',
-      'target':'dataDownloadIFRAME'
-    }).appendTo('body');
-    $('<input />')
-    .attr({
-      'type':'hidden',
-      'name':'page-action',
-      'id':'page-action',
-      'value':(dataTypeID == "2" ? "3" : "2" )
-    })
-    .appendTo('#dataDownloadForm');
-    $('<input />')
-    .attr({
-      'type':'hidden',
-      'name':'filename',
-      'id':'tempFileName',
-      'value': data.data.values.statistics.filename
-    })
-    .appendTo('#dataDownloadForm');
-    $('#dataDownloadForm').submit().remove();
-  }else{
-    console.log('Error.');
-  }
-  submitObjDownload = {
-    'page-action': '2',
-    'filename': data.data.values.statistics.filename
-  };
-}).then(function(data) {
-  // return true;
-  return performAction( 1, submitObjDownload,
-    function (returnObject) {
-      var csvContent = "data:text/csv;charset=utf-8," + returnObject;
-      var csvURI = encodeURI(csvContent);
-      var link = document.createElement("a");
-      link.setAttribute("href", csvURI);
-      link.setAttribute("download", "datadownload.csv");
-      document.body.appendChild(link); // Required for FF
-      link.click(); // This will download the data file named "my_data.csv".
-      switch (returnObject.actionPerformedStatus) {
-        case 0:
-        console.log(returnObject);
-        loadComplete();
-        $('<form/>')
-        .attr({
-          'id':'dataDownloadForm',
-          'name':'dataDownloadForm',
-          'method':'post',
-          'target':'dataDownloadIFRAME'
-        }).appendTo('body');
-        $('<input />')
-        .attr({
-          'type':'hidden',
-          'name':'actionPerform',
-          'id':'actionPerform',
-          'value':(dataTypeID == "2" ? "3" : "2" )
-        })
-        .appendTo('#dataDownloadForm');
-        $('<input />')
-        .attr({
-          'type':'hidden',
-          'name':'filename',
-          'id':'tempFileName',
-          'value':returnObject.returnValues.statistics.filename
-        })
-        .appendTo('#dataDownloadForm');
-        $('#dataDownloadForm').submit().remove();
-        break;
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        console.error("No Good!");
-        break;
+    //if they choose processed data, they have to choose a variable or more to download
+    if( dataTypeID == "1" ) {
+      if( !include_latitude && !include_longitude && !include_depth ) {
+        alert('Please select one variable for downloading processed data.');
+        return false;
       }
     }
+
+    //Google analytic events
+    var ga_label = {
+      select_all_data : ( $('#selectAllData').is(':checked') ? 'checked' : 'not-checked' ),
+      data_type: (dataTypeID == "1" ? 'Processed Data' : 'RAW Data' ),
+      start_year: $('#startYear').val(),
+      end_year: $('#endYear').val()
+    };
+
+    if( dataTypeID == "1" ){
+      ga_label.include_latitude = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
+      ga_label.include_longitude = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
+      ga_label.include_depth = ( $('#include_latitude').is(':checked') ? 'checked' : 'not-checked' );
+    }
+
+    ga('send', 'event',
+    'Download Data',
+    $('#downloadRegionID option:selected').text(),
+    JSON.stringify( ga_label )
   );
-});
 
-});
+  //For submission:
+  var submitObj = {
+    'page-action': '1',
+    'downloadRegionID': regionID,
+    'selectAllData': selectAllData,
+    'startYear': startYear,
+    'endYear': endYear,
+    'dataTypeID': dataTypeID,
+    'include_latitude': include_latitude,
+    'include_longitude': include_longitude,
+    'include_depth': include_depth,
+    'information-token': $('#information-token').val()
+  };
 
-$('#download-latest-raw').on('click', function () {
-  console.info('Download latest raw data.');
+  var submitObjDownload;
 
-  ga('send', 'event',
-  'Latest Raw Data',
-  'Download',
-  ''
-);
+  var dataSubmitInfo = axios.create();
+  var dataSubmitInfoParams = new URLSearchParams();
+  jQuery.each( submitObj, function( i, field ) {
+    dataSubmitInfoParams.append(i, field);
+  });
+  axios({
+    method: 'post',
+    url: "/download",
+    data: dataSubmitInfoParams,
+  }).then(function( data ) {
+    console.log('done');
+    console.log(data);
+    if( data.data['minor-error-code'] == '0' ) {
+      // loadComplete();
+      $('<form/>')
+      .attr({
+        'id':'dataDownloadForm',
+        'name':'dataDownloadForm',
+        'method':'post',
+        'target':'dataDownloadIFRAME'
+      }).appendTo('body');
+      $('<input />')
+      .attr({
+        'type':'hidden',
+        'name':'page-action',
+        'id':'page-action',
+        'value':(dataTypeID == "2" ? "3" : "2" )
+      })
+      .appendTo('#dataDownloadForm');
+      $('<input />')
+      .attr({
+        'type':'hidden',
+        'name':'filename',
+        'id':'tempFileName',
+        'value': data.data.values.statistics.filename
+      })
+      .appendTo('#dataDownloadForm');
+      $('#dataDownloadForm').submit().remove();
+    }else{
+      console.log('Error.');
+    }
+    submitObjDownload = {
+      'page-action': '2',
+      'filename': data.data.values.statistics.filename
+    };
+  }).then(function(data) {
+    // return true;
+    return performAction( 1, submitObjDownload,
+      function (returnObject) {
+        var csvContent = "data:text/csv;charset=utf-8," + returnObject;
+        var csvURI = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", csvURI);
+        link.setAttribute("download", "datadownload.csv");
+        document.body.appendChild(link); // Required for FF
+        link.click(); // This will download the data file named "my_data.csv".
+        switch (returnObject.actionPerformedStatus) {
+          case 0:
+          console.log(returnObject);
+          loadComplete();
+          $('<form/>')
+          .attr({
+            'id':'dataDownloadForm',
+            'name':'dataDownloadForm',
+            'method':'post',
+            'target':'dataDownloadIFRAME'
+          }).appendTo('body');
+          $('<input />')
+          .attr({
+            'type':'hidden',
+            'name':'actionPerform',
+            'id':'actionPerform',
+            'value':(dataTypeID == "2" ? "3" : "2" )
+          })
+          .appendTo('#dataDownloadForm');
+          $('<input />')
+          .attr({
+            'type':'hidden',
+            'name':'filename',
+            'id':'tempFileName',
+            'value':returnObject.returnValues.statistics.filename
+          })
+          .appendTo('#dataDownloadForm');
+          $('#dataDownloadForm').submit().remove();
+          break;
+          case 1:
+          case 2:
+          case 3:
+          case 4:
+          case 5:
+          case 6:
+          console.error("No Good!");
+          break;
+        }
+      }
+    );
+  });
 
-location.href='/latest/Data_Updated.zip';
-});
+  });
 
-$('#download-r-script').on('click', function () {
-  console.info('Download r script');
+  $('#download-latest-raw').on('click', function () {
+    console.info('Download latest raw data.');
 
-  ga('send', 'event',
-  'RScript',
-  'Download',
-  ''
-);
+    ga('send', 'event',
+    'Latest Raw Data',
+    'Download',
+    '');
 
-location.href='/latest/complete_r_script.R';
-});
+    location.href='/latest/Data_Updated.zip';
+  });
 
-$('#download-map-script').on('click', function () {
-  console.info('Download map / raster file script');
+  $('#download-r-script').on('click', function () {
+    console.info('Download r script');
 
-  ga('send', 'event',
-  'Map / Raster Script File',
-  'Download',
-  ''
-);
+    ga('send', 'event',
+    'RScript',
+    'Download',
+    '');
 
-location.href='/latest/OAGenerateRasterFiles.py';
-});
+    location.href='/latest/complete_r_script.R';
+  });
+
+  $('#download-map-script').on('click', function () {
+    console.info('Download map / raster file script');
+
+    ga('send', 'event',
+    'Map / Raster Script File',
+    'Download',
+    '');
+
+    location.href='/latest/OAGenerateRasterFiles.py';
+  });
 
 }
 

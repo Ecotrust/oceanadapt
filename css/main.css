@@ -278,6 +278,10 @@ button {
     font-weight: normal;
 }
 
+.high-z {
+  z-index: 99999;
+}
+
 .icon_block {
     display: block;
 }
