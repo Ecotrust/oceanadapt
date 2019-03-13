@@ -568,9 +568,9 @@ function showDownloadForm() {
     var startYear = $('#startYear').val();
     var endYear = $('#endYear').val();
     var dataTypeID = $('#dataTypeID').val();
-    var include_latitude=$('#include_latitude').is(':checked');
-    var include_longitude=$('#include_longitude').is(':checked');
-    var include_depth=$('#include_depth').is(':checked');
+    var include_latitude = $('#include_latitude').val();
+    var include_longitude = $('#include_longitude').val();
+    var include_depth = $('#include_depth').val();
 
     //Some error checking
 
