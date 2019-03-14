@@ -209,6 +209,7 @@ map.on('load', function () {
       document.getElementById('map-overlay').classList.add('opacity-overlay');
     }
 
+    // Regions with seasons
     if (e.features[0].properties.regions) {
       var regions = e.features[0].properties.regions;
       var regionParent = e.features[0].properties.name;
@@ -242,13 +243,15 @@ map.on('load', function () {
             var options = document.getElementById('region-options');
             options.appendChild(regionsWrap);
           });
-          loadScript('/js/search.js')
-          .then(function(script) {
-            return;
-          });
+          if (document.querySelector('.list').children.length < 1) {
+            loadScript('/js/search.js')
+            .then(function(script) {
+              return;
+            });
+          }
         });
       });
-    } else {
+    } else { // regions without seasons
       // import the page for each point through a js file that replaces html content
       // the page object should be a url
       // that url should be a js file
