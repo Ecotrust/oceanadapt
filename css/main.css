@@ -851,7 +851,8 @@ Map
     z-index: 1;
 }
     #map-wrap.half-height {
-        height: 25vh;
+        height: 20vh;
+        min-height: 200px;
     }
 
 #map {

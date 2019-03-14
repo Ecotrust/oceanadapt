@@ -461,31 +461,27 @@ function submit_my_information( my_form ) {
 }
 
 function performAction(actionID, postArray, callback) {
-  var returnObject = postDataInformation(actionID, postArray , callback);
+  var returnObject = postDataInformation(actionID, postArray, callback);
   return true;
 }
 
 function postDataInformation(actionID, dataObject, callback) {
-  dataObject.actionPerform = actionID;
   var returnData = {};
-  $.post(
-    '/download/',
-    dataObject
-  )
-  .done(
-    function (data) {
+  var postDataInformationReq = axios.create();
+  var postDataInformationParams = new URLSearchParams();
+  postDataInformationParams.append('actionPerform', actionID);
+  postDataInformationParams.append('page-action', dataObject['page-action']);
+  postDataInformationParams.append('filename', dataObject['filename']);
+  axios({
+    method: 'post',
+    url: "/download",
+    data: postDataInformationParams,
+  }).then(function( data ) {
       callback( data );
-    }
-  )
-  .fail(
-    function (data) {
-      alert('Status Text:'+data.statusText);
-    }
-  )
-  .always(
-    function (data) {
-    }
-  );
+  })
+  .catch(function(error) {
+    alert('Status Text:' + error);
+  });
   return true;
 }
 
@@ -567,10 +563,10 @@ function showDownloadForm() {
     var selectAllData = $('#selectAllData').is(':checked');
     var startYear = $('#startYear').val();
     var endYear = $('#endYear').val();
-    var dataTypeID = $('#dataTypeID').val();
-    var include_latitude = $('#include_latitude').val();
-    var include_longitude = $('#include_longitude').val();
-    var include_depth = $('#include_depth').val();
+    var dataTypeID = "1";
+    var include_latitude = $('#include_latitude').is(':checked');
+    var include_longitude = $('#include_longitude').is(':checked');
+    var include_depth = $('#include_depth').is(':checked');
 
     //Some error checking
 
@@ -678,51 +674,68 @@ function showDownloadForm() {
     // return true;
     return performAction( 1, submitObjDownload,
       function (returnObject) {
-        var csvContent = "data:text/csv;charset=utf-8," + returnObject;
-        var csvURI = encodeURI(csvContent);
-        var link = document.createElement("a");
-        link.setAttribute("href", csvURI);
-        link.setAttribute("download", "datadownload.csv");
-        document.body.appendChild(link); // Required for FF
-        link.click(); // This will download the data file named "my_data.csv".
-        switch (returnObject.actionPerformedStatus) {
-          case 0:
-          console.log(returnObject);
-          loadComplete();
-          $('<form/>')
-          .attr({
-            'id':'dataDownloadForm',
-            'name':'dataDownloadForm',
-            'method':'post',
-            'target':'dataDownloadIFRAME'
-          }).appendTo('body');
-          $('<input />')
-          .attr({
-            'type':'hidden',
-            'name':'actionPerform',
-            'id':'actionPerform',
-            'value':(dataTypeID == "2" ? "3" : "2" )
-          })
-          .appendTo('#dataDownloadForm');
-          $('<input />')
-          .attr({
-            'type':'hidden',
-            'name':'filename',
-            'id':'tempFileName',
-            'value':returnObject.returnValues.statistics.filename
-          })
-          .appendTo('#dataDownloadForm');
-          $('#dataDownloadForm').submit().remove();
-          break;
-          case 1:
-          case 2:
-          case 3:
-          case 4:
-          case 5:
-          case 6:
-          console.error("No Good!");
-          break;
-        }
+        exportCSVFile(returnObject.data, 'datadownload');
+        // var csvContent = "data:text/csv;charset=utf-8," + returnObject;
+        // var csvURI = encodeURI(csvContent);
+        // var link = document.createElement("a");
+        // link.setAttribute("href", csvURI);
+        // link.setAttribute("download", "datadownload.csv");
+        // console.log(link);
+        // document.body.appendChild(link); // Required for FF
+        // link.click(); // This will download the data file named "my_data.csv".
+        // switch (returnObject.actionPerformedStatus) {
+        //   case 0:
+        //     console.log(returnObject);
+        //     loadComplete();
+        //     $('<form/>')
+        //     .attr({
+        //       'id':'dataDownloadForm',
+        //       'name':'dataDownloadForm',
+        //       'method':'post',
+        //       'target':'dataDownloadIFRAME'
+        //     }).appendTo('body');
+        //     $('<input />')
+        //     .attr({
+        //       'type':'hidden',
+        //       'name':'actionPerform',
+        //       'id':'actionPerform',
+        //       'value':(dataTypeID == "2" ? "3" : "2" )
+        //     })
+        //     .appendTo('#dataDownloadForm');
+        //     $('<input />')
+        //     .attr({
+        //       'type':'hidden',
+        //       'name':'filename',
+        //       'id':'tempFileName',
+        //       'value':returnObject.returnValues.statistics.filename
+        //     })
+        //     .appendTo('#dataDownloadForm');
+        //
+        //     var fields = $('#dataDownloadForm').serializeArray();
+        //     var dataSubmitInfo2 = axios.create();
+        //     var dataSubmitInfoParams2 = new URLSearchParams();
+        //     jQuery.each( fields, function( i, field ) {
+        //       dataSubmitInfoParams2.append(field.name, field.value);
+        //     });
+        //     dataSubmitInfoParams2.append('page-action', '3');
+        //     axios({
+        //       method: 'post',
+        //       url: "/download",
+        //       data: dataSubmitInfoParams2,
+        //     }).then(function( data ) {
+        //       // $('#dataDownloadForm').submit().remove();
+        //       $('#dataDownloadForm').remove();
+        //     });
+        //     break;
+        //   case 1:
+        //   case 2:
+        //   case 3:
+        //   case 4:
+        //   case 5:
+        //   case 6:
+        //   console.error("No Good!");
+        //   break;
+        // }
       }
     );
   });
@@ -762,6 +775,29 @@ function showDownloadForm() {
     location.href='/latest/OAGenerateRasterFiles.py';
   });
 
+}
+
+// https://codepen.io/danny_pule/
+function exportCSVFile(items, fileName) {
+    var csvName = fileName + '.csv' || 'datadownload.csv';
+    var blob = new Blob([items], {
+      type: 'text/csv;charset=utf-8;'
+    });
+    if (navigator.msSaveBlob) { // IE 10+
+        navigator.msSaveBlob(blob, csvName);
+    } else {
+        var link = document.createElement("a");
+        if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", csvName);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
 }
 
 function loadFutureSlider(graph_type, data) {
