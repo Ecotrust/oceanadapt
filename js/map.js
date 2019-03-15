@@ -281,16 +281,14 @@ map.on('load', function () {
             chooseSpecies(speciesId, speciesNa, speciesCN);
           }
         })
-        .then(function() {
-          var options = document.getElementById('region-options');
-          options.appendChild(regionsWrap);
-        });
-        if (document.querySelector('.list').children.length < 1) {
-          loadScript('/js/search.js')
+        // .then(function() {
+        //   var options = document.getElementById('region-options');
+        //   options.appendChild(regionsWrap);
+        // });
+        loadScript('/js/search.js')
           .then(function(script) {
             return;
           });
-        }
       });
     });
   }
