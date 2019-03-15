@@ -211,46 +211,7 @@ map.on('load', function () {
 
     // Regions with seasons
     if (e.features[0].properties.regions) {
-      var regions = e.features[0].properties.regions;
-      var regionParent = e.features[0].properties.name;
-      document.getElementById('regionName').value = regionParent;
-      loadScript('/pages/regional-selection.js')
-      .then(function(script) {
-        var regionsWrap = document.getElementById('region-options');
-        var regionsParsed = JSON.parse(regions);
-        for (var region in regionsParsed) {
-          regionsWrap.insertAdjacentHTML('beforeend', `<div class="region-option">
-            <button class="btn btn-link" data-regionid="${regionsParsed[region].regional_id}" data-regionname="${regionParent}" data-regionseason="${regionsParsed[region].season}" data-regioncode="${regionsParsed[region].regional_code}" data-regionocean="${regionsParsed[region].ocean_region}">${regionsParsed[region].season}</button>
-          </div>`);
-        }
-        regionsWrap.insertAdjacentHTML('beforeend', '<p class="no-events">Choose a survey</p>');
-        regionsWrap.addEventListener('click', function(event) {
-          var selections = document.querySelector('.selected');
-          if (selections) {
-            selections.classList.remove('selected');
-          }
-          event.target.classList.add('selected');
-          document.getElementById('regionID').value = event.target.dataset.regionid;
-          document.getElementById('regionName').value = event.target.dataset.regionname;
-          document.getElementById('oceanRegion').value = event.target.dataset.regionocean;
-          document.getElementById('season').value = event.target.dataset.regionseason;
-          document.getElementById('search-wrap').classList.add('show');
-          loadScript('/pages/regional.js')
-          .then(function(script) {
-            chooseSpecies(-1);
-          })
-          .then(function() {
-            var options = document.getElementById('region-options');
-            options.appendChild(regionsWrap);
-          });
-          if (document.querySelector('.list').children.length < 1) {
-            loadScript('/js/search.js')
-            .then(function(script) {
-              return;
-            });
-          }
-        });
-      });
+      regionalSelectionInit(e);
     } else { // regions without seasons
       // import the page for each point through a js file that replaces html content
       // the page object should be a url
@@ -284,4 +245,53 @@ map.on('load', function () {
 
   map.scrollZoom.disable();
 
+  function regionalSelectionInit(e) {
+    var regions = e.features[0].properties.regions;
+    var regionParent = e.features[0].properties.name;
+    document.getElementById('regionName').value = regionParent;
+    loadScript('/pages/regional-selection.js')
+    .then(function(script) {
+      var regionsWrap = document.getElementById('region-options');
+      var regionsParsed = JSON.parse(regions);
+      for (var region in regionsParsed) {
+        regionsWrap.insertAdjacentHTML('beforeend', `<div class="region-option">
+          <button class="btn btn-link" data-regionid="${regionsParsed[region].regional_id}" data-regionname="${regionParent}" data-regionseason="${regionsParsed[region].season}" data-regioncode="${regionsParsed[region].regional_code}" data-regionocean="${regionsParsed[region].ocean_region}">${regionsParsed[region].season}</button>
+        </div>`);
+      }
+      regionsWrap.insertAdjacentHTML('beforeend', '<p class="no-events">Choose a survey</p>');
+      regionsWrap.addEventListener('click', function(event) {
+        var selections = document.querySelector('.selected');
+        if (selections) {
+          selections.classList.remove('selected');
+        }
+        event.target.classList.add('selected');
+        document.getElementById('regionID').value = event.target.dataset.regionid;
+        document.getElementById('regionName').value = event.target.dataset.regionname;
+        document.getElementById('oceanRegion').value = event.target.dataset.regionocean;
+        document.getElementById('season').value = event.target.dataset.regionseason;
+        document.getElementById('search-wrap').classList.add('show');
+        loadScript('/pages/regional.js')
+        .then(function(script) {
+          if (document.querySelector('.list').children.length < 1 || document.getElementById('speciesName').value === '') {
+            chooseSpecies(-1);
+          } else {
+            var speciesId = document.getElementById('speciesID').value;
+            var speciesNa = document.getElementById('speciesName').value;
+            var speciesCN = document.getElementById('speciesCommonName').value;
+            return chooseSpecies(speciesId, speciesNa, speciesCN);
+          }
+        })
+        .then(function() {
+          var options = document.getElementById('region-options');
+          options.appendChild(regionsWrap);
+        });
+        if (document.querySelector('.list').children.length < 1) {
+          loadScript('/js/search.js')
+          .then(function(script) {
+            return;
+          });
+        }
+      });
+    });
+  }
 });

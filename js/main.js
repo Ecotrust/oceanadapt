@@ -2,8 +2,22 @@ window.onload = function() {
   loadScript('../pages/home.js');
   loadScript('../pages/search.js');
 
-  document.querySelector('.download-about').addEventListener('click', function() {
-    $('#dataDownloadModal').addClass('high-z');
+  // Bit of a hack to show multiple modals
+  $('#dataDownloadModal').on('shown.bs.modal', function (e) {
+    if($('#aboutModal').hasClass('show')) {
+      $('#aboutModal').modal('hide');
+      window.setTimeout(function() {
+        $('body').addClass('modal-open');
+      }, 1000)
+    }
+  });
+  $('#aboutModal').on('shown.bs.modal', function (e) {
+    if($('#dataDownloadModal').hasClass('show')) {
+      $('#dataDownloadModal').modal('hide');
+      window.setTimeout(function() {
+        $('body').addClass('modal-open');
+      }, 1000)
+    }
   });
 };
 
@@ -56,32 +70,50 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName, selectedCommonNam
   document.getElementById('regionalName').innerHTML = document.getElementById('regionName').value + ' ' + document.getElementById('season').value;
   document.getElementById('speciesID').value = selectedSpeciesID;
   document.getElementById('speciesName').value = selectedSpeciesName;
+  document.getElementById('speciesCommonName').value = selectedCommonName;
   if (selectedSpeciesID !== -1) { // -1 is region selection
     // if not -1 then species should have a name
     document.getElementById('selected-species').innerHTML = `<h4 class="mt-4 mb-0">Selected: <strong>${selectedCommonName} (<em>${selectedSpeciesName}</em>)</strong></h4>`;
+  } else {
+    document.getElementById('selected-species').innerHTML = '';
   }
-  var speciesSelection = axios.create();
+  // var speciesSelection = axios.create();
   var speciesSelectionParams = new URLSearchParams();
   speciesSelectionParams.append('page-action', 1);
   speciesSelectionParams.append('graph_type', 1);
   speciesSelectionParams.append('regionID', regionID);
   speciesSelectionParams.append('speciesID', selectedSpeciesID);
-  speciesSelection.post('/regional_data', speciesSelectionParams)
+  axios({
+    method: 'post',
+    url: '/regional_data',
+    data: speciesSelectionParams,
+  })
+  // .post('/regional_data', speciesSelectionParams)
   .then(function(response) {
     load_graph(1, response.data);
     if (selectedSpeciesID > 0) {
       load_slider(response.data);
     }
   })
-  .then(function() {
-    speciesSelectionParams.set('graph_type', 2);
-    speciesSelection.post('/regional_data', speciesSelectionParams)
-    .then(function(res) {
-      load_graph(2, res.data);
-    })
-    .catch(function(error) {
-      console.log(error);
-    })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+  var speciesSelectionParams2 = new URLSearchParams();
+  speciesSelectionParams2.append('page-action', 1);
+  speciesSelectionParams2.append('graph_type', 2);
+  speciesSelectionParams2.append('regionID', regionID);
+  speciesSelectionParams2.append('speciesID', selectedSpeciesID);
+  axios({
+    method: 'post',
+    url: '/regional_data',
+    data: speciesSelectionParams2,
+  })
+  // .then(function() {
+    // speciesSelectionParams.set('graph_type', 2);
+    // speciesSelection.post('/regional_data', speciesSelectionParams)
+  .then(function(response) {
+    load_graph(2, response.data);
   })
   .catch(function(error) {
     console.log(error);
