@@ -31,31 +31,33 @@
     </div>
   `;
 
-  document.getElementById('map-wrap').insertAdjacentHTML('beforeend', `<div id="animation-wrap" class="slider d-none justify-content-center">
-    <div id="slider-div">
-      <img id="species-picture" src="" />
-      <img id="species-picture-rcp26" src="" />
-      <img id="species-picture-rcp85" src="" />
-      <div id="slider-area" class="p-2">
-        <div id="slider-row">
-          <div id="slider-start-year"></div>
-          <div id="slider-cell">
-            <div id="slider"></div>
+  if (!document.getElementById('animation-wrap')) {
+    document.getElementById('map-wrap').insertAdjacentHTML('beforeend', `<div id="animation-wrap" class="slider d-none justify-content-center">
+      <div id="slider-div">
+        <img id="species-picture" src="" />
+        <img id="species-picture-rcp26" src="" />
+        <img id="species-picture-rcp85" src="" />
+        <div id="slider-area" class="p-2">
+          <div id="slider-row">
+            <div id="slider-start-year"></div>
+            <div id="slider-cell">
+              <div id="slider"></div>
+            </div>
+            <div id="slider-end-year"></div>
           </div>
-          <div id="slider-end-year"></div>
+        </div>
+        <div id="slider-value"></div>
+        <div class="text-center">
+          <span>
+            <button id="pause-button" type="button" class="greybutton btn btn-secondary disabled" disabled="disabled">Pause</button>
+          </span>
+          <span>
+            <button id="play-button" type="button" class="positive btn btn-success">Play</button>
+          </span>
         </div>
       </div>
-      <div id="slider-value"></div>
-      <div class="text-center">
-        <span>
-          <button id="pause-button" type="button" class="greybutton btn btn-secondary disabled" disabled="disabled">Pause</button>
-        </span>
-        <span>
-          <button id="play-button" type="button" class="positive btn btn-success">Play</button>
-        </span>
-      </div>
-    </div>
-  `);
+    `);
+  }
 
   document.getElementById('page-content').innerHTML = `
     <div class="container-fluid bg-light-grey p-4">

@@ -55,6 +55,8 @@
     })
     .then(function() {
 
+      $('.list').html('');
+
       // create alphabetical list
       var speciesListAlpha = new List('species-list-alpha', optionsAlpha, valuesAlpha);
 

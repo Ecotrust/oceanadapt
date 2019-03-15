@@ -124,9 +124,9 @@ function chooseHistorical() {
   var speciesId = document.getElementById('speciesID').value;
   var speciesNa = document.getElementById('speciesName').value;
   var speciesCN = document.getElementById('speciesCommonName').value;
-  return chooseSpecies(speciesId, speciesNa, speciesCN);
   $('#nav-historical').addClass('d-none');
   $('#nav-projections').removeClass('d-none');
+  return chooseSpecies(speciesId, speciesNa, speciesCN);
 }
 
 // future projection selection
