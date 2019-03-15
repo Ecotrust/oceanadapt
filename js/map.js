@@ -275,22 +275,23 @@ map.on('load', function () {
           if (document.querySelector('.list').children.length < 1 || document.getElementById('speciesName').value === '') {
             chooseSpecies(-1);
           } else {
-            var speciesId = document.getElementById('speciesID').value;
-            var speciesNa = document.getElementById('speciesName').value;
-            var speciesCN = document.getElementById('speciesCommonName').value;
-            return chooseSpecies(speciesId, speciesNa, speciesCN);
+            // var speciesId = document.getElementById('speciesID').value;
+            // var speciesNa = document.getElementById('speciesName').value;
+            // var speciesCN = document.getElementById('speciesCommonName').value;
+            // return chooseSpecies(speciesId, speciesNa, speciesCN);
+            chooseSpecies(-1);
           }
         })
         .then(function() {
           var options = document.getElementById('region-options');
           options.appendChild(regionsWrap);
         });
-        if (document.querySelector('.list').children.length < 1) {
+        // if (document.querySelector('.list').children.length < 1) {
           loadScript('/js/search.js')
           .then(function(script) {
             return;
           });
-        }
+        // }
       });
     });
   }

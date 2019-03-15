@@ -120,6 +120,15 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName, selectedCommonNam
   });
 }
 
+function chooseHistorical() {
+  var speciesId = document.getElementById('speciesID').value;
+  var speciesNa = document.getElementById('speciesName').value;
+  var speciesCN = document.getElementById('speciesCommonName').value;
+  return chooseSpecies(speciesId, speciesNa, speciesCN);
+  $('#nav-historical').addClass('d-none');
+  $('#nav-projections').removeClass('d-none');
+}
+
 // future projection selection
 function chooseFuture() {
   var oceanRegion = document.getElementById('oceanRegion').value;
@@ -135,6 +144,8 @@ function chooseFuture() {
     loadFutureSlider(1, response.data);
     // loadFuture(1, response.data);
     load_slider(response.data);
+    $('#nav-historical').removeClass('d-none');
+    $('#nav-projections').addClass('d-none');
   })
   // .then(function() {
   // 	futureSelectionParams.append('graph_type', 1);
