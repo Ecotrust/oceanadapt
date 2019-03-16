@@ -120,6 +120,24 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName, selectedCommonNam
   });
 }
 
+function shareState(event) {
+  var speciesId = document.getElementById('speciesID').value;
+  var speciesNa = document.getElementById('speciesName').value;
+  var speciesCN = document.getElementById('speciesCommonName').value;
+  var oceanRegion = document.getElementById('oceanRegion').value;
+  var regionID = document.getElementById('regionID').value;
+  var stateObj = {
+    speciesId: speciesId,
+    speciesNa: speciesNa,
+    speciesCN: speciesCN,
+    oceanRegion: oceanRegion,
+    regionId: regionID
+  };
+  history.pushState(stateObj, "share", "?speciesId=${speciesId}&speciesNa=${speciesNa}&speciesCN=${speciesCN}&oceanRegion=${oceanRegion}&regionID=regionID");
+  document.getElementById('nav-share').dataset.content = document.location;
+  $('#nav-share').popover('show');
+}
+
 function chooseHistorical() {
   var speciesId = document.getElementById('speciesID').value;
   var speciesNa = document.getElementById('speciesName').value;
@@ -164,7 +182,8 @@ function chooseFuture() {
 
 function speciesLevelNav() {
   document.getElementById('nav-projections').classList.remove('d-none');
-  document.getElementById('species-list-alpha-toggle').classList.remove('d-none');
+  document.getElementById('nav-share').classList.remove('d-none');
+  // document.getElementById('species-list-alpha-toggle').classList.remove('d-none');
   document.getElementById('show-all').classList.add('d-none');
   // document.getElementById('species-list-alpha-toggle').classList.add('d-none');
 }

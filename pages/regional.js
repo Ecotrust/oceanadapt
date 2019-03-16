@@ -71,9 +71,9 @@
             <img src="./img/i_download.svg" /> Download Data
           </button>
         </div>
-        <!-- <div class="col-4 text-center">
-          <button type="button" class="btn-download btn-download-border" data-toggle="modal" data-target="#dataDownloadModal" data-tobedownloaded="${regionID}">Share</button>
-        </div> -->
+        <div class="col-4 text-center">
+          <button type="button" class="btn-download btn-download-border d-none" data-toggle="popover" data-container="body" title="Share" data-content="" id="nav-share" onclick="shareState()">Share</button>
+        </div>
       </div>
     </div>
 
