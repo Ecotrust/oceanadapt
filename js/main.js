@@ -2,6 +2,35 @@ window.onload = function() {
   loadScript('../pages/home.js');
   loadScript('../pages/search.js');
 
+  if (getUrlParameter('speciesId') !== '') {
+    var speciesId = document.getElementById('speciesID');
+    var speciesNa = document.getElementById('speciesName');
+    var speciesCN = document.getElementById('speciesCommonName');
+    var oceanRegion = document.getElementById('oceanRegion');
+    var regionID = document.getElementById('regionID');
+    var regionName = document.getElementById('regionName');
+    var season = document.getElementById('season');
+    speciesId.value = getUrlParameter('speciesId');
+    speciesNa.value = getUrlParameter('speciesNa');
+    speciesCN.value = getUrlParameter('speciesCN');
+    oceanRegion.value = getUrlParameter('oceanRegion');
+    regionID.value = getUrlParameter('regionID');
+    regionName.value = getUrlParameter('regionName');
+    season.value = getUrlParameter('season');
+
+    document.getElementById('map-overlay').classList.add('opacity-overlay');
+    document.getElementById('search-wrap').classList.add('show');
+
+    loadScript('/pages/regional.js')
+    .then(function(script) {
+      chooseSpecies(speciesId.value, speciesNa.value, speciesCN.value);
+    });
+    loadScript('/js/search.js')
+    .then(function(script) {
+      return;
+    });
+  }
+
   // Bit of a hack to show multiple modals
   $('#dataDownloadModal').on('shown.bs.modal', function (e) {
     if($('#aboutModal').hasClass('show')) {
@@ -19,6 +48,13 @@ window.onload = function() {
       }, 1000)
     }
   });
+};
+
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
 
 // Promise wrapper to load scripts
@@ -126,16 +162,21 @@ function shareState(event) {
   var speciesCN = document.getElementById('speciesCommonName').value;
   var oceanRegion = document.getElementById('oceanRegion').value;
   var regionID = document.getElementById('regionID').value;
+  var regionName = document.getElementById('regionName').value;
+  var season = document.getElementById('season').value;
   var stateObj = {
     speciesId: speciesId,
     speciesNa: speciesNa,
     speciesCN: speciesCN,
     oceanRegion: oceanRegion,
-    regionId: regionID
+    regionId: regionID,
+    regionName: regionName,
+    season: season,
   };
-  history.pushState(stateObj, "share", `?speciesId=${speciesId}&speciesNa=${speciesNa}&speciesCN=${speciesCN}&oceanRegion=${oceanRegion}&regionID=regionID`);
+  history.pushState(stateObj, "share", `?speciesId=${speciesId}&speciesNa=${speciesNa}&speciesCN=${speciesCN}&oceanRegion=${oceanRegion}&regionID=regionID&regionName=${regionName}&season=${season}`);
   document.getElementById('nav-share').dataset.content = document.location;
   $('#nav-share').popover('show');
+  history.pushState({ linkShared: true }, 'shared', '')
 }
 
 function chooseHistorical() {
