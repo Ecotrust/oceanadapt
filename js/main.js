@@ -133,7 +133,7 @@ function shareState(event) {
     oceanRegion: oceanRegion,
     regionId: regionID
   };
-  history.pushState(stateObj, "share", "?speciesId=${speciesId}&speciesNa=${speciesNa}&speciesCN=${speciesCN}&oceanRegion=${oceanRegion}&regionID=regionID");
+  history.pushState(stateObj, "share", `?speciesId=${speciesId}&speciesNa=${speciesNa}&speciesCN=${speciesCN}&oceanRegion=${oceanRegion}&regionID=regionID`);
   document.getElementById('nav-share').dataset.content = document.location;
   $('#nav-share').popover('show');
 }
