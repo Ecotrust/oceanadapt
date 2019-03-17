@@ -742,7 +742,7 @@ button.search {
     background: #fff;
     display: none;
     list-style: none;
-    max-height: 500px;
+    min-height: 540px;
     max-height: 60vh;
     overflow: scroll;
     position: absolute;
@@ -843,7 +843,7 @@ Map
 #map-wrap {
     background: transparent;
     height: 84vh;
-    min-height: 500px;
+    min-height: 540px;
     left: 0%;
     position: relative;
     top: 0;
@@ -857,7 +857,7 @@ Map
 
 #map {
     height: 84vh;
-    min-height: 500px;
+    min-height: 540px;
     left: 0;
     position: absolute;
     top: 0;
