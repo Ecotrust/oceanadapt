@@ -176,8 +176,27 @@ function shareState(event) {
   history.pushState(stateObj, "share", `?speciesId=${speciesId}&speciesNa=${speciesNa}&speciesCN=${speciesCN}&oceanRegion=${oceanRegion}&regionID=regionID&regionName=${regionName}&season=${season}`);
   document.getElementById('nav-share').dataset.content = document.location;
   $('#nav-share').popover('show');
-  history.pushState({ linkShared: true }, 'shared', '')
+  history.pushState({ linkShared: true }, 'shared', '');
+  // copy to clipboard
+  copyToClipboard(document.location);
 }
+
+function copyToClipboard(str) {
+  var el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  var selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  if (selected) {
+    document.getSelection().removeAllRanges();
+    document.getSelection().addRange(selected);
+  }
+};
 
 function chooseHistorical() {
   var speciesId = document.getElementById('speciesID').value;
