@@ -850,6 +850,11 @@ button.search {
     pointer-events: none;
 }
 
+.scientific_name {
+    font-style: italic;
+    text-transform: initial;
+}
+
 #species-listing-alphabetical-list .list a {
     display: block;
     margin: 0 0 1rem;
