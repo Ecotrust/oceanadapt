@@ -109,7 +109,7 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName, selectedCommonNam
   document.getElementById('speciesCommonName').value = selectedCommonName;
   if (selectedSpeciesID !== -1) { // -1 is region selection
     // if not -1 then species should have a name
-    document.getElementById('selected-species').innerHTML = `<h4 class="mt-4 mb-0">Selected: <strong>${selectedCommonName} (<em>${selectedSpeciesName}</em>)</strong></h4>`;
+    document.getElementById('selected-species').innerHTML = `<h4 class="mt-3 mb-0">Selected: <strong>${selectedCommonName} (<em>${selectedSpeciesName}</em>)</strong></h4>`;
   } else {
     document.getElementById('selected-species').innerHTML = '';
   }
