@@ -960,7 +960,7 @@ Map
 }
     #map-wrap.half-height {
         height: 20vh;
-        min-height: 200px;
+        min-height: 250px;
     }
 
 #map {

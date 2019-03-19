@@ -204,7 +204,7 @@ map.on('load', function () {
     });
     if (e.features[0].properties.regional_code === "National") {
       document.getElementById('map-wrap').classList.add('half-height');
-      loadScript('/pages/national.js');
+      return loadScript('/pages/national.js');
     } else {
       document.getElementById('map-overlay').classList.add('opacity-overlay');
     }
