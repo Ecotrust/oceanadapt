@@ -167,6 +167,90 @@ Variables
     font-weight:normal;
 }
 
+@font-face {
+    font-family:"Icons";
+    src: url("../fonts/icons.eot") format("eot");
+    src:url("../fonts/icons.eot?#iefix") format("embedded-opentype"),
+      url("../fonts/icons.woff") format("woff"),
+      url("../fonts/icons.ttf") format("truetype"),
+      url("../fonts/icons.svg#Icons") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: "Icons" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "Icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-i-download:before {
+  content: "\61";
+}
+.icon-i-check:before {
+  content: "\62";
+}
+.icon-i-chevron-down:before {
+  content: "\63";
+}
+.icon-i-download-red:before {
+  content: "\64";
+}
+.icon-i-filter:before {
+  content: "\65";
+}
+.icon-north-america:before {
+  content: "\67";
+}
+.icon-oval:before {
+  content: "\68";
+}
+.icon-oval-2:before {
+  content: "\69";
+}
+.icon-pin:before {
+  content: "\6a";
+}
+.icon-rutgers:before {
+  content: "\6b";
+}
+.icon-i-search:before {
+  content: "\6c";
+}
+.icon-terrain:before {
+  content: "\6d";
+}
+.icon-i-arrow-left:before {
+  content: "\6e";
+}
+.icon-i-close:before {
+  content: "\6f";
+}
+.icon-i-triangle-right-grey:before {
+  content: "\66";
+}
+
+
 
 /* ==========================================================================
 Base
@@ -420,13 +504,17 @@ main p {
 /* ==========================================================================
 Header
 ========================================================================== */
+header {
+    display: block;
+    postion: relative;
+}
 .relative {
     position: relative;
 }
 
 .navbar.top {
     background: #E3E9EE;
-    height: 7vh;
+    /* height: 7vh; */
     z-index: 1;
 }
 
@@ -769,7 +857,7 @@ button.search {
 
 #species-picture {
     max-height: 72vh;
-    min-height: 400px;
+    min-height: 70vh;
 }
 
 #species-picture-rcp26,
@@ -987,7 +1075,9 @@ footer .footer-row-wrap > div:nth-child(1):after {
     right: -14px;
 }
 
-
+.noaa-logo {
+    margin-bottom: 2rem;
+}
 
 .noaa-logo a {
     color: #337ab7;
