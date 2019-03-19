@@ -2,7 +2,7 @@
   document.getElementById('search-wrap').innerHTML = `
     <div class="container">
       <div class="row align-items-end">
-        <div class="col-md-4">
+        <div class="col-md-5">
           <div class="species-search" id="species-list">
             <h2>Find Species</h2>
             <div class="form-inline my-2 my-lg-0">
@@ -16,7 +16,7 @@
         <div class="col-md-4">
           <button class="species-all btn btn-link" data-speciesId="-1" id="show-all" data-toggle="button" aria-pressed="false" autocomplete="off">Average Across All Species</button>
         </div>
-        <div class="col-md-4 text-right">
+        <div class="col-md-3 text-right">
           <button id="species-list-alpha-toggle" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#search-options" aria-expanded="false" aria-controls="search-options">Expand Options <span class="chevron"></span></button>
         </div>
       </div>
