@@ -7,6 +7,9 @@ var map = new mapboxgl.Map({
   zoom: 2
 });
 
+var regionOfSeasons,
+    regionalSelectionInit;
+
 var pins = {
   'type': 'FeatureCollection',
   'features': [
@@ -211,7 +214,8 @@ map.on('load', function () {
 
     // Regions with seasons
     if (e.features[0].properties.regions) {
-      regionalSelectionInit(e);
+      regionOfSeasons = e.features[0];
+      regionalSelectionInit(e.features[0]);
     } else { // regions without seasons
       // import the page for each point through a js file that replaces html content
       // the page object should be a url
@@ -245,9 +249,9 @@ map.on('load', function () {
 
   map.scrollZoom.disable();
 
-  function regionalSelectionInit(e) {
-    var regions = e.features[0].properties.regions;
-    var regionParent = e.features[0].properties.name;
+  regionalSelectionInit = function(feat) {
+    var regions = feat.properties.regions;
+    var regionParent = feat.properties.name;
     document.getElementById('regionName').value = regionParent;
     loadScript('/pages/regional-selection.js')
     .then(function(script) {

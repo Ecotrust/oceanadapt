@@ -248,6 +248,17 @@ function speciesLevelNav() {
   // document.getElementById('species-list-alpha-toggle').classList.add('d-none');
 }
 
+function backToSeason() {
+  regionalSelectionInit(regionOfSeasons); // globally set vars
+  document.getElementById('page-content').classList.remove('show');
+  document.getElementById('search-wrap').classList.remove('show');
+  document.getElementById('animation-wrap').classList.add('d-none');
+  document.getElementById('selected-species').innerHTML = '';
+  document.getElementById('speciesID').value = '';
+  document.getElementById('speciesName').value = '';
+  document.getElementById('speciesCommonName').value = '';
+}
+
 function load_slider(data) {
   document.getElementById('animation-wrap').classList.remove('d-none');
   speciesLevelNav();
