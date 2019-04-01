@@ -129,9 +129,11 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName, selectedCommonNam
     load_graph(1, response.data);
     if (selectedSpeciesID > 0) {
       load_slider(response.data);
+      projectionExists();
     } else {
       // Add animation slider if using avaerage across all species
       document.getElementById('animation-wrap').classList.add('d-none');
+      document.getElementById('nav-projections').classList.add('d-none');
     }
   })
   .catch(function(error) {
@@ -208,6 +210,26 @@ function chooseHistorical() {
   $('#nav-historical').addClass('d-none');
   $('#nav-projections').removeClass('d-none');
   return chooseSpecies(speciesId, speciesNa, speciesCN);
+}
+
+// check if future projection photos exist for species
+function projectionExists() {
+  var oceanRegion = document.getElementById('oceanRegion').value;
+  var speciesName = document.getElementById('speciesName').value;
+  var futureSelection = axios.create();
+  var futureSelectionParams = new URLSearchParams();
+  futureSelectionParams.append('page-action', 1);
+  futureSelectionParams.append('graph_type', 1);
+  futureSelectionParams.append('regionID', oceanRegion);
+  futureSelectionParams.append('speciesID', speciesName);
+  futureSelection.post('/future_data/', futureSelectionParams)
+  .then(function(response) {
+    if (response.data.values.pictures.foundAllFiles) {
+      document.getElementById('nav-projections').classList.remove('d-none');
+    } else {
+      document.getElementById('nav-projections').classList.add('d-none');
+    }
+  });
 }
 
 // future projection selection
