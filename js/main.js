@@ -129,6 +129,9 @@ function chooseSpecies(selectedSpeciesID, selectedSpeciesName, selectedCommonNam
     load_graph(1, response.data);
     if (selectedSpeciesID > 0) {
       load_slider(response.data);
+    } else {
+      // Add animation slider if using avaerage across all species
+      document.getElementById('animation-wrap').classList.add('d-none');
     }
   })
   .catch(function(error) {
@@ -244,7 +247,7 @@ function speciesLevelNav() {
   document.getElementById('nav-projections').classList.remove('d-none');
   document.getElementById('nav-share').classList.remove('d-none');
   // document.getElementById('species-list-alpha-toggle').classList.remove('d-none');
-  document.getElementById('show-all').classList.add('d-none');
+  document.getElementById('show-all').classList.remove('active');
   // document.getElementById('species-list-alpha-toggle').classList.add('d-none');
 }
 

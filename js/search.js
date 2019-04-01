@@ -86,7 +86,12 @@
       });
 
       $('#show-all').on('click', function() {
-        smoothScroll('#page-content');
+        if ($(this).hasClass('active')) {
+          smoothScroll('#page-content');
+        } else {
+          chooseSpecies(-1);
+          smoothScroll('#page-content');
+        }
       });
     })
     .catch(function(error) {
