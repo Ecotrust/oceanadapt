@@ -976,7 +976,7 @@ Map
     pointer-events: none;
     position: absolute;
     left: 10%;
-    overflow: scroll;
+    overflow: auto;
     top: 10%;
     z-index: 1;
 }
