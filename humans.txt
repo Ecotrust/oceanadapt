@@ -3,7 +3,7 @@
 
 # TEAM
 
-    Ecotrust
+    Engineering Lead: David Pollard (Ecotrust)
 
 # THANKS
 
